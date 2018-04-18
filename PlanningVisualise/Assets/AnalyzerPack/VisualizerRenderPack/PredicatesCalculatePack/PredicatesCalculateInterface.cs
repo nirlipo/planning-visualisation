@@ -2,7 +2,7 @@
 using PlanVisualizerArchitecture.Entity.ProjectVisualizePack;
 using PlanVisualizerArchitecture.Entity.ScriptInfoPack;
 
-namespace PlanVisualizerArchitecture.AnalyzerPack.VisualizerRenderPack.InterpreterPack {
+namespace PlanVisualizerArchitecture.AnalyzerPack.VisualizerRenderPack.PredicatesCalculatePack {
    public static class PredicatesCalculateInterface {
 
       /// <summary>Analyze the plan an generate all the predictates</summary>

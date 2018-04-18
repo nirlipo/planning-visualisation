@@ -10,4 +10,5 @@ namespace PlanVisualizerArchitecture.Entity.ProjectVisualizePack {
       public Script_ObjectItem[] objects;
 
    }
+
 }
