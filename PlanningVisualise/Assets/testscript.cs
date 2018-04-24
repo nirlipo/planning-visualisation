@@ -19,6 +19,7 @@ public class testscript : MonoBehaviour {
 		this.predicatesObject = GameObject.Find ("Predicates");
 		this.predicates = predicatesObject.GetComponent<predicates> ().getpredicateItems();
 		int predicatevalue = this.predicatesObject.GetComponent<Dropdown> ().value-1;
-		predicates [predicatevalue].rules = text;
+		if (predicatevalue>=0)
+			predicates [predicatevalue].rules = text;
 	}
 }
