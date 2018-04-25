@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{A14BC56D-E4D1-1513-B3CD-F7C8C0A59C3D}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Entity/ProjectVisualizePack/PredicateItem.cs">
+    <Files>
+      <File FileName="Assets/Entity/ProjectVisualizePack/PredicateItem.cs" Line="6" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.PlanningVisualise PreferredExecutionTarget="Unity.Editor" />
+  <MultiItemStartupConfigurations />
+</Properties>
