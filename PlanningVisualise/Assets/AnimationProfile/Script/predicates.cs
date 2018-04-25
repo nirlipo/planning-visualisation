@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using PlanVisualizerArchitecture.Entity.ScriptInfoPack;
 using UnityEngine.UI;
 
 public class predicates : MonoBehaviour {
-	private Script_PredicateItem[] predicatesitems= new Script_PredicateItem[10];
+	private List<Script_PredicateItem> predicatesitems= new List<Script_PredicateItem>(10);
 	// Use this for initialization
 	void Start () {
 		gameObject.GetComponent<Dropdown>().onValueChanged.AddListener(changetext);
 		for (int i = 1; i < this.GetComponent<Dropdown>().options.Count;i++){
-			predicatesitems[i-1]=new Script_PredicateItem();
-			predicatesitems[i-1].name =this.GetComponent<Dropdown> ().options.ToArray () [i].ToString();
-			predicatesitems [i - 1].rules = null;
+			Script_PredicateItem tempredict = new Script_PredicateItem();
+			tempredict.name =this.GetComponent<Dropdown> ().options.ToArray () [i].ToString();
+			tempredict.rules = null;
+			predicatesitems.Add (tempredict);
 		}
 	}
-	
-	// Update is called once per frame
-	public Script_PredicateItem[] getpredicateItems(){
+
+	public List<Script_PredicateItem> getpredicateItems(){
 		return this.predicatesitems;
 	}
 	public void changetext(int index){
