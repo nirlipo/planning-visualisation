@@ -21,7 +21,7 @@ public class DetachAniFrameTwo : StateMachineBehaviour
             {
                 Destroy(child.gameObject);
             }
-            Debug.Log("fuck");
+            Debug.Log("ok");
         }
     }
 

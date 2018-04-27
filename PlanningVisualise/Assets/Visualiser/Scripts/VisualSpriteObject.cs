@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 [Serializable]
-public class VisualSpriteObject 
+public class VisualSpriteObject
 {
     public string name;
     public string prefab;
@@ -11,4 +11,5 @@ public class VisualSpriteObject
     public float maxX;
     public float minY;
     public float maxY;
+    public Color color;
 }

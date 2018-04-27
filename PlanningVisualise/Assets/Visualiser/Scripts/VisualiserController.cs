@@ -43,6 +43,19 @@ public class VisualiserController : MonoBehaviour
         var visualStage = visualSolution.ResetStage();
         TryRenderFrame(visualStage);
     }
+    public void PlayStage()
+    {
+        var stages = visualSolution.visualStages;
+        for (int i = 0; i < stages.Length; i++)
+        {
+            TryRenderFrame(stages[i]);
+        }
+    }
+    public void PresentCurrent(int i)
+    {
+        var stages = visualSolution.visualStages;
+        TryRenderFrame(stages[i]);
+    }
 
     private void SwitchPresentingAniFrame()
     {
@@ -59,7 +72,8 @@ public class VisualiserController : MonoBehaviour
             animator1.SetTrigger(Animator.StringToHash("ToAniFrameTwo"));
             animator2.SetTrigger(Animator.StringToHash("ToAniFrameTwo"));
             presentingAniPanel = AniFrameTwo;
-        }else
+        }
+        else
         {
             animator1.SetTrigger(Animator.StringToHash("ToAniFrameOne"));
             animator2.SetTrigger(Animator.StringToHash("ToAniFrameOne"));
@@ -83,10 +97,12 @@ public class VisualiserController : MonoBehaviour
             var spritePerfab = Resources.Load<GameObject>(visualSprite.prefab);
             var sprite = Instantiate(spritePerfab);
             var rectTransform = sprite.GetComponent<RectTransform>();
+            var image = sprite.GetComponent<Image>();
             rectTransform.anchorMin = new Vector2(visualSprite.minX, visualSprite.minY);
             rectTransform.anchorMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
             rectTransform.offsetMin = new Vector2(0, 0);
             rectTransform.offsetMax = new Vector2(0, 0);
+            image.color = visualSprite.color;
             sprite.transform.SetParent(presentingAniPanel.transform, false);
 
             var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");

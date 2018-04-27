@@ -1,7 +1,13 @@
 ﻿<Properties StartupConfiguration="{A14BC56D-E4D1-1513-B3CD-F7C8C0A59C3D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Entity/ProjectVisualizePack/PredicateItem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/DetachAniFrameOne.cs">
     <Files>
-      <File FileName="Assets/Entity/ProjectVisualizePack/PredicateItem.cs" Line="6" Column="26" />
+      <File FileName="Assets/Visualiser/Scripts/VisualiserController.cs" Line="125" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/ScenesCoordinator.cs" Line="39" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/VisualSolutionObject.cs" Line="42" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/VisualSpriteObject.cs" Line="16" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/VisualStageObject.cs" Line="1" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/DetachAniFrameTwo.cs" Line="24" Column="26" />
+      <File FileName="Assets/Visualiser/Scripts/DetachAniFrameOne.cs" Line="22" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -19,7 +19,7 @@ public class DetachAniFrameOne : StateMachineBehaviour {
             {
                 Destroy(child.gameObject);
             }
-            Debug.Log("fuck");
+            Debug.Log("ok");
         }
 	}
 
