@@ -16,6 +16,7 @@ public class ScreenManager : MonoBehaviour
         SceneManager.LoadScene("Start");
     }
     public void loadMainScene(){
+		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("PlanningVisualise");
     }
 
