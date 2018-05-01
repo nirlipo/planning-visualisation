@@ -12,4 +12,11 @@ public class VisualSpriteObject
     public float minY;
     public float maxY;
     public Color color;
+
+    public bool ContentsEqual(VisualSpriteObject vso)
+    {
+        return name == vso.name && prefab == vso.prefab
+                          && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
+                          && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY);
+    }
 }
