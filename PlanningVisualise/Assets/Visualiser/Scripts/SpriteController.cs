@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpriteController : MonoBehaviour {
+public class SpriteController : MonoBehaviour
+{
 
     VisualSpriteObject visualSprite;
 
@@ -35,23 +36,26 @@ public class SpriteController : MonoBehaviour {
         //set sprite name
         gameObject.name = visualSprite.name;
         //render name text on sprite
+        if (visualSprite.showName)
+        {
+            var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
+            var spriteName = Instantiate(emptyUIObject);
+            var label = spriteName.AddComponent<Text>();
+            label.font = Resources.Load<Font>("Arial");
+            label.color = Color.black;
+            label.text = visualSprite.name;
+            label.alignment = TextAnchor.MiddleCenter;
+            label.resizeTextForBestFit = true;
+            var nameRectTransform = spriteName.GetComponent<RectTransform>();
+            nameRectTransform.anchorMin = new Vector2(0, 0);
+            nameRectTransform.anchorMax = new Vector2(1, 1);
+            nameRectTransform.offsetMin = new Vector2(0, 0);
+            nameRectTransform.offsetMax = new Vector2(0, 0);
+            spriteName.transform.SetParent(gameObject.transform, false);
+        }
+        //set sprite colour
         var image = gameObject.GetComponent<Image>();
         image.color = visualSprite.color;
-
-        var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
-        var spriteName = Instantiate(emptyUIObject);
-        var label = spriteName.AddComponent<Text>();
-        label.font = Resources.Load<Font>("Arial");
-        label.color = Color.black;
-        label.text = visualSprite.name;
-        label.alignment = TextAnchor.MiddleCenter;
-        label.resizeTextForBestFit = true;
-        var nameRectTransform = spriteName.GetComponent<RectTransform>();
-        nameRectTransform.anchorMin = new Vector2(0, 0);
-        nameRectTransform.anchorMax = new Vector2(1, 1);
-        nameRectTransform.offsetMin = new Vector2(0, 0);
-        nameRectTransform.offsetMax = new Vector2(0, 0);
-        spriteName.transform.SetParent(gameObject.transform, false);
         //set default opacity of sprite
         var canvasGroup = gameObject.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
@@ -95,11 +99,11 @@ public class SpriteController : MonoBehaviour {
         UpdateRect();
         if (willDestory)
         {
-            OnDestory?.Invoke(this, null);     
+            OnDestory?.Invoke(this, null);
         }
         else
         {
-            ani.SetTrigger("Show");  
+            ani.SetTrigger("Show");
         }
     }
 

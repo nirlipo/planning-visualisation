@@ -53,6 +53,12 @@ public class VisualiserController : MonoBehaviour
         playing = true;
     }
 
+    public void Pasue()
+    {
+        playing = false;
+        frameCount = 0;
+    }
+
     private void Update()
     {
         if (playing && (frameCount++ % 30 == 0))

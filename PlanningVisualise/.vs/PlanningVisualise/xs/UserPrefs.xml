@@ -1,7 +1,11 @@
 ﻿<Properties StartupConfiguration="{A14BC56D-E4D1-1513-B3CD-F7C8C0A59C3D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/SpriteController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/VisualiserController.cs">
     <Files>
-      <File FileName="Assets/Visualiser/Scripts/SpriteController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/SpriteController.cs" Line="47" Column="39" />
+      <File FileName="Assets/Visualiser/Scripts/ScenesCoordinator.cs" Line="45" Column="77" />
+      <File FileName="Assets/Visualiser/Scripts/VisualiserController.cs" Line="24" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/VisualSpriteObject.cs" Line="11" Column="25" />
+      <File FileName="Assets/Visualiser/Scripts/VisualSolutionObject.cs" Line="12" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
