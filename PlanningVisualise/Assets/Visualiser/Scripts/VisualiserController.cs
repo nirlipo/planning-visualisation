@@ -1,7 +1,9 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
 
 public class VisualiserController : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class VisualiserController : MonoBehaviour
     public GameObject AniFrameTwo;
 
     GameObject presentingAniPanel;
+
+    Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>();
 
     // Use this for initialization
     void Start()
@@ -43,82 +47,90 @@ public class VisualiserController : MonoBehaviour
         var visualStage = visualSolution.ResetStage();
         TryRenderFrame(visualStage);
     }
-    public void PlayStage()
+
+    public void Play()
     {
-        var stages = visualSolution.visualStages;
-        for (int i = 0; i < stages.Length; i++)
-        {
-            TryRenderFrame(stages[i]);
-        }
-    }
-    public void PresentCurrent(int i)
-    {
-        var stages = visualSolution.visualStages;
-        TryRenderFrame(stages[i]);
+        playing = true;
     }
 
-    private void SwitchPresentingAniFrame()
+    private void Update()
     {
-        //var previousFrame = presentingAniPanel;
-        //previousFrame.SetActive(false);
-        //previousFrame.transform.DetachChildren();
-
-        //presentingAniPanel = presentingAniPanel == AniFrameOne ? AniFrameTwo : AniFrameOne;
-        //presentingAniPanel.SetActive(true);
-        var animator1 = AniFrameOne.GetComponent<Animator>();
-        var animator2 = AniFrameTwo.GetComponent<Animator>();
-        if (presentingAniPanel == AniFrameOne)
+        if (playing && (frameCount++ % 30 == 0))
         {
-            animator1.SetTrigger(Animator.StringToHash("ToAniFrameTwo"));
-            animator2.SetTrigger(Animator.StringToHash("ToAniFrameTwo"));
-            presentingAniPanel = AniFrameTwo;
-        }
-        else
-        {
-            animator1.SetTrigger(Animator.StringToHash("ToAniFrameOne"));
-            animator2.SetTrigger(Animator.StringToHash("ToAniFrameOne"));
-            presentingAniPanel = AniFrameOne;
+            PresentNextStage();
         }
     }
+
+    int frameCount = 0;
+    bool playing;
 
     private void TryRenderFrame(VisualStageObject visualStage)
     {
         if (visualStage != null)
         {
-            SwitchPresentingAniFrame();
             RenderFrame(visualStage);
         }
     }
 
+
     private void RenderFrame(VisualStageObject visualStage)
     {
+        //Render all visual sprite objects of current visual stage
         foreach (var visualSprite in visualStage.visualSprites)
         {
-            var spritePerfab = Resources.Load<GameObject>(visualSprite.prefab);
-            var sprite = Instantiate(spritePerfab);
-            var rectTransform = sprite.GetComponent<RectTransform>();
-            var image = sprite.GetComponent<Image>();
-            rectTransform.anchorMin = new Vector2(visualSprite.minX, visualSprite.minY);
-            rectTransform.anchorMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
-            rectTransform.offsetMin = new Vector2(0, 0);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            image.color = visualSprite.color;
-            sprite.transform.SetParent(presentingAniPanel.transform, false);
-
-            var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
-            var spriteName = Instantiate(emptyUIObject);
-            var label = spriteName.AddComponent<Text>();
-            label.font = Resources.Load<Font>("Arial");
-            label.color = Color.black;
-            label.text = visualSprite.name;
-            label.alignment = TextAnchor.MiddleCenter;
-            label.resizeTextForBestFit = true;
-            var nameRectTransform = spriteName.GetComponent<RectTransform>();
-            nameRectTransform.anchorMin = new Vector2(0, 0);
-            nameRectTransform.anchorMax = new Vector2(1, 1);
-            nameRectTransform.offsetMin = new Vector2(0, 0);
-            nameRectTransform.offsetMax = new Vector2(0, 0);
-            spriteName.transform.SetParent(sprite.transform, false);
+            if (spritePool.ContainsKey(visualSprite.name))
+            {
+                var sprite = spritePool[visualSprite.name];
+                var controller = sprite.GetComponent<SpriteController>();
+                if (controller.IsVisualSpriteObjectChanged(visualSprite))
+                {
+                    continue;
+                }
+                controller.BindVisualSpriteObject(visualSprite);
+                controller.FadeOutForUpdate();
+                continue;
+            }
+            else
+            {
+                var spritePerfab = Resources.Load<GameObject>(visualSprite.prefab);
+                var sprite = Instantiate(spritePerfab);
+                var controller = sprite.GetComponent<SpriteController>();
+                controller.BindVisualSpriteObject(visualSprite);
+                controller.Init();
+                sprite.transform.SetParent(presentingAniPanel.transform, false);
+                spritePool.Add(sprite.name, sprite);
+                controller.FadeInForUpdate();
+            }
         }
+        //Remove stored sprites if they are not longer existing
+        if (spritePool.Count > visualStage.visualSprites.Length)
+        {
+            var existingSpriteKeys = from i in visualStage.visualSprites
+                                     select i.name;
+            var temps = new List<string>();
+            foreach (var spriteKey in spritePool.Keys)
+            {
+                if (!existingSpriteKeys.Contains(spriteKey))
+                {
+                    temps.Add(spriteKey);
+                }
+            }
+            foreach (var temp in temps)
+            {
+                var sprite = spritePool[temp];
+                var controller = sprite.GetComponent<SpriteController>();
+                controller.OnDestory += (sender, e) =>
+                {
+                    foreach (Transform child in sprite.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                    Destroy(sprite);
+                    spritePool.Remove(temp);
+                };
+                controller.FadeOutForDestory();
+            }
+        }
+
     }
 }
