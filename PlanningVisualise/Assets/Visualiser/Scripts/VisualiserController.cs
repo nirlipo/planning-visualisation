@@ -41,6 +41,11 @@ public class VisualiserController : MonoBehaviour
         var visualStage = visualSolution.PreviousStage();
         TryRenderFrame(visualStage);
     }
+    public void PresentCurrent(int i)
+    {
+        var stages = visualSolution.visualStages;
+        TryRenderFrame(stages[i]);
+    }
 
     public void ResetStage()
     {
