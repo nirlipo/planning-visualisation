@@ -64,11 +64,18 @@ public class VisualiserController : MonoBehaviour
         frameCount = 0;
     }
 
+    public void btnHelp()
+    {
+
+        Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
+    }
+
     private void Update()
     {
-        if (playing && (frameCount++ % 30 == 0))
+        if (playing && (frameCount++ % 60 == 0))
         {
             PresentNextStage();
+
         }
     }
 
