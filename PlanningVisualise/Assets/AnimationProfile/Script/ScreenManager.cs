@@ -13,11 +13,16 @@ public class ScreenManager : MonoBehaviour
     }
     public void loadVisualiseScene()
     {
+		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Start");
     }
     public void loadMainScene(){
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("PlanningVisualise");
     }
+	public void loadAnimationScene()
+	{
+		SceneManager.LoadScene("Visualisation");
+	}
 
 }
