@@ -1,8 +1,8 @@
 """This module will compute the visulisation file by using the stages predicates and animation"""
 import json
 import copy
-from PddLparser import random_color
-from PddLparser import custom_functions
+import random_color
+import custom_functions
 
 
 def initialise_objects(object_list, animation_profile):

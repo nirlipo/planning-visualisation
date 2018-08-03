@@ -1,9 +1,11 @@
 from django.shortcuts import render
 import sys
-from PddLparser import plan_generator  # Step1: get plan from planning domain api
-from PddLparser import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
-from PddLparser import predicates_generator  # Step3: manipulate the predicate for each step/stage
-from PddLparser import visualisation_generator  # Step4. use the animation profile and stages from step3 to get the visualisation file
+import os
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/"))
+import plan_generator  # Step1: get plan from planning domain api
+import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
+import predicates_generator  # Step3: manipulate the predicate for each step/stage
+import visualisation_generator  # Step4. use the animation profile and stages from step3 to get the visualisation file
 import json
 import io
 import re
@@ -15,7 +17,6 @@ from rest_framework import viewsets
 from rest_framework.parsers import BaseParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 # Create your views here.
 class PDDLViewSet(viewsets.ModelViewSet):
     queryset = PDDL.objects.all()
