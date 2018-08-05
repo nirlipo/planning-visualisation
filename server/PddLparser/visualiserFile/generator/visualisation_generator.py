@@ -1,8 +1,11 @@
 """This module will compute the visulisation file by using the stages predicates and animation"""
 import json
 import copy
-from ..extensions import random_color
-from ..extensions import custom_functions
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"extensions"))
+import random_color
+import custom_functions
 
 
 def initialise_objects(object_list, animation_profile):

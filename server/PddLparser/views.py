@@ -1,7 +1,8 @@
 from django.shortcuts import render
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/parser"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/generator"))
 import plan_generator  # Step1: get plan from planning domain api
 import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import predicates_generator  # Step3: manipulate the predicate for each step/stage
