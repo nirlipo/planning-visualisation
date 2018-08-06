@@ -173,14 +173,13 @@ public class ScenesCoordinator : MonoBehaviour
 	IEnumerator generateVisualiser(){
 		//generate a unique boundary
 		byte[] boundary = UnityWebRequest.GenerateBoundary();
-		Debug.Log ("test"+domaintxt);
 		List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 		formData.Add( new MultipartFormDataSection("domain",domaintxt ));
 		formData.Add( new MultipartFormDataSection("problem",problemtxt ));
 		formData.Add( new MultipartFormDataSection("animation",animationprofile ));;
 		//serialize form fields into byte[] => requires a bounday to put in between fields
 		byte[] formSections = UnityWebRequest.SerializeFormSections(formData, boundary);
-		UnityWebRequest www = UnityWebRequest.Post("https://immense-bastion-42146.herokuapp.com/upload/pddl", formData);
+		UnityWebRequest www = UnityWebRequest.Post("http://localhost:8000/upload/pddl", formData);
 		www.uploadHandler =  new UploadHandlerRaw(formSections);
 		www.SetRequestHeader("Content-Type", "multipart/form-data; boundary="+ Encoding.UTF8.GetString(boundary));
 		yield return www.SendWebRequest();

@@ -1,0 +1,111 @@
+{
+  "objects": {
+    "default": "Block",
+    "customobj": [
+      "Claw",
+      "Board"
+    ]
+  },
+  "shape": {
+    "Block": {
+      "prefab": "Block",
+      "showName": true,
+      "x": false,
+      "y": false,
+      "color": "randomcolor",
+      "width": 80,
+      "height": 40
+    },
+    "Claw": {
+      "prefab": "Claw",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 1
+      },
+      "showName": false,
+      "x": 230,
+      "y": 500,
+      "width": 80,
+      "height": 40
+    },
+    "Board": {
+      "prefab": "Board",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 1
+      },
+      "showName": false,
+      "x": 0,
+      "y": 0,
+      "width": "panel_width",
+      "height": 5
+    }
+  },
+  "predicates_rules": {
+    "on": {
+      "rules": [
+        "rule1",
+        "rule2"
+      ],
+      "rule1": {
+        "0": "x",
+        "1": "x",
+        "value": {
+          "equal": "1"
+        }
+      },
+      "rule2": {
+        "0": "y",
+        "1": "y",
+        "value": {
+          "add": [
+            "1",
+            42
+          ]
+        }
+      }
+    },
+    "on-table": {
+      "predictes": "on-table",
+      "numvar": 1,
+      "rules": [
+        "rule1",
+        "rule2"
+      ],
+      "rule1": {
+        "0": "x",
+        "value": {
+          "function": "distributex"
+        }
+      },
+      "rule2": {
+        "0": "y",
+        "value": {
+          "equal": 0
+        }
+      }
+    },
+    "holding": {
+      "rules": [
+        "rule1",
+        "rule2"
+      ],
+      "rule1": {
+        "0": "y",
+        "value": {
+          "equal": 480
+        }
+      },
+      "rule2": {
+        "0": "x",
+        "value": {
+          "equal": 230
+        }
+      }
+    }
+  }
+}
