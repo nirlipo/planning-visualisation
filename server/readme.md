@@ -1,11 +1,11 @@
-#Installation
-##requirements
+# Installation
+## requirements
 + Python 3.6
 + Django 2.0
 + Sign up for Heroku account
 + Heroku CLI
 
-#Create Heroku Project
+# Create Heroku Project
 After installing heroku, first login with your heroku account in terminal/console:
 `heroku login`
  then create an empty heroku project:
@@ -16,7 +16,7 @@ and set the buildpack environment for python:
 `heroku buildpacks:set heroku/python`
 at last, move your django files to this directory 
 
-#Deploy Project on Heroku
+# Deploy Project on Heroku
 Now the project is setup, the next step is deploying it to heroku.
 We need to have two documents:
 + `requirements.txt`
