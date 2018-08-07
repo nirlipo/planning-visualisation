@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 8a7678c303e430e4b9fb03aa9d9470a1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CrEAtoR cAmpoTYPe SmcP
+  fontNames:
+  - CrEAtoR cAmpoTYPe SmcP
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
