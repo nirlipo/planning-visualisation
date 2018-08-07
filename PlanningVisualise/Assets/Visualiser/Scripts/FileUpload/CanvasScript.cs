@@ -20,13 +20,13 @@ public class CanvasScript : MonoBehaviour {
 		//Assigning file to corresponding variable
 		if (type == "Domain") {
 			ScenesCoordinator.Coordinator.setDomain (data);
-
+			domainbox.GetComponent<Image> ().color = Color.green;
 		} else if (type == "Problem") {
 			ScenesCoordinator.Coordinator.setProblem (data);
-
+			problembox.GetComponent<Image> ().color = Color.green;
 		} else {
 			ScenesCoordinator.Coordinator.setAnimation (data);
-
+			animationbox.GetComponent<Image> ().color = Color.green;
 		}
 	}
 
