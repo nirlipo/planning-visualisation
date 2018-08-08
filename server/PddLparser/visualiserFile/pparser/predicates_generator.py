@@ -1,7 +1,7 @@
 """This module is designed to help with getting a list of steps for Step3 to use"""
 import re
 import sys
-import server.PddLparser.visualiserFile.pparser.problem_parser
+import pparser.problem_parser
 
 # This python file aims to finish step 3 in our solution
 #######################################################
@@ -62,8 +62,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     # 1. Go through the steps
     for counter in range(0, len(actionlist)):
         checklist = []
-        init_object_list = server.PddLparser.visualiserFile.\
-            pparser.problem_parser.\
+        init_object_list = pparser.problem_parser.\
             get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
 
