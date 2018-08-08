@@ -1,5 +1,7 @@
 import unittest
-import server.PddLparser.visualiserFile.pparser.plan_generator as step1
+import sys
+sys.path.append('../../../../server/PddLparser/visualiserFile/')
+import pparser.plan_generator as step1
 import re
 
 class MyTestCase(unittest.TestCase):

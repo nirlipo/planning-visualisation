@@ -2,11 +2,12 @@ import unittest
 import json
 import re
 import sys
-import server.PddLparser.visualiserFile.pparser.plan_generator as step1
-import server.PddLparser.visualiserFile.pparser.problem_parser as step2
-import server.PddLparser.visualiserFile.pparser.predicates_generator as step3
-import server.PddLparser.visualiserFile.generator.visualisation_generator as step4
-import server.PddLparser.visualiserFile.pparser.domain_parser as dom_par
+sys.path.append('../../../../server/PddLparser/visualiserFile/')
+import pparser.plan_generator as step1
+import pparser.problem_parser as step2
+import pparser.predicates_generator as step3
+import generator.visualisation_generator as step4
+import pparser.domain_parser as dom_par
 import copy
 
 
