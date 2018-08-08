@@ -1,12 +1,11 @@
 import unittest
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/pparser')
-import plan_generator as step1
-import problem_parser as step2
-import predicates_generator as step3
-import domain_parser as dom_par
+sys.path.append('../../../../server/PddLparser/visualiserFile/')
+import pparser.plan_generator as step1
+import pparser.problem_parser as step2
+import pparser.predicates_generator as step3
+import pparser.domain_parser as dom_par
 import copy
-
 
 class test_integration_step123(unittest.TestCase):
     # Test if the output is not empty
