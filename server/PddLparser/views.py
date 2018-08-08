@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/parser"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/pparser"))
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/generator"))
 import plan_generator  # Step1: get plan from planning domain api
 import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
@@ -25,7 +25,7 @@ class PDDLViewSet(viewsets.ModelViewSet):
     
 class PlainTextParser(BaseParser):
     """
-    Plain text parser.
+    Plain text pparser.
     """
     media_type = 'text/plain'
 
