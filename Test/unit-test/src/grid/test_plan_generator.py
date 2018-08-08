@@ -1,5 +1,5 @@
 import unittest
-import server.PddLparser.visualiserFile.parser.plan_generator as step1
+import server.PddLparser.visualiserFile.pparser.plan_generator as step1
 import re
 
 class MyTestCase(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/parser')
+sys.path.append('../../../../server/PddLparser/visualiserFile/pparser')
 import plan_generator as step1
 import problem_parser as step2
 import predicates_generator as step3

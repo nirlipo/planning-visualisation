@@ -1,5 +1,5 @@
 import unittest
-import server.PddLparser.visualiserFile.parser.domain_parser as step1
+import server.PddLparser.visualiserFile.pparser.domain_parser as step1
 import re
 
 class MyTestCase(unittest.TestCase):
