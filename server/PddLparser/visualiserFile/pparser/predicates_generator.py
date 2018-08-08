@@ -1,6 +1,7 @@
 """This module is designed to help with getting a list of steps for Step3 to use"""
 import re
 import sys
+sys.path.append('../../PddLparser/visualiserFile/')
 import pparser.problem_parser
 
 # This python file aims to finish step 3 in our solution
