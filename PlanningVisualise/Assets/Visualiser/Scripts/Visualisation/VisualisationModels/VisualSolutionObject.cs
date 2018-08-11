@@ -1,41 +1,56 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
-[Serializable]
-public class VisualSolutionObject
+namespace Visualiser
 {
-    public VisualStageObject[] visualStages;
-
-    int stageIndex = -1;
-
-    public VisualStageObject NextStage()
+    [Serializable]
+    public class VisualSolutionObject
     {
-        if (stageIndex + 1 < visualStages.Length)
+        public VisualStageObject[] visualStages;
+        public int transferType;
+        public Dictionary<string, string> imageTable;
+
+        int stageIndex = -1;
+
+        public string FetchImageString(string key)
         {
-            return visualStages[++stageIndex];
-        }
-        else
-        {
+            if (imageTable.ContainsKey(key))
+            {
+                return imageTable[key];
+            }
             return null;
         }
-    }
 
-    public VisualStageObject PreviousStage()
-    {
-        if (stageIndex > 0)
+        public VisualStageObject NextStage()
         {
-            return visualStages[--stageIndex];
+            if (stageIndex + 1 < visualStages.Length)
+            {
+                return visualStages[++stageIndex];
+            }
+            else
+            {
+                return null;
+            }
         }
-        else
-        {
-            return null;
-        }
-    }
 
-    public VisualStageObject ResetStage()
-    {
-        stageIndex = -1;
-        return NextStage();
+        public VisualStageObject PreviousStage()
+        {
+            if (stageIndex > 0)
+            {
+                return visualStages[--stageIndex];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public VisualStageObject ResetStage()
+        {
+            stageIndex = -1;
+            return NextStage();
+        }
     }
 }

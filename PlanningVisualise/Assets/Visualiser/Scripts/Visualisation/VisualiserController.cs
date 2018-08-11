@@ -5,150 +5,181 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 
-public class VisualiserController : MonoBehaviour
+namespace Visualiser
 {
-    ScenesCoordinator coordinator = ScenesCoordinator.Coordinator;
-
-    VisualSolutionObject visualSolution;
-
-    public GameObject AniFrameOne;
-    public GameObject AniFrameTwo;
-
-    GameObject presentingAniPanel;
-
-    Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>();
-
-    // Use this for initialization
-    void Start()
+    public class VisualiserController : MonoBehaviour
     {
-        var parameters = coordinator.FetchParameters("Visualisation") as string;
-        visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
-        Debug.Log(parameters);
+        ScenesCoordinator coordinator = ScenesCoordinator.Coordinator;
 
-        presentingAniPanel = AniFrameOne;
-        var visualStage = visualSolution.NextStage();
-        RenderFrame(visualStage);
-    }
+        VisualSolutionObject visualSolution;
 
-    public void PresentNextStage()
-    {
-        var visualStage = visualSolution.NextStage();
-        TryRenderFrame(visualStage);
-    }
+        public GameObject AniFrameOne;
+        public GameObject AniFrameTwo;
 
-    public void PresentPreviousStage()
-    {
-        var visualStage = visualSolution.PreviousStage();
-        TryRenderFrame(visualStage);
-    }
-    public void PresentCurrent(int i)
-    {
-        var stages = visualSolution.visualStages;
-        TryRenderFrame(stages[i]);
-    }
+        GameObject presentingAniPanel;
 
-    public void ResetStage()
-    {
-        var visualStage = visualSolution.ResetStage();
-        TryRenderFrame(visualStage);
-    }
+        Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>();
 
-    public void Play()
-    {
-        playing = true;
-    }
-
-    public void Pasue()
-    {
-        playing = false;
-        frameCount = 0;
-    }
-
-    public void btnHelp()
-    {
-
-        Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
-    }
-
-    private void Update()
-    {
-        if (playing && (frameCount++ % 60 == 0))
+        // Use this for initialization
+        void Start()
         {
-            PresentNextStage();
+            var parameters = coordinator.FetchParameters("Visualisation") as string;
+            visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
+            Debug.Log(parameters);
 
-        }
-    }
-
-    int frameCount = 0;
-    bool playing;
-
-    private void TryRenderFrame(VisualStageObject visualStage)
-    {
-        if (visualStage != null)
-        {
+            presentingAniPanel = AniFrameOne;
+            var visualStage = visualSolution.NextStage();
             RenderFrame(visualStage);
         }
-    }
 
-
-    private void RenderFrame(VisualStageObject visualStage)
-    {
-        //Render all visual sprite objects of current visual stage
-        foreach (var visualSprite in visualStage.visualSprites)
+        public void PresentNextStage()
         {
-            if (spritePool.ContainsKey(visualSprite.name))
+            var visualStage = visualSolution.NextStage();
+            TryRenderFrame(visualStage);
+        }
+
+        public void PresentPreviousStage()
+        {
+            var visualStage = visualSolution.PreviousStage();
+            TryRenderFrame(visualStage);
+        }
+        public void PresentCurrent(int i)
+        {
+            var stages = visualSolution.visualStages;
+            TryRenderFrame(stages[i]);
+        }
+
+        public void ResetStage()
+        {
+            var visualStage = visualSolution.ResetStage();
+            TryRenderFrame(visualStage);
+        }
+
+        public void Play()
+        {
+            playing = true;
+        }
+
+        public void Pasue()
+        {
+            playing = false;
+            frameCount = 0;
+        }
+
+        public void btnHelp()
+        {
+
+            Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
+        }
+
+        private void Update()
+        {
+            if (playing && (frameCount++ % 60 == 0))
             {
-                var sprite = spritePool[visualSprite.name];
-                var controller = sprite.GetComponent<SpriteController>();
-                if (controller.IsVisualSpriteObjectChanged(visualSprite))
+                PresentNextStage();
+
+            }
+        }
+
+        int frameCount = 0;
+        bool playing;
+
+        private void TryRenderFrame(VisualStageObject visualStage)
+        {
+            if (visualStage != null)
+            {
+                RenderFrame(visualStage);
+            }
+        }
+
+
+        private void RenderFrame(VisualStageObject visualStage)
+        {
+            //Render all visual sprite objects of current visual stage
+            foreach (var visualSprite in visualStage.visualSprites)
+            {
+                //Check existing sprites
+                if (spritePool.ContainsKey(visualSprite.name))
                 {
+                    var sprite = spritePool[visualSprite.name];
+                    var controller = sprite.GetComponent<SpriteController>();
+                    //Do nothing if the sprite has not changed
+                    if (!controller.IsVisualSpriteObjectChanged(visualSprite))
+                    {
+                        continue;
+                    }
+                    //Hide the changed sprite for updating
+                    controller.BindVisualSpriteObject(visualSprite);
+                    controller.FadeOutForUpdate();
                     continue;
                 }
-                controller.BindVisualSpriteObject(visualSprite);
-                controller.FadeOutForUpdate();
-                continue;
-            }
-            else
-            {
-                var spritePerfab = Resources.Load<GameObject>(visualSprite.prefab);
-                var sprite = Instantiate(spritePerfab);
-                var controller = sprite.GetComponent<SpriteController>();
-                controller.BindVisualSpriteObject(visualSprite);
-                controller.Init();
-                sprite.transform.SetParent(presentingAniPanel.transform, false);
-                spritePool.Add(sprite.name, sprite);
-                controller.FadeInForUpdate();
-            }
-        }
-        //Remove stored sprites if they are not longer existing
-        if (spritePool.Count > visualStage.visualSprites.Length)
-        {
-            var existingSpriteKeys = from i in visualStage.visualSprites
-                                     select i.name;
-            var temps = new List<string>();
-            foreach (var spriteKey in spritePool.Keys)
-            {
-                if (!existingSpriteKeys.Contains(spriteKey))
+                else
                 {
-                    temps.Add(spriteKey);
+                    //Create a new sprite if it does not exist
+                    GameObject sprite;
+                    var imageKey = visualSprite.prefabImage;
+                    var imageString = visualSolution.FetchImageString(imageKey);
+                    // Render custom prefab image
+                    if (imageString != null)
+                    {
+                        var spritePrefab = Resources.Load<GameObject>("EmptyVisualSprite");
+                        sprite = Instantiate(spritePrefab);
+                        var imageComp = sprite.GetComponent<Image>();
+
+                        var texture = new Texture2D(1, 1);
+                        texture.LoadImage(Convert.FromBase64String(imageString));
+                        texture.Apply();
+                        var rectTrans = sprite.GetComponent<RectTransform>();
+                        var imgSprite = Sprite.Create(texture,
+                                                      new Rect(new Vector2(0, 0), rectTrans.sizeDelta),
+                                                      rectTrans.pivot);
+                        imageComp.sprite = imgSprite;
+                    }
+                    // Search for built-in prefab image
+                    else
+                    {
+                        var spritePrefab = Resources.Load<GameObject>(visualSprite.prefabImage);
+                        sprite = Instantiate(spritePrefab);
+                    }
+
+                    var controller = sprite.GetComponent<SpriteController>();
+                    controller.BindVisualSpriteObject(visualSprite);
+                    controller.Init();
+                    sprite.transform.SetParent(presentingAniPanel.transform, false);
+                    spritePool.Add(sprite.name, sprite);
+                    controller.FadeInForUpdate();
                 }
             }
-            foreach (var temp in temps)
+            //Remove stored sprites if they are not longer existing
+            if (spritePool.Count > visualStage.visualSprites.Length)
             {
-                var sprite = spritePool[temp];
-                var controller = sprite.GetComponent<SpriteController>();
-                controller.OnDestory += (sender, e) =>
+                var existingSpriteKeys = from i in visualStage.visualSprites
+                                         select i.name;
+                var temps = new List<string>();
+                foreach (var spriteKey in spritePool.Keys)
                 {
-                    foreach (Transform child in sprite.transform)
+                    if (!existingSpriteKeys.Contains(spriteKey))
                     {
-                        Destroy(child.gameObject);
+                        temps.Add(spriteKey);
                     }
-                    Destroy(sprite);
-                    spritePool.Remove(temp);
-                };
-                controller.FadeOutForDestory();
+                }
+                foreach (var temp in temps)
+                {
+                    var sprite = spritePool[temp];
+                    var controller = sprite.GetComponent<SpriteController>();
+                    controller.OnDestory += (sender, e) =>
+                    {
+                        foreach (Transform child in sprite.transform)
+                        {
+                            Destroy(child.gameObject);
+                        }
+                        Destroy(sprite);
+                        spritePool.Remove(temp);
+                    };
+                    controller.FadeOutForDestory();
+                }
             }
-        }
 
+        }
     }
 }

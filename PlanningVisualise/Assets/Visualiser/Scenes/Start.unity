@@ -465,7 +465,6 @@ GameObject:
   - component: {fileID: 382517443}
   - component: {fileID: 382517442}
   - component: {fileID: 382517441}
-  - component: {fileID: 382517440}
   - component: {fileID: 382517439}
   m_Layer: 5
   m_Name: AnimationProfileButton
@@ -523,17 +522,6 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!114 &382517440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 382517437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7634b302686c24ac0b918dba8c2bc946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &382517441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,7 +1422,6 @@ GameObject:
   - component: {fileID: 1654966159}
   - component: {fileID: 1654966158}
   - component: {fileID: 1654966157}
-  - component: {fileID: 1654966156}
   - component: {fileID: 1654966155}
   m_Layer: 5
   m_Name: ProblemButton
@@ -1492,17 +1479,6 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!114 &1654966156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1654966153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7634b302686c24ac0b918dba8c2bc946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1654966157
 MonoBehaviour:
   m_ObjectHideFlags: 0
