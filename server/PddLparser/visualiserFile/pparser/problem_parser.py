@@ -41,8 +41,7 @@ def get_problem_json(file_name, predicates_lists):
     get_regex_list(predicates_lists)
 
     # Read input file
-    file_op = open(file_name)
-    str_file = file_op.read()
+    str_file = file_name
 
     # Get INIT
     str_init = str_file[str_file.index("init") + len("init"):str_file.index("goal")]

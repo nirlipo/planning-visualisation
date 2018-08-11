@@ -12,8 +12,8 @@ def get_plan(domain_file, problem_file):
     Returns:
             plan(Dictionary): plan return by the planning.domain API.
     """
-    data = {'domain': open(domain_file, 'r').read(),
-            'problem': open(problem_file, 'r').read()}
+    data = {'domain': domain_file,
+            'problem': problem_file}
 
     url = 'http://solver.planning.domains/solve'
     req = urllib.request.Request(url)

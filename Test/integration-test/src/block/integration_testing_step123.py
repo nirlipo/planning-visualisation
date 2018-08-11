@@ -10,9 +10,9 @@ import copy
 class test_integration_step123(unittest.TestCase):
     # Test if the output is not empty
     def test_integration_predicate_each_stage_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
@@ -20,9 +20,9 @@ class test_integration_step123(unittest.TestCase):
 
     # Test if the output contains an object list
     def test_integration_predicates_object_list_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
@@ -31,9 +31,9 @@ class test_integration_step123(unittest.TestCase):
 
     # Test if the output stages should contain at least the init and goal stage
     def test_integration_predicates_stages_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
@@ -42,9 +42,9 @@ class test_integration_step123(unittest.TestCase):
 
     # Test if each stage has an adequate amount of objects
     def test_integration_predicates_stage_size_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
@@ -58,9 +58,9 @@ class test_integration_step123(unittest.TestCase):
 
     # Test if each stage has an adequate amount of add actions
     def test_integration_predicates_add1_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
@@ -74,9 +74,9 @@ class test_integration_step123(unittest.TestCase):
 
     # Test if each stage has an adequate amount of remove actions
     def test_integration_predicates_add2_step123(self):
-        domain_file = "../../input/domain_blocks.pddl"
-        problem_file = "../../input/bw08.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_blocks.pddl")
+        domain_file = open("../../input/domain_blocks.pddl", 'r').read()
+        problem_file = open("../../input/bw08.pddl", 'r').read()
+        predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)

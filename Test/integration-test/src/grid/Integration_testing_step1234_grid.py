@@ -15,9 +15,10 @@ class integration_testing_step123(unittest.TestCase):
     # Test if the total amount of stages is still the same
     def test_integration_number_of_stages_step1234(self):
         # the amount of stages generated
-        domain_file = "../../input/domain_grid.pddl"
-        problem_file = "../../input/gw01.pddl"
-        predicates_list = dom_par.get_domain_json("../../input/domain_grid.pddl")
+        domain_file = open("../../input/domain_grid.pddl", 'r').read()
+        problem_file = open("../../input/gw01.pddl", 'r').read()
+
+        predicates_list = dom_par.get_domain_json(domain_file)
         plan = step1.get_plan(domain_file, problem_file)
         problem_json = step2.get_problem_json(problem_file, predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)

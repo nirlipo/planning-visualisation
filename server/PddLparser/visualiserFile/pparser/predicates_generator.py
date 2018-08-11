@@ -44,11 +44,8 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
 
     # Initial stage
     stages = problem_dic[0]['init'].copy()
-
-    with open(problem_file) as file:
-        text = file.read()
-        objects = re.findall(r'\b\S+\b', text[text.index("objects")
-                                              + len("objects"):text.index("init")])
+    objects = re.findall(r'\b\S+\b', problem_file[problem_file.index("objects")
+                                              + len("objects"):problem_file.index("init")])
 
     # Getting the list of actions from results returned from planning.domain api
     try:

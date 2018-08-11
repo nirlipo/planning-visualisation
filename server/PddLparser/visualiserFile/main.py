@@ -25,10 +25,10 @@ def get_visualisation_file():
     content = file.read()
     animation_profile = json.loads(content)
 
-    plan = pparser.plan_generator.get_plan(domain_file, problem_file)
-    predicates_list = pparser.domain_parser.get_domain_json(domain_file)
-    problem_json = pparser.problem_parser.get_problem_json(problem_file, predicates_list)
-    stages = pparser.predicates_generator.get_stages(plan, problem_json, problem_file, predicates_list)
+    plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), open(problem_file, 'r').read())
+    predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
+    problem_json = pparser.problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
+    stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
     # A file called visualistaion.json will be generated in the folder if successful
     generator.visualisation_generator.get_visualisation_json(stages, animation_profile)
 
