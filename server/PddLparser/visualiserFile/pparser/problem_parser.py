@@ -38,7 +38,11 @@ def get_problem_json(file_name, predicates_lists):
             result(Dictionary): a dictionary contains INIT and GOAL states(predicates).
     """
     # Prepare REGEX for each predicate
-    get_regex_list(predicates_lists)
+    try:
+        get_regex_list(predicates_lists)
+    except:
+        raise ValueError("Empty string found")
+
 
     # Read input file
     str_file = file_name
