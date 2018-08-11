@@ -1,10 +1,9 @@
 import re
-import string
 
 
 #######################################################
 # Input File: domain file
-# Output : predicates for INIT stage and GOAL stage
+# Output : all predicates in the domain
 #######################################################
 import sys
 
