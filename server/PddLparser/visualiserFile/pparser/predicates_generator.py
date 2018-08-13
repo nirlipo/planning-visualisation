@@ -1,8 +1,7 @@
 """This module is designed to help with getting a list of steps for Step3 to use"""
 import re
 import sys
-import problem_parser
-
+import pparser.problem_parser
 # This python file aims to finish step 3 in our solution
 #######################################################
 # Input File: api file
@@ -14,6 +13,8 @@ import problem_parser
 #######################################################
 # This function is designed to remove all the redundant characters
 # for each action in the action list, so that the action can be directly used.
+
+
 def remove_unused_char(action_list):
     """The function is to remove all the useless characters from api file.
         Args:
@@ -59,7 +60,8 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     # 1. Go through the steps
     for counter in range(0, len(actionlist)):
         checklist = []
-        init_object_list = problem_parser.get_object_list(predicates_list, cleanactionlist[counter])
+        init_object_list = pparser.problem_parser.\
+            get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
 
         # 2. Find the difference between 2 steps
