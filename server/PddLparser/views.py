@@ -7,6 +7,7 @@ import plan_generator  # Step1: get plan from planning domain api
 import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import predicates_generator  # Step3: manipulate the predicate for each step/stage
 import visualisation_generator  # Step4. use the animation profile and stages from step3 to get the visualisation file
+import domain_parser
 import json
 import io
 import re
@@ -43,10 +44,10 @@ class FileUploadView(APIView):
         problem_file = request.data['problem']
         animation_file = json.loads(request.data['animation'])
         
-
+        predicates_list = domain_parser.get_domain_json(domain_file)
         plan = plan_generator.get_plan(domain_file, problem_file)
-        problem_json = problem_parser.get_problem_json(problem_file)
-        stages = predicates_generator.get_stages(plan, problem_json, problem_file)
+        problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
+        stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
         # A file called visualistaion.json will be generated in the folder if successful
         final = visualisation_generator.get_visualisation_json(stages,animation_file)
         return Response(final)
