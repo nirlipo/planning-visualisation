@@ -17,9 +17,19 @@ def initialise_objects(object_list, animation_profile):
         unsolved_objects(Dictionary): the objects that are not initialised.
     """
     unsolved_objects = {}
+    
+    predefine_objects={}
+    for predefine_type in animation_profile["objects"]["predefine"]:
+        for objects in animation_profile["objects"]["predefine"][predefine_type]:
+            predefine_objects[objects]=predefine_type
+            
+    
     for objectname in object_list:
         unsolved_objects[objectname] = {}
-        obj_type = animation_profile["objects"]["default"]
+        if objectname in predefine_objects:
+            obj_type = predefine_objects[objectname]
+        else:
+            obj_type = animation_profile["objects"]["default"]
         # update the value for each
         for objproperty in animation_profile["shape"][obj_type]:
             value = animation_profile["shape"][obj_type][objproperty]
@@ -50,18 +60,31 @@ def check_rule_complete(predicate, objects_dic, predicates_rules):
         True: if the predicate can be solved.
         False: if the predicate can not be solved.
     """
+    
     predicatename = predicate["name"]
-    objectnamelist = predicate["objectNames"]
-    predicate_rule = predicates_rules[predicatename]
+    objectnamelist = copy.deepcopy(predicate["objectNames"])
+    predicate_rule = copy.deepcopy(predicates_rules[predicatename])
+
+    if ("left" in predicates_rules[predicatename]):
+        objectnamelist.insert(0,0)
+    if("right" in predicates_rules[predicatename]):
+        objectnamelist.append(predicates_rules[predicatename]["right"])
     for rulename in predicate_rule["rules"]:
         rule = predicate_rule[rulename]
         for key in rule:
             # 0 is on the left side of equation
-            if key != "value" and key != "0":
-                property_check = rule[key]
-                objectname = objectnamelist[int(key)]
-                if objects_dic[objectname][property_check] is False:
-                    return False
+            if key != "value" and key != "0" and key!="action":
+                if key=="require":
+                    for objindex in rule[key]:
+                        for att in rule[key][objindex]:
+                            objectname=objectnamelist[int(objindex)]
+                            if objects_dic[objectname][att] is False:
+                                return False              
+                else:
+                    property_check = rule[key]
+                    objectname = objectnamelist[int(key)]
+                    if objects_dic[objectname][property_check] is False:
+                        return False
     return True
 
 
@@ -81,37 +104,65 @@ def applypredicates(predicate,
                       obj that in the space.
     """
     pname = predicate["name"]
-    objects = predicate["objectNames"]
-    left = objects[0]
+    objects = copy.deepcopy(predicate["objectNames"])
+    
+    if ("left" in predicates_rules[pname]):
+        left = predicates_rules[pname]["left"]
+        objects.insert(0,0)
+    else:
+        left = objects[0]
+    
+    
+    if("right" in predicates_rules[pname]):
+        objects.append(predicates_rules[pname]["right"])
+        
     for rulename in predicates_rules[pname]["rules"]:
-        propertyname = predicates_rules[pname][rulename]["0"]
-        value = predicates_rules[pname][rulename]["value"]
-        rule = predicates_rules[pname][rulename]
-        if "function" in value:
-            if value["function"] == "distributex":
-                objects_dic[left][propertyname] = custom_functions.distributex(
-                    left, space, 20, 80, False)
-        elif "equal" in value:
-            right_value = value["equal"]
-            if right_value in rule:
-                right_proterpy = rule[right_value]
-                right_object = objects[int(right_value)]
-                objects_dic[left][propertyname] = objects_dic[
-                    right_object][right_proterpy]
-            else:
-                objects_dic[left][propertyname] = right_value
-
-        elif "add" in value:
-            rightvalue = 0
-            for additem in value["add"]:
-                if additem in rule:
-                    right_property = rule[additem]
-                    right_object = objects[int(additem)]
-                    addvalue = objects_dic[right_object][right_property]
-                    rightvalue += addvalue
+        if "value" in predicates_rules[pname][rulename]:
+            propertyname = predicates_rules[pname][rulename]["0"]
+            value = predicates_rules[pname][rulename]["value"]
+            rule = predicates_rules[pname][rulename]
+            if "function" in value:
+                if value["function"] == "distributex":
+                    objects_dic[left][propertyname] = custom_functions.distributex(
+                        left, space, 20, 80, False)
+                elif value["function"] == "distribute_grid_around_pointx":
+                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointx(
+                        left, 0,100)
+                elif value["function"] == "distribute_grid_around_pointy":
+                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointy(
+                        left, 1,100)
+            elif "equal" in value:
+                right_value = value["equal"]
+                if right_value in rule:
+                    right_proterpy = rule[right_value]
+                    right_object = objects[int(right_value)]
+                    objects_dic[left][propertyname] = objects_dic[
+                        right_object][right_proterpy]
                 else:
-                    rightvalue += additem
-            objects_dic[left][propertyname] = rightvalue
+                    objects_dic[left][propertyname] = right_value
+
+            elif "add" in value:
+                rightvalue = 0
+                for additem in value["add"]:
+                    if additem in rule:
+                        right_property = rule[additem]
+                        right_object = objects[int(additem)]
+                        addvalue = objects_dic[right_object][right_property]
+                        rightvalue += addvalue
+                    else:
+                        rightvalue += additem
+                objects_dic[left][propertyname] = rightvalue
+        else:
+            action=predicates_rules[pname][rulename]["action"]
+            if "function" in action:
+                object1,object2=objects
+                x1=objects_dic[object1]["x"]
+                y1=objects_dic[object1]["y"]
+                x2=objects_dic[object2]["x"]
+                y2=objects_dic[object2]["y"]
+                if action["function"]=="draw_line":
+                    key=pname+objects[0]+objects[1]
+                    objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2)
 
 
 def solvepredicates(predicates, objects_dic, predicates_rules, space):
@@ -126,7 +177,8 @@ def solvepredicates(predicates, objects_dic, predicates_rules, space):
               that in the space.
 
     """
-    while predicates:
+    i=0
+    while (predicates and i<2000):
         predicate = predicates.pop(0)
         if predicate["name"] not in predicates_rules:
             continue
@@ -136,6 +188,7 @@ def solvepredicates(predicates, objects_dic, predicates_rules, space):
             if not predicates:  # if the last predicate can not be solved
                 return False
             predicates.append(predicate)
+        i+=1
     return True
 
 
@@ -165,7 +218,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
     return result
 
 
-def transfer(one_stage, initialobjects, panel_width, panel_height, padding=20):
+def transfer(one_stage, initialobjects, panel_width, panel_height,shiftx,shifty, padding=20):
     """This function converts the dictionary into the info needed in visualisation file.
     Args:
         one_stage(Dict): a dictionary contains the locaiton of objects for one stage/step
@@ -190,8 +243,10 @@ def transfer(one_stage, initialobjects, panel_width, panel_height, padding=20):
     min_y = 0.0
     max_y = 0.0
     # generate new json file
-    for i, obj in enumerate(initialobjects):
-        temp.append(one_stage[obj])
+    for obj in one_stage:
+        if "x" not in one_stage[obj] or "y" not in one_stage[obj]:
+            continue
+        one_stage[obj]
         # get all information about position
         x_num = one_stage[obj]["x"]
         y_num = one_stage[obj]["y"]
@@ -201,17 +256,18 @@ def transfer(one_stage, initialobjects, panel_width, panel_height, padding=20):
             width = panel_width - 2 * padding
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
-        min_x = (x_num + padding) / panel_width
-        max_x = (x_num + width + padding) / panel_width
-        min_y = y_num / panel_height
-        max_y = (y_num + height) / panel_height
+        min_x = (x_num + padding+shiftx) / panel_width
+        max_x = (x_num+shiftx + width + padding) / panel_width
+        min_y = (y_num+shifty) / panel_height
+        max_y = (y_num +shifty+ height) / panel_height
         position_dic["minX"] = round(min_x, 3)
         position_dic["maxX"] = round(max_x, 3)
         position_dic["minY"] = round(min_y, 3)
         position_dic["maxY"] = round(max_y, 3)
         # update the old dict
-        temp[i].update(position_dic)
-        transfered_stage["visualSprites"] = temp
+        one_stage[obj].update(position_dic)
+        temp.append(one_stage[obj])
+    transfered_stage["visualSprites"] = temp
     return transfered_stage
 
 
@@ -235,23 +291,33 @@ def get_panel_size(result, padding=20):
     lists = result["visualStages"]
     max_x = 0
     max_y = 0
+    min_x = 0
+    min_y=0
     for stage in lists:
         stageitems = stage["visualSprites"]
+
         for item in stageitems:
+            if "x" not in stageitems[item] or "y" not in stageitems[item]:
+                continue
+            x=stageitems[item]["x"]
+            y=stageitems[item]["y"]
+      
             if type(stageitems[item]["width"]) is int:
-                new_x = stageitems[item]["x"] + \
-                    stageitems[item]["width"] + 2 * padding
+                new_x = x + stageitems[item]["width"]
                 if new_x > max_x:
                     max_x = new_x
-            if type(stageitems[item]["y"]) is int:
-                new_y = stageitems[item]["y"] + \
-                    stageitems[item]["height"] + padding
+                if x <min_x:
+                    min_x=x
+            if type(stageitems[item]["height"]) is int:
+                new_y = y+stageitems[item]["height"]
                 if new_y > max_y:
                     max_y = new_y
-    return max_x, max_y
+                if y<min_y:
+                    min_y=y
+    return max_x+ 2 * padding, max_y+padding,abs(min_x),abs(min_y)
 
 
-def generate_visualisation_file(result, object_list):
+def generate_visualisation_file(result, object_list,imageTable):
     """This function generates the visualisation file.
     Args:
         result(Dict): the dict to be converted.
@@ -261,12 +327,13 @@ def generate_visualisation_file(result, object_list):
     one_stage = {}
     sprite_list = []
     lists = result["visualStages"]
-    panel_width, panel_height = get_panel_size(result)
+    panel_width, panel_height,shiftx,shifty= get_panel_size(result)
     for item in lists:
         one_stage = item["visualSprites"]
         sprite_list.append(
-            transfer(one_stage, object_list, panel_width, panel_height))
-        final["visualStages"] = sprite_list
+            transfer(one_stage, object_list, panel_width, panel_height,shiftx,shifty))
+    final["visualStages"] = sprite_list
+    final["imageTable"]=imageTable
 
     return final
 
@@ -277,9 +344,12 @@ def add_fixed_objects(object_dic, animation_profile):
         object_dic(Dictionary): a object dictionary contain the default objects.
         animation_profile(Dictionary): the dict to store all information in animation profile.
     """
-    for obj_name in animation_profile["objects"]["customobj"]:
-        object_dic[obj_name] = animation_profile["shape"][obj_name]
-        object_dic[obj_name]["name"] = obj_name
+    
+    for shape in animation_profile["objects"]["custom"]:
+        objects=animation_profile["objects"]["custom"][shape]
+        for obj_name in objects:            
+            object_dic[obj_name] = animation_profile["shape"][shape]
+            object_dic[obj_name]["name"] = obj_name
 
 
 def get_visualisation_json(predicates, animation_profile):
@@ -300,4 +370,5 @@ def get_visualisation_json(predicates, animation_profile):
     add_fixed_objects(objects_dic, animation_profile)
     space = custom_functions.init_space(len(object_list))
     result = solve_all_stages(stages, objects_dic, predicates_rules, space)
-    return generate_visualisation_file(result, list(objects_dic.keys()))
+
+   return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile["imageTable"])

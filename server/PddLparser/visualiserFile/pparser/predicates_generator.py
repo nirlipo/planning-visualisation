@@ -1,6 +1,7 @@
 """This module is designed to help with getting a list of steps for Step3 to use"""
 import re
 import sys
+import problem_parser
 
 # This python file aims to finish step 3 in our solution
 #######################################################
@@ -58,8 +59,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     # 1. Go through the steps
     for counter in range(0, len(actionlist)):
         checklist = []
-        init_object_list = problem_parser.\
-            get_object_list(predicates_list, cleanactionlist[counter])
+        init_object_list = problem_parser.get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
 
         # 2. Find the difference between 2 steps
