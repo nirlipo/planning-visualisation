@@ -371,4 +371,4 @@ def get_visualisation_json(predicates, animation_profile):
     space = custom_functions.init_space(len(object_list))
     result = solve_all_stages(stages, objects_dic, predicates_rules, space)
 
-   return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile["imageTable"])
+    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile["imageTable"])
