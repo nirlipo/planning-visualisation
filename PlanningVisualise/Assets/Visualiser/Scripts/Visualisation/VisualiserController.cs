@@ -26,6 +26,7 @@ namespace Visualiser
             var parameters = coordinator.FetchParameters("Visualisation") as string;
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
             Debug.Log(parameters);
+            Debug.Log("transferType" + visualSolution.transferType);
 
             presentingAniPanel = AniFrameOne;
             var visualStage = visualSolution.NextStage();

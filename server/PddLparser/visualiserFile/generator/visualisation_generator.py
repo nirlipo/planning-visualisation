@@ -317,7 +317,7 @@ def get_panel_size(result, padding=20):
     return max_x+ 2 * padding, max_y+padding,abs(min_x),abs(min_y)
 
 
-def generate_visualisation_file(result, object_list,imageTable):
+def generate_visualisation_file(result, object_list,animation_profile):
     """This function generates the visualisation file.
     Args:
         result(Dict): the dict to be converted.
@@ -333,7 +333,8 @@ def generate_visualisation_file(result, object_list,imageTable):
         sprite_list.append(
             transfer(one_stage, object_list, panel_width, panel_height,shiftx,shifty))
     final["visualStages"] = sprite_list
-    final["imageTable"]=imageTable
+    final["transferType"]=1
+    final["imageTable"]=animation_profile["imageTable"]
 
     return final
 
@@ -371,4 +372,4 @@ def get_visualisation_json(predicates, animation_profile):
     space = custom_functions.init_space(len(object_list))
     result = solve_all_stages(stages, objects_dic, predicates_rules, space)
 
-    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile["imageTable"])
+    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile)
