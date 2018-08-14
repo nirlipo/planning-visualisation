@@ -10,7 +10,8 @@ namespace Visualiser
     {
         public VisualStageObject[] visualStages;
         public int transferType;
-        public Dictionary<string, string> imageTable;
+        public ImageDictionary imageTable;
+        //public ImageDictionary imageTable;
 
         int stageIndex = -1;
 

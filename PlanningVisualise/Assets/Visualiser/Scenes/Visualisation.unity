@@ -2550,8 +2550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a697fb375014d7eb5ff3869c4c487d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AniFrameOne: {fileID: 0}
-  AniFrameTwo: {fileID: 0}
+  AniFrameOne: {fileID: 109249570}
+  AniFrameTwo: {fileID: 2045233512}
 --- !u!4 &709473117
 Transform:
   m_ObjectHideFlags: 0

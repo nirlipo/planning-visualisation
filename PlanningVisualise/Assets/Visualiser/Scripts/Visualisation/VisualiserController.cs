@@ -23,6 +23,17 @@ namespace Visualiser
         // Use this for initialization
         void Start()
         {
+            //test code
+            //var imageDict = new ImageDictionary();
+            //imageDict.Add("fwqef", "Fweg");
+            //imageDict.Add("hrtj", "67ru");
+            //imageDict.Add("gdf", "wer34");
+            //var json = JsonUtility.ToJson(imageDict);
+            //Debug.Log(json);
+            //var id2 = JsonUtility.FromJson<ImageDictionary>(json);
+            //Debug.Log("test:" + id2.Count);
+            //----
+            
             var parameters = coordinator.FetchParameters("Visualisation") as string;
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
             Debug.Log(parameters);
