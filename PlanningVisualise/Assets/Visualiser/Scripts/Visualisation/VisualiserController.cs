@@ -7,6 +7,12 @@ using System.Linq;
 
 namespace Visualiser
 {
+    [Serializable]
+    public class Tester 
+    {
+        public ImageDictionary imageTable;
+    }
+
     public class VisualiserController : MonoBehaviour
     {
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator;
@@ -28,10 +34,13 @@ namespace Visualiser
             //imageDict.Add("fwqef", "Fweg");
             //imageDict.Add("hrtj", "67ru");
             //imageDict.Add("gdf", "wer34");
-            //var json = JsonUtility.ToJson(imageDict);
+            //var tester = new Tester();
+            //tester.imageTable = imageDict;
+
+            //var json = JsonUtility.ToJson(tester);
             //Debug.Log(json);
-            //var id2 = JsonUtility.FromJson<ImageDictionary>(json);
-            //Debug.Log("test:" + id2.Count);
+            //var tester2 = JsonUtility.FromJson<Tester>(json);
+            //Debug.Log("test:" + tester.imageTable.Count);
             //----
             
             var parameters = coordinator.FetchParameters("Visualisation") as string;
@@ -142,10 +151,9 @@ namespace Visualiser
                         texture.LoadImage(Convert.FromBase64String(imageString));
                         texture.Apply();
                         var rectTrans = sprite.GetComponent<RectTransform>();
-                        var imgSprite = Sprite.Create(texture,
-                                                      new Rect(new Vector2(0, 0), rectTrans.sizeDelta),
-                                                      rectTrans.pivot);
+                        var imgSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                         imageComp.sprite = imgSprite;
+                        imageComp.color = visualSprite.color;
                     }
                     // Search for built-in prefab image
                     else
