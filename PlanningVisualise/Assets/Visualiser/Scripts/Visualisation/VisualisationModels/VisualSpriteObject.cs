@@ -2,22 +2,26 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-[Serializable]
-public class VisualSpriteObject
+namespace Visualiser
 {
-    public string name;
-    public string prefab;
-    public Color color;
-    public bool showName;
-    public float minX;
-    public float maxX;
-    public float minY;
-    public float maxY;
-
-    public bool ContentsEqual(VisualSpriteObject vso)
+    [Serializable]
+    public class VisualSpriteObject
     {
-        return name == vso.name && prefab == vso.prefab
-                          && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
-                          && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY);
+        public string name;
+        public string prefabImage;
+        public Color color;
+        public bool showName;
+        public float minX;
+        public float maxX;
+        public float minY;
+        public float maxY;
+        public float ratation;
+
+        public bool ContentsEqual(VisualSpriteObject vso)
+        {
+            return name == vso.name && prefabImage == vso.prefabImage
+                              && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
+                              && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY);
+        }
     }
 }
