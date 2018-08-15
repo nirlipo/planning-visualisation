@@ -54,6 +54,7 @@ namespace Visualiser
                 nameRectTransform.offsetMin = new Vector2(0, 0);
                 nameRectTransform.offsetMax = new Vector2(0, 0);
                 spriteName.transform.SetParent(gameObject.transform, false);
+
             }
             //set sprite colour
             var image = gameObject.GetComponent<Image>();
@@ -61,6 +62,7 @@ namespace Visualiser
             //set default opacity of sprite
             var canvasGroup = gameObject.GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0;
+
         }
 
         void UpdateRect()
@@ -73,12 +75,21 @@ namespace Visualiser
             rectTransform.offsetMin = new Vector2(0, 0);
             rectTransform.offsetMax = new Vector2(0, 0);
             //set depth
-            gameObject.transform.SetSiblingIndex(rectTransform.GetSiblingIndex() + visualSprite.depth);
+            transform.SetSiblingIndex(visualSprite.depth);
             //set rotate
             rectTransform.rotation = Quaternion.Euler(0, 0, visualSprite.rotate);
             //update color
             var imgComp = gameObject.GetComponent<Image>();
             imgComp.color = visualSprite.color;
+
+
+
+        }
+
+        private void Start()
+        {
+            var canvas = GetComponent<Canvas>();
+            canvas.overrideSorting = true;
         }
 
         public void FadeOutForUpdate()

@@ -153,7 +153,11 @@ namespace Visualiser
                         var rectTrans = sprite.GetComponent<RectTransform>();
                         var imgSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                         imageComp.sprite = imgSprite;
-                        imageComp.color = visualSprite.color;
+
+                        //add canvas
+                        var canvas = sprite.GetComponent<Canvas>();
+                        canvas.sortingOrder = visualSprite.depth + 1;
+                        canvas.overrideSorting = true;
                     }
                     // Search for built-in prefab image
                     else

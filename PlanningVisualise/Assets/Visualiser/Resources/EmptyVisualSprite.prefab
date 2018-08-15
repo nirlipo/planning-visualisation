@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 225199624544307266}
   - component: {fileID: 95282414935687246}
   - component: {fileID: 114932756325786732}
+  - component: {fileID: 223137729762983526}
   m_Layer: 5
   m_Name: EmptyVisualSprite
   m_TagString: Untagged
@@ -94,6 +95,26 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813904099013034}
   m_CullTransparentMesh: 0
+--- !u!223 &223137729762983526
+Canvas:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813904099013034}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &224896608991572968
 RectTransform:
   m_ObjectHideFlags: 1
@@ -120,6 +141,6 @@ CanvasGroup:
   m_GameObject: {fileID: 1813904099013034}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0

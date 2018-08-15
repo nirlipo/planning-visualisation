@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{6D2ED755-4F69-AEC7-48BD-1F44AF587416}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/Visualisation/SpriteController.cs">
     <Files>
       <File FileName="Assets/Visualiser/Scripts/ScenesCoordinator.cs" Line="165" Column="4" />
       <File FileName="Assets/AnimationProfile/Script/Objects.cs" Line="1" Column="1" />
@@ -13,9 +13,9 @@
       <File FileName="Assets/AnimationProfile/Script/Inputfield.cs" Line="1" Column="1" />
       <File FileName="Assets/AnimationProfile/Script/predicates.cs" Line="1" Column="1" />
       <File FileName="Assets/AnalyzerPack/VisualizerRenderPack/PredicatesCalculatePack/PredicatesCalculateInterface.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/SpriteController.cs" Line="79" Column="21" />
+      <File FileName="Assets/Visualiser/Scripts/Visualisation/SpriteController.cs" Line="89" Column="27" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSolutionObject.cs" Line="25" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSpriteObject.cs" Line="19" Column="26" />
+      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSpriteObject.cs" Line="27" Column="52" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualStageObject.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/Enum_TransferType.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/TransferItemPack/FadeTransferItem.cs" Line="1" Column="1" />
@@ -30,7 +30,7 @@
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/TransferFactory.cs" Line="1" Column="1" />
       <File FileName="Assets/FileLoaderSharukh.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/LoadingScreenControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="169" Column="50" />
+      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="158" Column="57" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/ImageDictionary.cs" Line="8" Column="6" />
       <File FileName="Assets/SerializableDictionary/SerializableDictionary.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="19" Column="1" />
@@ -39,9 +39,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="48" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.PlanningVisualise PreferredExecutionTarget="Unity.Editor" />
