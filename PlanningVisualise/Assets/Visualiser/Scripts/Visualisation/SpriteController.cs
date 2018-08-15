@@ -72,7 +72,9 @@ namespace Visualiser
             rectTransform.anchorMax = newAnchorMax;
             rectTransform.offsetMin = new Vector2(0, 0);
             rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.SetSiblingIndex(visualSprite.depth + rectTransform.GetSiblingIndex());
+            //set depth
+            gameObject.transform.SetSiblingIndex(rectTransform.GetSiblingIndex() + visualSprite.depth);
+            //set rotate
             rectTransform.rotation = Quaternion.Euler(0, 0, visualSprite.rotate);
             //update color
             var imgComp = gameObject.GetComponent<Image>();
