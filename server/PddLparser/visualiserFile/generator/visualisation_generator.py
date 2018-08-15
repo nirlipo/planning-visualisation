@@ -159,10 +159,10 @@ def applypredicates(predicate,
             action=predicates_rules[pname][rulename]["action"]
             if "function" in action:
                 object1,object2=objects
-                x1=objects_dic[object1]["x"]
-                y1=objects_dic[object1]["y"]
-                x2=objects_dic[object2]["x"]
-                y2=objects_dic[object2]["y"]
+                x1=objects_dic[object1]["x"]+objects_dic[object1]["width"]/2
+                y1=objects_dic[object1]["y"]+objects_dic[object1]["height"]/2
+                x2=objects_dic[object2]["x"]+objects_dic[object2]["width"]/2
+                y2=objects_dic[object2]["y"]+objects_dic[object2]["height"]/2
                 if action["function"]=="draw_line":
                     key=pname+objects[0]+objects[1]
                     objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)

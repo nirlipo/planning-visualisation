@@ -75,4 +75,5 @@ def draw_line(x1,y1,x2,y2,name):
     line["color"]={"r":0,"g":0,"b":0,"a":1}
     line["height"]=5
     line["name"]=name
+    line["depth"]=0
     return line
