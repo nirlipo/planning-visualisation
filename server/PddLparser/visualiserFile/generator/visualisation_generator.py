@@ -133,11 +133,14 @@ def applypredicates(predicate,
                         left, 1,100)
             elif "equal" in value:
                 right_value = value["equal"]
-                if right_value in rule:
-                    right_proterpy = rule[right_value]
-                    right_object = objects[int(right_value)]
-                    objects_dic[left][propertyname] = objects_dic[
-                        right_object][right_proterpy]
+                if type(right_value) is not dict:#for color dic
+                    if right_value in rule:
+                        right_proterpy = rule[right_value]
+                        right_object = objects[int(right_value)]
+                        objects_dic[left][propertyname] = objects_dic[
+                            right_object][right_proterpy]
+                    else:
+                        objects_dic[left][propertyname] = right_value
                 else:
                     objects_dic[left][propertyname] = right_value
 
@@ -162,7 +165,7 @@ def applypredicates(predicate,
                 y2=objects_dic[object2]["y"]
                 if action["function"]=="draw_line":
                     key=pname+objects[0]+objects[1]
-                    objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2)
+                    objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
 
 
 def solvepredicates(predicates, objects_dic, predicates_rules, space):

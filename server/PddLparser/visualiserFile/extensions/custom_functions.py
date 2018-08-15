@@ -45,7 +45,7 @@ def distribute_grid_around_pointy(obj,colindex,margin):
     col=int(re.findall('\d+',obj)[colindex])
     return col*margin
 
-def draw_line(x1,y1,x2,y2):
+def draw_line(x1,y1,x2,y2,name):
     
     vec1=np.array([1,0])
     vec2=np.array([x2-x1,y2-y1])
@@ -67,12 +67,12 @@ def draw_line(x1,y1,x2,y2):
         
     line={}
     line["width"]=Lvec2
-    line["roratation"]=fangle
+    line["rotate"]=fangle
     line["x"]=lx1
     line["y"]=ly1
     line["showName"]=False
     line["prefabImage"]="line"
     line["color"]={"r":0,"g":0,"b":0,"a":1}
     line["height"]=5
-    line["name"]="line"
+    line["name"]=name
     return line
