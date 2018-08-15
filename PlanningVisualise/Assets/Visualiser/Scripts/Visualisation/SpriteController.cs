@@ -74,6 +74,9 @@ namespace Visualiser
             rectTransform.offsetMax = new Vector2(0, 0);
             rectTransform.SetSiblingIndex(visualSprite.depth + rectTransform.GetSiblingIndex());
             rectTransform.rotation = Quaternion.Euler(0, 0, visualSprite.rotate);
+            //update color
+            var imgComp = gameObject.GetComponent<Image>();
+            imgComp.color = visualSprite.color;
         }
 
         public void FadeOutForUpdate()
