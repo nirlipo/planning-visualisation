@@ -174,8 +174,8 @@ public class ScenesCoordinator : MonoBehaviour
 	IEnumerator generateVisualiser(){
 		//generate a unique boundary
 		byte[] boundary = UnityWebRequest.GenerateBoundary();
-		Debug.Log ("test"+domaintxt);
-		List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+		Debug.Log ("test"+domaintxt);        
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 		formData.Add( new MultipartFormDataSection("domain",domaintxt ));
 		formData.Add( new MultipartFormDataSection("problem",problemtxt ));
 		formData.Add( new MultipartFormDataSection("animation",animationprofile ));;
@@ -187,7 +187,8 @@ public class ScenesCoordinator : MonoBehaviour
 		yield return www.SendWebRequest();
 
 		if(www.isNetworkError || www.isHttpError) {
-			Debug.Log(www.error);
+            SceneManager.LoadScene("NetworkError");
+            Debug.Log(www.error);
 		}
 		else {
 			Debug.Log("Form upload complete!");
