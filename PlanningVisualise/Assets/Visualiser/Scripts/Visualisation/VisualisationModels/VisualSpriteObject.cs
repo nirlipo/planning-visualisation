@@ -15,13 +15,16 @@ namespace Visualiser
         public float maxX;
         public float minY;
         public float maxY;
-        public float ratation;
+        public float rotate;
+        public int depth;
 
         public bool ContentsEqual(VisualSpriteObject vso)
         {
             return name == vso.name && prefabImage == vso.prefabImage
                               && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
-                              && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY);
+                              && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY)
+                              && color == vso.color
+                              && depth == vso.depth;
         }
     }
 }
