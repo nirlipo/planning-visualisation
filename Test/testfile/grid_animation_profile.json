@@ -78,7 +78,13 @@
       "x": false,
       "y": false,
       "width": 20,
-      "height": 20
+      "height": 20,
+      "color": {
+        "r": 0.368,
+        "g": 0.227,
+        "b": 0.168,
+        "a": 1
+      }
     }
   },
   "predicates_rules": {
