@@ -142,7 +142,10 @@ namespace Visualiser
                 if (++frameCount % 60 == 0)
                 {
                     isMoving = false;
-                    UpdateRect();
+                    //UpdateRect();
+                    //update color
+                    var imgComp = gameObject.GetComponent<Image>();
+                    imgComp.color = visualSprite.color;
                 }
             }
         }
