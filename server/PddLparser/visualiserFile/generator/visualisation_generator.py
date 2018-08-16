@@ -221,7 +221,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
     return result
 
 
-def transfer(one_stage, initialobjects, panel_width, panel_height,shiftx,shifty, padding=20):
+def transfer(one_stage, initialobjects, panel_size,shiftx,shifty, padding=20):
     """This function converts the dictionary into the info needed in visualisation file.
     Args:
         one_stage(Dict): a dictionary contains the locaiton of objects for one stage/step
@@ -255,14 +255,14 @@ def transfer(one_stage, initialobjects, panel_width, panel_height,shiftx,shifty,
         y_num = one_stage[obj]["y"]
         width = one_stage[obj]["width"]
         # set the panel with after we got the panel width
-        if width == "panel_width":
-            width = panel_width - 2 * padding
+        if width == "panel_size":
+            width = panel_size - 2 * padding
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
-        min_x = (x_num + padding+shiftx) / panel_width
-        max_x = (x_num+shiftx + width + padding) / panel_width
-        min_y = (y_num+shifty) / panel_height
-        max_y = (y_num +shifty+ height) / panel_height
+        min_x = (x_num + padding+shiftx) / panel_size
+        max_x = (x_num+shiftx + width + padding) / panel_size
+        min_y = (y_num+shifty+padding) / panel_size
+        max_y = (y_num +shifty+ height+padding) / panel_size
         position_dic["minX"] = round(min_x, 3)
         position_dic["maxX"] = round(max_x, 3)
         position_dic["minY"] = round(min_y, 3)
@@ -317,7 +317,7 @@ def get_panel_size(result, padding=20):
                     max_y = new_y
                 if y<min_y:
                     min_y=y
-    return max_x+ 2 * padding, max_y+padding,abs(min_x),abs(min_y)
+    return max(max_x,max_y)+2 * padding,abs(min_x),abs(min_y)
 
 
 def generate_visualisation_file(result, object_list,animation_profile):
@@ -330,11 +330,11 @@ def generate_visualisation_file(result, object_list,animation_profile):
     one_stage = {}
     sprite_list = []
     lists = result["visualStages"]
-    panel_width, panel_height,shiftx,shifty= get_panel_size(result)
+    panel_size,shiftx,shifty= get_panel_size(result)
     for item in lists:
         one_stage = item["visualSprites"]
         sprite_list.append(
-            transfer(one_stage, object_list, panel_width, panel_height,shiftx,shifty))
+            transfer(one_stage, object_list, panel_size,shiftx,shifty))
     final["visualStages"] = sprite_list
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
