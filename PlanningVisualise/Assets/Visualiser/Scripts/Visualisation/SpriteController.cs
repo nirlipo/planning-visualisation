@@ -142,6 +142,7 @@ namespace Visualiser
                 if (++frameCount % 60 == 0)
                 {
                     isMoving = false;
+                    UpdateRect();
                 }
             }
         }
