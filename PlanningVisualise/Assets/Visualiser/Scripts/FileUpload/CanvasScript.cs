@@ -16,16 +16,19 @@ public class CanvasScript : MonoBehaviour {
 		WWW file = new WWW (url);
 		yield return file;
         string data = file.text;
-		Debug.Log (data);
-		//Assigning file to corresponding variable
+		string name = url.Split('/')[url.Split('/').Length-1];
+		//Assigning file to corresponding variable and showing file name on UI
 		if (type == "Domain") {
 			ScenesCoordinator.Coordinator.setDomain (data);
+			domainbox.GetComponent<InputField> ().text = name;
 
 		} else if (type == "Problem") {
 			ScenesCoordinator.Coordinator.setProblem (data);
+			problembox.GetComponent<InputField> ().text = name;
 
 		} else {
 			ScenesCoordinator.Coordinator.setAnimation (data);
+			animationbox.GetComponent<InputField> ().text = name;
 
 		}
 	}
