@@ -9,7 +9,7 @@
         "key3",
         "key4",
         "key5",
-        "key6", 
+        "key6",
         "key7",
         "key8",
         "key9",
@@ -44,7 +44,7 @@
       "color": false,
       "width": 80,
       "height": 80,
-      "depth":1
+      "depth": 1
     },
     "robot": {
       "prefabImage": "robot",
@@ -54,12 +54,12 @@
       "color": {
         "r": 1,
         "g": 1,
-        "b": 0,
+        "b": 1,
         "a": 1
       },
       "width": 40,
       "height": 40,
-      "depth":2
+      "depth": 2
     },
     "triangle": {
       "prefabImage": "triangle",
@@ -85,12 +85,12 @@
       "width": 20,
       "height": 20,
       "color": {
-        "r": 0.368,
-        "g": 0.227,
-        "b": 0.168,
+        "r": 0.08,
+        "g": 0.647,
+        "b": 0.858,
         "a": 1
       },
-      "depth":3
+      "depth": 3
     }
   },
   "predicates_rules": {
@@ -101,7 +101,12 @@
       "rule1": {
         "0": "color",
         "value": {
-          "equal": {"r": 1,"g": 0,"b": 0, "a": 1}
+          "equal": {
+            "r": 0.98,
+            "g": 0.635,
+            "b": 0.709,
+            "a": 1
+          }
         }
       }
     },
@@ -112,7 +117,12 @@
       "rule1": {
         "0": "color",
         "value": {
-          "equal":  {"r": 0,"g": 1,"b": 0, "a": 1}
+          "equal": {
+            "r": 0.69,
+            "g": 0.776,
+            "b": 0.392,
+            "a": 1
+          }
         }
       }
     },
@@ -148,15 +158,35 @@
       "rule1": {
         "0": "x",
         "1": "x",
+        "require": {
+          "0": [
+            "width",
+            "height"
+          ],
+          "1": [
+            "x",
+            "y"
+          ]
+        },
         "value": {
-          "equal": "1"
+          "function": "distribute_vertical"
         }
       },
       "rule2": {
         "0": "y",
         "1": "y",
+        "require": {
+          "0": [
+            "width",
+            "height"
+          ],
+          "1": [
+            "x",
+            "y"
+          ]
+        },
         "value": {
-          "equal": "1"
+          "function": "distribute_vertical"
         }
       }
     },
@@ -197,14 +227,20 @@
         "0": "x",
         "1": "x",
         "value": {
-          "equal": "1"
+          "add": [
+            "1",
+            10
+          ]
         }
       },
       "rule2": {
         "0": "y",
         "1": "y",
         "value": {
-          "equal": "1"
+          "add": [
+            "1",
+            5
+          ]
         }
       }
     },

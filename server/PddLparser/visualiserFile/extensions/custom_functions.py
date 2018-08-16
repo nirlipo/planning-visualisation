@@ -19,8 +19,9 @@ def init_space(size):
     return space
 
 
-def distributex(obj, space, spacebtw, width, remove):
+def distributex(obj, gspace, spacebtw, width, remove):
     """The function return the x location of object of an given space"""
+    space=gspace["distributex"]
     if not remove:
         if obj in space:
             objindex = space.index(obj)
@@ -77,3 +78,31 @@ def draw_line(x1,y1,x2,y2,name):
     line["name"]=name
     line["depth"]=0
     return line
+
+def distribute_vertical(obj,node,colcount,axis,gspace,padding=5):
+    
+    objname=obj["name"]
+    nodename=node["name"]
+    space=gspace["distribute_vertical"]
+    if nodename not in space:
+        space[nodename]=[0]
+    if axis =="x":#x axis
+        if objname in space[nodename]:
+            objindex = space[nodename].index(objname)
+            return node["x"]+int(objindex/colcount)*obj["width"]+padding
+        else:
+            for num, value in enumerate(space[nodename]):
+                if num == value:
+                    space[nodename][num] = objname
+                    space[nodename].append(num+1)
+                    return node["x"]+int(num/colcount)*obj["width"]+padding
+    else: #y axis
+        if objname in space[nodename]:
+            objindex = space[nodename].index(objname)
+            return node["y"]+(objindex%colcount)*obj["height"]+padding
+        else:
+            for num, value in enumerate(space[nodename]):
+                if num == value:
+                    space[nodename][num] = objname
+                    space[nodename].append(num+1)
+                    return node["y"]+(num%colcount)*obj["height"]+padding

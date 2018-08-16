@@ -131,6 +131,10 @@ def applypredicates(predicate,
                 elif value["function"] == "distribute_grid_around_pointy":
                     objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointy(
                         left, 1,100)
+                elif value["function"] == "distribute_vertical":
+                    node=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
+                    
             elif "equal" in value:
                 right_value = value["equal"]
                 if type(right_value) is not dict:#for color dic
@@ -372,7 +376,9 @@ def get_visualisation_json(predicates, animation_profile):
     predicates_rules = animation_profile["predicates_rules"]
     objects_dic = initialise_objects(object_list, animation_profile)
     add_fixed_objects(objects_dic, animation_profile)
-    space = custom_functions.init_space(len(object_list))
+    space ={}
+    space["distributex"]=custom_functions.init_space(len(object_list))
+    space["distribute_vertical"]={}
     result = solve_all_stages(stages, objects_dic, predicates_rules, space)
 
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile)
