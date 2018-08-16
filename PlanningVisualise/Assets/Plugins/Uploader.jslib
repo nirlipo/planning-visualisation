@@ -9,6 +9,7 @@ var UploaderPlugin = {
         this.value = null;
       };
       fileInput.onchange = function (event) {
+        SendMessage('Canvas', 'SetFileName',event.target.files[0].name);
         SendMessage('Canvas', 'FileSelected', URL.createObjectURL(event.target.files[0]));
       }
       document.body.appendChild(fileInput);
