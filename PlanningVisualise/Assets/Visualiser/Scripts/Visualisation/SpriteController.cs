@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 
 namespace Visualiser
 {
@@ -125,6 +126,78 @@ namespace Visualiser
             {
                 ani.SetTrigger("Show");
             }
+        }
+
+        bool isMoving = false;
+        RectTransform rectTran;
+        Vector2 minOffset;
+        Vector2 maxOffset;
+        int frameCount = 0;
+        private void Update()
+        {
+            if (isMoving)
+            {
+                rectTran.anchorMin = rectTran.anchorMin - minOffset * Time.deltaTime;
+                rectTran.anchorMax = rectTran.anchorMax - maxOffset * Time.deltaTime;
+                if (++frameCount % 60 == 0)
+                {
+                    isMoving = false;
+                }
+            }
+        }
+
+        public void MoveToNewPosition()
+        {
+            isMoving = true;
+
+            rectTran = gameObject.GetComponent<RectTransform>();
+            var vecMin = new Vector2(visualSprite.minX, visualSprite.minY);
+            var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
+            minOffset = rectTran.anchorMin - vecMin;
+            maxOffset = rectTran.anchorMax - vecMax;
+
+            //var rectTran = gameObject.GetComponent<RectTransform>();
+            //var moveAni = gameObject.GetComponent<Animation>();
+            //if (moveAni == null)
+            //{
+            //    moveAni = gameObject.AddComponent<Animation>();
+            //}
+            //var minX = rectTran.anchorMin.x;
+            //var minY = rectTran.anchorMin.y;
+            //var maxX = rectTran.anchorMax.x;
+            //var maxY = rectTran.anchorMax.y;
+
+            //var curveMinX = AnimationCurve.Linear(0f, minX, 1f, visualSprite.minX);
+            //var curveMinY = AnimationCurve.Linear(0f, minY, 1f, visualSprite.minY);
+            //var curveMaxX = AnimationCurve.Linear(0f, maxX, 1f, visualSprite.maxX);
+            //var curveMaxY = AnimationCurve.Linear(0f, maxY, 1f, visualSprite.maxY);
+
+            //var clipMinX = new AnimationClip();
+            //clipMinX.legacy = true;
+            //clipMinX.SetCurve("", typeof(RectTransform), "anchorMin.x", curveMinX);
+
+            //var clipMinY = new AnimationClip();
+            //clipMinY.legacy = true;
+            //clipMinY.SetCurve("", typeof(RectTransform), "anchorMin.y", curveMinY);
+
+            //var clipMaxX = new AnimationClip();
+            //clipMaxX.legacy = true;
+            //clipMaxX.SetCurve("", typeof(RectTransform), "anchorMax.x", curveMaxX);
+
+            //var clipMaxY = new AnimationClip();
+            //clipMaxY.legacy = true;
+            //clipMaxY.SetCurve("", typeof(RectTransform), "anchorMax.y", curveMaxY);
+
+            //moveAni.AddClip(clipMinX, "MoveMinX");
+            //moveAni.AddClip(clipMinX, "MoveMinY");
+            //moveAni.AddClip(clipMinX, "MoveMaxX");
+            //moveAni.AddClip(clipMinX, "MoveMaxY");
+            //moveAni.playAutomatically = false;
+
+            //moveAni.Play("MoveMinX");
+            //moveAni.Play("MoveMinY");
+            //moveAni.Play("MoveMaxX");
+            //moveAni.Play("MoveMaxY");
         }
 
     }

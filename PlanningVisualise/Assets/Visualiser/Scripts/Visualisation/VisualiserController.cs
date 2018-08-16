@@ -20,7 +20,6 @@ namespace Visualiser
         VisualSolutionObject visualSolution;
 
         public GameObject AniFrameOne;
-        public GameObject AniFrameTwo;
 
         GameObject presentingAniPanel;
 
@@ -29,20 +28,6 @@ namespace Visualiser
         // Use this for initialization
         void Start()
         {
-            //test code
-            //var imageDict = new ImageDictionary();
-            //imageDict.Add("fwqef", "Fweg");
-            //imageDict.Add("hrtj", "67ru");
-            //imageDict.Add("gdf", "wer34");
-            //var tester = new Tester();
-            //tester.imageTable = imageDict;
-
-            //var json = JsonUtility.ToJson(tester);
-            //Debug.Log(json);
-            //var tester2 = JsonUtility.FromJson<Tester>(json);
-            //Debug.Log("test:" + tester.imageTable.Count);
-            //----
-            
             var parameters = coordinator.FetchParameters("Visualisation") as string;
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
             Debug.Log(parameters);
@@ -89,13 +74,13 @@ namespace Visualiser
 
         public void btnHelp()
         {
-
+            
             Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
         }
 
         private void Update()
         {
-            if (playing && (frameCount++ % 60 == 0))
+            if (playing && (++frameCount % 60 == 0))
             {
                 PresentNextStage();
 
@@ -131,8 +116,9 @@ namespace Visualiser
                     }
                     //Hide the changed sprite for updating
                     controller.BindVisualSpriteObject(visualSprite);
-                    controller.FadeOutForUpdate();
-                    continue;
+                    //controller.FadeOutForUpdate();
+                    controller.MoveToNewPosition();
+               
                 }
                 else
                 {
