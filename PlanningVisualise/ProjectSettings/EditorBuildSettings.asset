@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Visualiser/Scenes/NetworkError.unity
     guid: b204b4f5c4152ec44ba7b97f3ee6dc33
+  - enabled: 1
+    path: Assets/Visualiser/Scenes/Landing Page.unity
+    guid: e32e9994f064d434683ee699bda5e5c2
   m_configObjects: {}
