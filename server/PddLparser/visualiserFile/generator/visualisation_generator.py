@@ -221,7 +221,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
         predicates = stage["items"]
         solvepredicates(predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
-        if "action" not in stage:
+        if "stageName" not in stage:
             stage_dic["stageName"]="Inital Stage" 
             stage_dic["stageInfo"]="No step information"
         else:
