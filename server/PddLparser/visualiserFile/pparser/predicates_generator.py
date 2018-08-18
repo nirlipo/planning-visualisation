@@ -16,8 +16,6 @@ import problem_parser
 #######################################################
 # This function is designed to remove all the redundant characters
 # for each action in the action list, so that the action can be directly used.
-
-
 def remove_unused_char(action_list):
     """The function is to remove all the useless characters from api file.
         Args:
@@ -32,6 +30,25 @@ def remove_unused_char(action_list):
                                       + len("effect"):])
         clean_action_list.append(clearnedstr[:-1])
     return clean_action_list
+
+
+#######################################################
+# This function is designed to return the action name of the current step
+def get_action_name(current_step):
+    """The function is to remove all the useless characters from api file.
+        Args:
+            current_step: an array of the current step.
+        Returns:
+            action_name: a cleaned action name.
+    """
+    # find the predicate name
+    action = current_step[current_step.index("action")
+                                      + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
+    # find all the parameters followed by that object
+    objects = current_step[current_step.index("parameters")
+                                      + len("parameters"):current_step.index(":precondition")].rstrip()
+    action_name = action + " " + objects
+    return action_name
 
 
 #######################################################
@@ -55,18 +72,25 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     try:
         actionlist = plan['result']['plan']
     except KeyError:
-        sys.exit("No plan have been returned")
+        sys.exit("No plan has been returned")
     cleanactionlist = remove_unused_char(actionlist)
 
+    # Adding initial stage
     content = {"stages": [], "objects": objects}
-    content['stages'].append({"items": stages.copy()})
-    # 1. Go through the steps
+    content['stages'].append({
+        "items": stages.copy(),
+        "add": "",
+        "remove": "",
+        "stageName": "Initial Stage",
+        "stageInfo": "No Step Information"
+        })
     for counter in range(0, len(actionlist)):
         checklist = []
         init_object_list = problem_parser.get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
+        action_name = ""
 
-        # 2. Find the difference between 2 steps
+        # 1. Find the difference between 2 steps
         addactionlistarr = []
         removeactionlistarr = []
         for var in checklist:
@@ -81,10 +105,23 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         for rmvar in removeactionlistarr:
             stages.remove(rmvar)
 
+        # 2.
+        # Get the action name of this step from the plan
+        action_name = get_action_name(actionlist[counter]['action'])
+
         # 3.
+        # Get the step information about the current step
+        # Replacing \n with \r\n in order to display it correctly
+        step_info_with_padding = actionlist[counter]['action'].replace("\n", "\r\n")
+        step_info = step_info_with_padding[step_info_with_padding.index("(:action"):]
+
+        # 4.
         # Append everything to get the final output - content
         result = {"items": stages.copy(),
                   "add": addactionlistarr,
-                  "remove": removeactionlistarr}
+                  "remove": removeactionlistarr,
+                  "stageName": action_name,
+                  "stageInfo": step_info}
+
         content['stages'].append(result)
     return content

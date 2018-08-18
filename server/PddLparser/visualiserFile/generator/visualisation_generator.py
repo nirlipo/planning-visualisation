@@ -221,6 +221,12 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
         predicates = stage["items"]
         solvepredicates(predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
+        if "action" not in stage:
+            stage_dic["stageName"]="Inital Stage" 
+            stage_dic["stageInfo"]="No step information"
+        else:
+            stage_dic["stageName"]=stage["stageName"]
+            stage_dic["stageInfo"]=stage["stageInfo"]
         result["visualStages"].append(stage_dic)
     return result
 
@@ -337,8 +343,10 @@ def generate_visualisation_file(result, object_list,animation_profile):
     panel_size,shiftx,shifty= get_panel_size(result)
     for item in lists:
         one_stage = item["visualSprites"]
-        sprite_list.append(
-            transfer(one_stage, object_list, panel_size,shiftx,shifty))
+        transfered_stage=transfer(one_stage, object_list, panel_size,shiftx,shifty)
+        transfered_stage["stageName"]=item["stageName"]
+        transfered_stage["stageInfo"]=item["stageInfo"]
+        sprite_list.append(transfered_stage)
     final["visualStages"] = sprite_list
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
