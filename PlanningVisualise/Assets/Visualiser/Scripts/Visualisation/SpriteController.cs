@@ -137,8 +137,8 @@ namespace Visualiser
         {
             if (isMoving)
             {
-                rectTran.anchorMin = rectTran.anchorMin - minOffset * Time.deltaTime;
-                rectTran.anchorMax = rectTran.anchorMax - maxOffset * Time.deltaTime;
+                rectTran.anchorMin = rectTran.anchorMin - minOffset * 1/60;
+                rectTran.anchorMax = rectTran.anchorMax - maxOffset * 1/60;
                 if (++frameCount % 60 == 0)
                 {
                     isMoving = false;

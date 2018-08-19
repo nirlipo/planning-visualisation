@@ -28,12 +28,10 @@
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/Enum_TwoPhaseDisappearType.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/TransferFactory.cs" Line="1" Column="1" />
       <File FileName="Assets/FileLoaderSharukh.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/LoadingScreenControl.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="107" Column="41" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/ImageDictionary.cs" Line="8" Column="6" />
       <File FileName="Assets/SerializableDictionary/SerializableDictionary.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/hlpButton.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
