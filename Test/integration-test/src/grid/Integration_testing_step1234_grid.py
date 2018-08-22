@@ -24,7 +24,7 @@ class integration_testing_step123(unittest.TestCase):
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
         objectList = copy.deepcopy(stages["objects"])
         stages = copy.deepcopy(stages["stages"])
-        register = 1
+        register = 0
         for counter in range(0, len(stages)):
             if ("add" in stages[counter].keys()):
                 register += 1
