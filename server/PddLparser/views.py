@@ -2,11 +2,11 @@ from django.shortcuts import render
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/pparser"))
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/generator"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/adapter"))
 import plan_generator  # Step1: get plan from planning domain api
 import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import predicates_generator  # Step3: manipulate the predicate for each step/stage
-import visualisation_generator  # Step4. use the animation profile and stages from step3 to get the visualisation file
+import transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
 import domain_parser
 import json
 import io
@@ -49,7 +49,7 @@ class FileUploadView(APIView):
         problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
         stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
         # A file called visualistaion.json will be generated in the folder if successful
-        final = visualisation_generator.get_visualisation_json(stages,animation_file)
+        final = transfer.get_visualisation_json(stages,animation_file)
         return Response(final)
     
 

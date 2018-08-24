@@ -2,6 +2,11 @@
 import urllib.request
 import json
 
+#######################################################
+# Input File: A domain file
+# Input File: A problem file
+# Output : A valid plan will be returned from the planning.domain website
+#######################################################
 
 def get_plan(domain_file, problem_file):
     """This function will send the domain and problem pddl to the planning.domains

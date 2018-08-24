@@ -1,12 +1,11 @@
+"""This module is designed to help with getting a valid plan for the given problem/domain"""
 import re
-
-
-#######################################################
-# Input File: domain file
-# Output : all predicates in the domain
-#######################################################
 import sys
 
+#######################################################
+# Input File: A domain file
+# Output : All the predicates in the given domain.pddl file
+#######################################################
 
 def get_domain_json(file_name):
     PredicateList = ""

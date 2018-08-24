@@ -5,7 +5,7 @@ import sys
 import pparser.plan_generator  # Step1: get plan from planning domain api
 import pparser.problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
-import generator.visualisation_generator  # Step4. use the animation profile and stages from step3 to get the visualisation file
+import adapter.transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
 import pparser.domain_parser  # Step3: extract all the available predicates from problem.pddl
 import json
 
@@ -29,6 +29,6 @@ def get_visualisation_file():
     predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
     problem_json = pparser.problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
     stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
-    generator.visualisation_generator.get_visualisation_json(stages, animation_profile)
+    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile)))
 if __name__ == "__main__":
     get_visualisation_file()

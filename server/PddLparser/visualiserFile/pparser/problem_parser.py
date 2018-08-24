@@ -5,6 +5,7 @@ import re
 # Input File: domain file
 # Output : predicates for INIT stage and GOAL stage
 #######################################################
+
 def get_object_list(predicates_lists,str_init):
     init_condition = []
     for k, v in predicates_lists.items():
