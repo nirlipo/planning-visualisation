@@ -4,6 +4,8 @@ using System;
 
 namespace Visualiser
 {
+	/* This class contains information of an individual object at a stage in the Visualisation file,
+	 * this including its name, image, and location*/
     [Serializable]
     public class VisualSpriteObject
     {
@@ -17,7 +19,7 @@ namespace Visualiser
         public float maxY;
         public float rotate;
         public int depth;
-
+		// checking if the given VisualSpriteObject is same as this class
         public bool ContentsEqual(VisualSpriteObject vso)
         {
             return name == vso.name && prefabImage == vso.prefabImage

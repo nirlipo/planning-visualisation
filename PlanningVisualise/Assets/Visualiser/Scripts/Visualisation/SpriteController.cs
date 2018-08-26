@@ -7,6 +7,8 @@ using UnityEngine.Animations;
 
 namespace Visualiser
 {
+	/* The SpriteController is associated with each single VisualSpriteObject in the current problem,
+	 * it controls the sprite's animation and updating its information at each visualstage.*/
     public class SpriteController : MonoBehaviour
     {
 
@@ -17,17 +19,17 @@ namespace Visualiser
         bool willDestory;
 
         public event EventHandler OnDestory;
-
+		// link to the given animator
         void Awake()
         {
             ani = gameObject.GetComponent<Animator>();
         }
-
+		// Associate this controller with the given VisualSpriteObject
         public void BindVisualSpriteObject(VisualSpriteObject visualSpriteObject)
         {
             visualSprite = visualSpriteObject;
         }
-
+		// Checking if the VisualSpriteObject changed from its previous stored information
         public bool IsVisualSpriteObjectChanged(VisualSpriteObject vso)
         {
             return !visualSprite.ContentsEqual(vso);
@@ -65,7 +67,7 @@ namespace Visualiser
             canvasGroup.alpha = 0;
 
         }
-
+		// updating the sprite objects information
         void UpdateRect()
         {
             var newAnchorMin = new Vector2(visualSprite.minX, visualSprite.minY);
@@ -92,28 +94,28 @@ namespace Visualiser
             var canvas = GetComponent<Canvas>();
             canvas.overrideSorting = true;
         }
-
+		// play the animation of fade out and hide the sprite object
         public void FadeOutForUpdate()
         {
             ani.SetTrigger("Hide");
         }
-
+		// play the animation of fade out and detroy the sprite object next
         public void FadeOutForDestory()
         {
             ani.SetTrigger("Destory");
             willDestory = true;
         }
-
+		// play the animation of fade in and show the sprite object
         public void FadeInForUpdate()
         {
             ani.SetTrigger("Show");
         }
-
+		// Reset the animator "Show" trigger to default
         public void OnFadeInFinished()
         {
             ani.ResetTrigger("Show");
         }
-
+		// Reset the animator "Hide" triggerto default and detroy the sprite object if it is set to destroy
         public void OnFadeOutFinished()
         {
             ani.ResetTrigger("Hide");
@@ -149,7 +151,7 @@ namespace Visualiser
                 }
             }
         }
-
+		// set the next timestep position of the sprite object
         public void MoveToNewPosition()
         {
             isMoving = true;
@@ -159,49 +161,6 @@ namespace Visualiser
             var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
             minOffset = rectTran.anchorMin - vecMin;
             maxOffset = rectTran.anchorMax - vecMax;
-
-            //var rectTran = gameObject.GetComponent<RectTransform>();
-            //var moveAni = gameObject.GetComponent<Animation>();
-            //if (moveAni == null)
-            //{
-            //    moveAni = gameObject.AddComponent<Animation>();
-            //}
-            //var minX = rectTran.anchorMin.x;
-            //var minY = rectTran.anchorMin.y;
-            //var maxX = rectTran.anchorMax.x;
-            //var maxY = rectTran.anchorMax.y;
-
-            //var curveMinX = AnimationCurve.Linear(0f, minX, 1f, visualSprite.minX);
-            //var curveMinY = AnimationCurve.Linear(0f, minY, 1f, visualSprite.minY);
-            //var curveMaxX = AnimationCurve.Linear(0f, maxX, 1f, visualSprite.maxX);
-            //var curveMaxY = AnimationCurve.Linear(0f, maxY, 1f, visualSprite.maxY);
-
-            //var clipMinX = new AnimationClip();
-            //clipMinX.legacy = true;
-            //clipMinX.SetCurve("", typeof(RectTransform), "anchorMin.x", curveMinX);
-
-            //var clipMinY = new AnimationClip();
-            //clipMinY.legacy = true;
-            //clipMinY.SetCurve("", typeof(RectTransform), "anchorMin.y", curveMinY);
-
-            //var clipMaxX = new AnimationClip();
-            //clipMaxX.legacy = true;
-            //clipMaxX.SetCurve("", typeof(RectTransform), "anchorMax.x", curveMaxX);
-
-            //var clipMaxY = new AnimationClip();
-            //clipMaxY.legacy = true;
-            //clipMaxY.SetCurve("", typeof(RectTransform), "anchorMax.y", curveMaxY);
-
-            //moveAni.AddClip(clipMinX, "MoveMinX");
-            //moveAni.AddClip(clipMinX, "MoveMinY");
-            //moveAni.AddClip(clipMinX, "MoveMaxX");
-            //moveAni.AddClip(clipMinX, "MoveMaxY");
-            //moveAni.playAutomatically = false;
-
-            //moveAni.Play("MoveMinX");
-            //moveAni.Play("MoveMinY");
-            //moveAni.Play("MoveMaxX");
-            //moveAni.Play("MoveMaxY");
         }
 
     }

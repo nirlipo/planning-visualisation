@@ -37,6 +37,7 @@ public class CanvasScript : MonoBehaviour {
 		
 		StartCoroutine(LoadTexture (url));
 	}
+	//Getting the file name
 	void SetFileName(string name){
 		this.name = name;
 	}

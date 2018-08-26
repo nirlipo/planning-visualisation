@@ -4,14 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
-
+// This class control the animation of visualisation file
 namespace Visualiser
 {
-    [Serializable]
-    public class Tester 
-    {
-        public ImageDictionary imageTable;
-    }
 
     public class VisualiserController : MonoBehaviour
     {
@@ -37,41 +32,43 @@ namespace Visualiser
             var visualStage = visualSolution.NextStage();
             RenderFrame(visualStage);
         }
-
+		// Play the next step animation
         public void PresentNextStage()
         {
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
         }
-
+		// Play the previous step animation
         public void PresentPreviousStage()
         {
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
         }
+		// Play the current step animation
         public void PresentCurrent(int i)
         {
             var stages = visualSolution.visualStages;
             TryRenderFrame(stages[i]);
         }
 
+		// Reset the stage and play the animation to the initial step
         public void ResetStage()
         {
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
-
+		// starting auto playing
         public void Play()
         {
             playing = true;
         }
-
+		// stop auto playing
         public void Pasue()
         {
             playing = false;
             frameCount = 0;
         }
-
+		// Used by the help button to open the tutorial URL
         public void btnHelp()
         {
             
@@ -89,7 +86,7 @@ namespace Visualiser
 
         int frameCount = 0;
         bool playing;
-
+		// Check if the there exist the stage
         private void TryRenderFrame(VisualStageObject visualStage)
         {
             if (visualStage != null)
@@ -98,7 +95,7 @@ namespace Visualiser
             }
         }
 
-
+		// Play the animation of the stage
         private void RenderFrame(VisualStageObject visualStage)
         {
             //Render all visual sprite objects of current visual stage
