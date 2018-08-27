@@ -8,7 +8,7 @@ sys.path.append('../../../../server/PddLparser/visualiserFile/')
 import pparser.plan_generator as step1
 import pparser.problem_parser as step2
 import pparser.predicates_generator as step3
-import generator.visualisation_generator as step4
+import adapter.transfer as step4
 import pparser.domain_parser as dom_par
 import copy
 
