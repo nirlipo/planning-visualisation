@@ -1,4 +1,17 @@
 """This module is designed to help with getting a list of predicates for INIT and GOAL states"""
+
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Gang CHEN
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh
+#-- Group    : Planning Visualisation
+#-- Date     : 23/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 import re
 # This python file aims to finish step 3 in our solution
 #######################################################

@@ -1,4 +1,16 @@
 """This module is designed to help with initialising the given objects"""
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh
+#-- Group    : Planning Visualisation
+#-- Date     : 27/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 
 import os
 import sys

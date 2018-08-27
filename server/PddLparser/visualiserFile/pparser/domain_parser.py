@@ -1,4 +1,16 @@
 """This module is designed to help with getting a valid plan for the given problem/domain"""
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh, Gang chen
+#-- Group    : Planning Visualisation
+#-- Date     : 23/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 import re
 import sys
 
