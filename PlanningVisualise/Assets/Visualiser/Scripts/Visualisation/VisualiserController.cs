@@ -1,96 +1,104 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 
 namespace Visualiser
 {
-    [Serializable]
-    public class Tester 
-    {
-        public ImageDictionary imageTable;
-    }
-
+    /*
+     * The controller of the entire visualisation
+     * It manages the solution file and all visual objects in every stage
+     */
     public class VisualiserController : MonoBehaviour
     {
-        ScenesCoordinator coordinator = ScenesCoordinator.Coordinator;
+        // Editor interface
+        public GameObject AniFrame;
 
-        VisualSolutionObject visualSolution;
+        // Private fields
+        ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
+        VisualSolutionObject visualSolution; // Contains all the information of a solution
+        Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>(); // Visible objects pool
 
-        public GameObject AniFrameOne;
-
-        GameObject presentingAniPanel;
-
-        Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>();
+        int frameCount = 0; // Indicates the progress of an animation
+        bool playing;   // Indicates if palying animation
 
         // Use this for initialization
         void Start()
         {
+            // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
+            // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
             Debug.Log(parameters);
             Debug.Log("transferType" + visualSolution.transferType);
-
-            presentingAniPanel = AniFrameOne;
+            // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
             RenderFrame(visualStage);
         }
 
+#region UI event handlers
+        // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
         }
 
+        // UI event handler: Presents the contents of previous stage
         public void PresentPreviousStage()
         {
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
         }
+
+        // UI event handler: Presents the contents of current stage
         public void PresentCurrent(int i)
         {
             var stages = visualSolution.visualStages;
             TryRenderFrame(stages[i]);
         }
 
+        // UI event handler: Cleans up visualisation states and goes back to the first stage
         public void ResetStage()
         {
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
 
+        // UI event handler: Plays visualisation (animation)
         public void Play()
         {
             playing = true;
         }
 
+        // UI event handler: Pasues visualisation (animation), but all states are remained
         public void Pasue()
         {
             playing = false;
             frameCount = 0;
         }
 
+        // UI event handler: Jumps to user manual page 
         public void btnHelp()
         {
-            
+
             Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
         }
+#endregion
 
-        private void Update()
+        // Unity built-in method, it will be fired in every frame
+        void Update()
         {
+            // Plays animation
             if (playing && (++frameCount % 60 == 0))
             {
                 PresentNextStage();
-
             }
         }
 
-        int frameCount = 0;
-        bool playing;
-
-        private void TryRenderFrame(VisualStageObject visualStage)
+        // Renders a frame if it is not null
+        void TryRenderFrame(VisualStageObject visualStage)
         {
             if (visualStage != null)
             {
@@ -98,13 +106,13 @@ namespace Visualiser
             }
         }
 
-
-        private void RenderFrame(VisualStageObject visualStage)
+        // Renders a frame (stage), all visible objects will be drawn on the screen in this process
+        void RenderFrame(VisualStageObject visualStage)
         {
             //Render all visual sprite objects of current visual stage
             foreach (var visualSprite in visualStage.visualSprites)
             {
-                //Check existing sprites
+                //Check existin
                 if (spritePool.ContainsKey(visualSprite.name))
                 {
                     var sprite = spritePool[visualSprite.name];
@@ -120,7 +128,11 @@ namespace Visualiser
                     controller.MoveToNewPosition();
                
                 }
-                else
+                /*
+                 * This part should be refactored in order to achieve better OO design
+                 * Some code placed here are for temporary experiments
+                 */
+                else 
                 {
                     //Create a new sprite if it does not exist
                     GameObject sprite;
@@ -155,7 +167,7 @@ namespace Visualiser
                     var controller = sprite.GetComponent<SpriteController>();
                     controller.BindVisualSpriteObject(visualSprite);
                     controller.Init();
-                    sprite.transform.SetParent(presentingAniPanel.transform, false);
+                    sprite.transform.SetParent(AniFrame.transform, false);
                     spritePool.Add(sprite.name, sprite);
                     controller.FadeInForUpdate();
                 }

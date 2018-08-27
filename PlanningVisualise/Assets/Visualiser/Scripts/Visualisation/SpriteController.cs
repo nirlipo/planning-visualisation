@@ -1,44 +1,53 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Animations;
 
 namespace Visualiser
 {
+    /*
+     * The controller of a visual sprite
+     * It controls how to render a specific visible object on the screen
+     */
     public class SpriteController : MonoBehaviour
     {
 
-        VisualSpriteObject visualSprite;
+        VisualSpriteObject visualSprite; // The game object this script binding to
+        Animator animator; // An animator use to control animations
+        bool willDestory; // Indicates whether the object should be destroyed
+        public event EventHandler OnDestory; // Trigged when the object is going to be destroyed
 
-        Animator ani;
+        bool isMoving = false;  // Indicates whether the object is moving
+        RectTransform rectTran; // A reference to the RectTransform component of the object
+        Vector2 minOffset;  // Offsets of minX and minY
+        Vector2 maxOffset;  // Offsets of maxX and maxX
+        int frameCount = 0; // Indicates the progess of animation
 
-        bool willDestory;
-
-        public event EventHandler OnDestory;
-
+        // Unity built-in method, fired when the script is initialised
         void Awake()
         {
-            ani = gameObject.GetComponent<Animator>();
+            animator = gameObject.GetComponent<Animator>();
         }
 
+        // Binds this script to a visual sprite object
         public void BindVisualSpriteObject(VisualSpriteObject visualSpriteObject)
         {
             visualSprite = visualSpriteObject;
         }
 
+        // Exams whether the binding object has changed
         public bool IsVisualSpriteObjectChanged(VisualSpriteObject vso)
         {
             return !visualSprite.ContentsEqual(vso);
         }
 
+        // Starts rendering, this method is called by the VisualiserController
         public void Init()
         {
+            // Sets up size, position and rotation
             UpdateRect();
-            //set sprite name
+            // Sets sprite name
             gameObject.name = visualSprite.name;
-            //render name text on sprite
+            // Renders name text on the sprite
             if (visualSprite.showName)
             {
                 var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
@@ -57,15 +66,15 @@ namespace Visualiser
                 spriteName.transform.SetParent(gameObject.transform, false);
 
             }
-            //set sprite colour
+            // Sets sprite colour
             var image = gameObject.GetComponent<Image>();
             image.color = visualSprite.color;
-            //set default opacity of sprite
+            // Sets default opacity of sprite
             var canvasGroup = gameObject.GetComponent<CanvasGroup>();
             canvasGroup.alpha = 0;
-
         }
 
+        // Updates the size, position and rotation of the sprite
         void UpdateRect()
         {
             var newAnchorMin = new Vector2(visualSprite.minX, visualSprite.minY);
@@ -79,62 +88,19 @@ namespace Visualiser
             transform.SetSiblingIndex(visualSprite.depth);
             //set rotate
             rectTransform.rotation = Quaternion.Euler(0, 0, visualSprite.rotate);
-            //update color
-            var imgComp = gameObject.GetComponent<Image>();
-            imgComp.color = visualSprite.color;
-
-
-
         }
 
-        private void Start()
+        // Unity built-in method, it is fired when the script starts running
+        void Start()
         {
             var canvas = GetComponent<Canvas>();
             canvas.overrideSorting = true;
         }
 
-        public void FadeOutForUpdate()
+        // Unity built-in method, it is fired in every frame
+        void Update()
         {
-            ani.SetTrigger("Hide");
-        }
-
-        public void FadeOutForDestory()
-        {
-            ani.SetTrigger("Destory");
-            willDestory = true;
-        }
-
-        public void FadeInForUpdate()
-        {
-            ani.SetTrigger("Show");
-        }
-
-        public void OnFadeInFinished()
-        {
-            ani.ResetTrigger("Show");
-        }
-
-        public void OnFadeOutFinished()
-        {
-            ani.ResetTrigger("Hide");
-            UpdateRect();
-            if (willDestory)
-            {
-                OnDestory?.Invoke(this, null);
-            }
-            else
-            {
-                ani.SetTrigger("Show");
-            }
-        }
-
-        bool isMoving = false;
-        RectTransform rectTran;
-        Vector2 minOffset;
-        Vector2 maxOffset;
-        int frameCount = 0;
-        private void Update()
-        {
+            // Updates animation
             if (isMoving)
             {
                 rectTran.anchorMin = rectTran.anchorMin - minOffset * 1/60;
@@ -142,14 +108,14 @@ namespace Visualiser
                 if (++frameCount % 60 == 0)
                 {
                     isMoving = false;
-                    //UpdateRect();
-                    //update color
+                    // Updates color
                     var imgComp = gameObject.GetComponent<Image>();
                     imgComp.color = visualSprite.color;
                 }
             }
         }
 
+        // Calculates the transition offets and starts the animation
         public void MoveToNewPosition()
         {
             isMoving = true;
@@ -159,50 +125,44 @@ namespace Visualiser
             var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
             minOffset = rectTran.anchorMin - vecMin;
             maxOffset = rectTran.anchorMax - vecMax;
-
-            //var rectTran = gameObject.GetComponent<RectTransform>();
-            //var moveAni = gameObject.GetComponent<Animation>();
-            //if (moveAni == null)
-            //{
-            //    moveAni = gameObject.AddComponent<Animation>();
-            //}
-            //var minX = rectTran.anchorMin.x;
-            //var minY = rectTran.anchorMin.y;
-            //var maxX = rectTran.anchorMax.x;
-            //var maxY = rectTran.anchorMax.y;
-
-            //var curveMinX = AnimationCurve.Linear(0f, minX, 1f, visualSprite.minX);
-            //var curveMinY = AnimationCurve.Linear(0f, minY, 1f, visualSprite.minY);
-            //var curveMaxX = AnimationCurve.Linear(0f, maxX, 1f, visualSprite.maxX);
-            //var curveMaxY = AnimationCurve.Linear(0f, maxY, 1f, visualSprite.maxY);
-
-            //var clipMinX = new AnimationClip();
-            //clipMinX.legacy = true;
-            //clipMinX.SetCurve("", typeof(RectTransform), "anchorMin.x", curveMinX);
-
-            //var clipMinY = new AnimationClip();
-            //clipMinY.legacy = true;
-            //clipMinY.SetCurve("", typeof(RectTransform), "anchorMin.y", curveMinY);
-
-            //var clipMaxX = new AnimationClip();
-            //clipMaxX.legacy = true;
-            //clipMaxX.SetCurve("", typeof(RectTransform), "anchorMax.x", curveMaxX);
-
-            //var clipMaxY = new AnimationClip();
-            //clipMaxY.legacy = true;
-            //clipMaxY.SetCurve("", typeof(RectTransform), "anchorMax.y", curveMaxY);
-
-            //moveAni.AddClip(clipMinX, "MoveMinX");
-            //moveAni.AddClip(clipMinX, "MoveMinY");
-            //moveAni.AddClip(clipMinX, "MoveMaxX");
-            //moveAni.AddClip(clipMinX, "MoveMaxY");
-            //moveAni.playAutomatically = false;
-
-            //moveAni.Play("MoveMinX");
-            //moveAni.Play("MoveMinY");
-            //moveAni.Play("MoveMaxX");
-            //moveAni.Play("MoveMaxY");
         }
+
+        #region Fade in/out animation methods
+        public void FadeOutForUpdate()
+        {
+            animator.SetTrigger("Hide");
+        }
+
+        public void FadeOutForDestory()
+        {
+            animator.SetTrigger("Destory");
+            willDestory = true;
+        }
+
+        public void FadeInForUpdate()
+        {
+            animator.SetTrigger("Show");
+        }
+
+        public void OnFadeInFinished()
+        {
+            animator.ResetTrigger("Show");
+        }
+
+        public void OnFadeOutFinished()
+        {
+            animator.ResetTrigger("Hide");
+            UpdateRect();
+            if (willDestory)
+            {
+                OnDestory?.Invoke(this, null);
+            }
+            else
+            {
+                animator.SetTrigger("Show");
+            }
+        }
+        #endregion
 
     }
 }
