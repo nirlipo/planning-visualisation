@@ -132,23 +132,23 @@ namespace Visualiser
         {
             animator.SetTrigger("Hide");
         }
-
+		// play the animation of fade out and detroy the sprite object next
         public void FadeOutForDestory()
         {
             animator.SetTrigger("Destory");
             willDestory = true;
         }
-
+		// play the animation of fade in and show the sprite object
         public void FadeInForUpdate()
         {
             animator.SetTrigger("Show");
         }
-
+		// Reset the animator "Show" trigger to default
         public void OnFadeInFinished()
         {
             animator.ResetTrigger("Show");
         }
-
+		// Reset the animator "Hide" triggerto default and detroy the sprite object if it is set to destroy
         public void OnFadeOutFinished()
         {
             animator.ResetTrigger("Hide");
