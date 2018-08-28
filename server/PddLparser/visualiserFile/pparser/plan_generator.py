@@ -1,4 +1,16 @@
 """This module is responsible to get the planning result from other planning solver"""
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Gang chen
+#-- Group    : Planning Visualisation
+#-- Date     : 23/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 import urllib.request
 import json
 

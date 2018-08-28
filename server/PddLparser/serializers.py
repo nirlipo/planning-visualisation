@@ -1,3 +1,15 @@
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Gang chen
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh
+#-- Group    : Planning Visualisation
+#-- Date     : 27/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 from rest_framework import serializers
 from PddLparser.models import PDDL
 

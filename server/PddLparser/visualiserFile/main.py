@@ -1,6 +1,18 @@
 """This module intergrate all the other module, it takes the domain PDDL, problem PDDL, and 
 animation profile, and it write the visualisation file to visualsation.json.
 """
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh
+#-- Group    : Planning Visualisation
+#-- Date     : 27/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 import sys
 import pparser.plan_generator  # Step1: get plan from planning domain api
 import pparser.problem_parser  # Step2: parse problem pddl, to get the inital and goal stage

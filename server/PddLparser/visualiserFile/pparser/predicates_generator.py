@@ -1,4 +1,16 @@
 """This module is designed to help with getting a list of steps for Step3 to use"""
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Gang CHEN
+#-- Group    : Planning Visualisation
+#-- Date     : 13/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sharukh
+#-- Group    : Planning Visualisation
+#-- Date     : 23/August/2018
+#-- Version  : 1.0
+#--------------------------------------------------------------------------------
 import re
 import sys
 import os
