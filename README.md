@@ -2,6 +2,7 @@
 
 This is an internal project. The client needs a tool to help them visualise AI planning solution. The tool will enable creates, views and exports animation.
 
+
 # How to Edit Scene
 
 Open Planning Visualisation folder as an Unity workspace. Drag scenes file to the Hierarchy to start editing the GameObjects in the scene, Scene files are under the Scene folders
@@ -24,3 +25,6 @@ After the module is loaded, in Files -> Build Setting, select WebGL and click Pl
 as our template, and click Build and Run in the Build Setting window and select the Built file location. This may take a while, after it is finished, the Browser will open the First Scene
 of the project. Later, unless we have a new built, we can go to the directory of the built and open the index.html. Notice that Chrome will not allowed to open html file locally, so better
 to set up a server or using other Browser to open the index.html.
+
+See the User Guide pdf to get started.
+
