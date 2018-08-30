@@ -13,6 +13,7 @@ namespace Visualiser
         public VisualStageObject[] visualStages;
         public int transferType;
         public ImageDictionary imageTable;
+        public int numberOfStages;
 
         int stageIndex = -1;
 
@@ -34,7 +35,7 @@ namespace Visualiser
                 return visualStages[++stageIndex];
             }
             else
-            {
+            {   
                 return null;
             }
         }
@@ -57,6 +58,16 @@ namespace Visualiser
         {
             stageIndex = -1;
             return NextStage();
+        }
+        // Get current index
+        public int getCurrentStage()
+        {
+            return ++stageIndex;
+        }
+       
+        public int getTotalStages()
+        {
+            return visualStages.Length;
         }
     }
 }

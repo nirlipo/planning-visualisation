@@ -9,5 +9,19 @@ namespace Visualiser
     public class VisualStageObject
     {
         public VisualSpriteObject[] visualSprites;
+        public string stageName;
+        public string stageInfo;
+
+
+        public string getStageName()
+        {
+            return stageName;
+        }
+        public string getStageInfo()
+        {
+            return stageInfo;
+        }
     }
+
+
 }

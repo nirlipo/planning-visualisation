@@ -13,7 +13,7 @@ namespace Visualiser
     {
         // Editor interface
         public GameObject AniFrame;
-
+        public GameObject InforScreen;
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
         VisualSolutionObject visualSolution; // Contains all the information of a solution
@@ -21,12 +21,19 @@ namespace Visualiser
 
         int frameCount = 0; // Indicates the progress of an animation
         bool playing;   // Indicates if palying animation
+        
+        // dynamic interface
+
+        public GameObject buttonPrefab;
+        public Transform stepPanel;
 
         // Use this for initialization
+
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
+
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
             Debug.Log(parameters);
@@ -34,14 +41,46 @@ namespace Visualiser
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
             RenderFrame(visualStage);
+            RenderSteps(visualSolution);
+            RenderInformationFrame(visualStage);
         }
 
-#region UI event handlers
+        private void RenderSteps(VisualSolutionObject visualSolution)
+        {
+            int numberOfSteps = visualSolution.getTotalStages();
+            Debug.Log(numberOfSteps);
+            for (int i = 0; i< numberOfSteps; i++)
+            {
+                
+                string stepName = visualSolution.visualStages[i].getStageName();
+                GameObject button = (GameObject)Instantiate(buttonPrefab);
+                button.GetComponentInChildren<Text>().text = stepName;
+                button.GetComponent<Button>().onClick.AddListener(
+                    () => { PresentSelectedStage(i); }
+                    );
+                button.transform.parent = stepPanel;
+            }
+        }
+
+//      #region UI event handlers
+
+        // UI event handler: Presents the contents of selected stage
+
+        public void PresentSelectedStage(int stage)
+        {
+            var visualStage = visualSolution.visualStages[stage];
+            TryRenderFrame(visualStage);
+            TryRenderInformationFrame(visualStage);
+        }
+
         // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
+            TryRenderInformationFrame(visualStage);
+
+
         }
 
         // UI event handler: Presents the contents of previous stage
@@ -49,6 +88,7 @@ namespace Visualiser
         {
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
+            TryRenderInformationFrame(visualStage);
         }
 
         // UI event handler: Presents the contents of current stage
@@ -56,6 +96,8 @@ namespace Visualiser
         {
             var stages = visualSolution.visualStages;
             TryRenderFrame(stages[i]);
+            TryRenderInformationFrame(stages[i]);
+           
         }
 
         // UI event handler: Cleans up visualisation states and goes back to the first stage
@@ -84,7 +126,7 @@ namespace Visualiser
 
             Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
         }
-#endregion
+//  #endregion
 
         // Unity built-in method, it will be fired in every frame
         void Update()
@@ -103,6 +145,30 @@ namespace Visualiser
             {
                 RenderFrame(visualStage);
             }
+        }
+
+        void TryRenderInformationFrame(VisualStageObject visualStage)
+        {
+            if (visualStage != null)
+            {
+                RenderInformationFrame(visualStage);
+            }
+        }
+        //Render a frame (stage), stage information of given stage is rendered
+        void RenderInformationFrame(VisualStageObject visualStage)
+        {
+            string emptyString = "";
+            String stepInformation = visualStage.getStageInfo();
+            if (stepInformation == null || stepInformation.Equals(emptyString))
+            {
+                InforScreen.GetComponentInChildren<Text>().text = "No Step Informattion available";
+            }
+
+            else
+            {
+                InforScreen.GetComponentInChildren<Text>().text = stepInformation;
+            }
+
         }
 
         // Renders a frame (stage), all visible objects will be drawn on the screen in this process
