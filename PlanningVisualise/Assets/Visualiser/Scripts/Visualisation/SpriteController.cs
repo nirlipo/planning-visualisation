@@ -21,11 +21,14 @@ namespace Visualiser
         Vector2 minOffset;  // Offsets of minX and minY
         Vector2 maxOffset;  // Offsets of maxX and maxX
         int frameCount = 0; // Indicates the progess of animation
-
+		double framepersecond = 60;
+		GameObject speedbar;
+		double framspeed = 1;
         // Unity built-in method, fired when the script is initialised
         void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
+
         }
 
         // Binds this script to a visual sprite object
@@ -43,6 +46,7 @@ namespace Visualiser
         // Starts rendering, this method is called by the VisualiserController
         public void Init()
         {
+			speedbar = GameObject.Find ("Slider");
             // Sets up size, position and rotation
             UpdateRect();
             // Sets sprite name
@@ -103,9 +107,13 @@ namespace Visualiser
             // Updates animation
             if (isMoving)
             {
-                rectTran.anchorMin = rectTran.anchorMin - minOffset * 1/60;
-                rectTran.anchorMax = rectTran.anchorMax - maxOffset * 1/60;
-                if (++frameCount % 60 == 0)
+				float speed = speedbar.GetComponent<Slider> ().value;
+				int rev_speed_per_sec =  (int)(60/speed);
+				var vecMin = new Vector2(visualSprite.minX, visualSprite.minY);
+				var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
+				rectTran.anchorMin = Vector2.MoveTowards (rectTran.anchorMin, vecMin, speed * Time.deltaTime);// - minOffset * 1/rev_speed_per_sec;
+				rectTran.anchorMax = Vector2.MoveTowards (rectTran.anchorMax, vecMax, speed * Time.deltaTime);//rectTran.anchorMax - maxOffset * 1/rev_speed_per_sec;
+				if (rectTran.anchorMin.Equals(vecMin) && rectTran.anchorMax.Equals(vecMax))//++frameCount % rev_speed_per_sec == 0)
                 {
                     isMoving = false;
                     // Updates color
@@ -114,7 +122,9 @@ namespace Visualiser
                 }
             }
         }
-
+		public bool moving(){
+			return isMoving;
+		}
         // Calculates the transition offets and starts the animation
         public void MoveToNewPosition()
         {

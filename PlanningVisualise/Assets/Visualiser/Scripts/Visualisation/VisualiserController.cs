@@ -14,6 +14,8 @@ namespace Visualiser
         // Editor interface
         public GameObject AniFrame;
         public GameObject InforScreen;
+		public GameObject Speedbar;
+
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
         VisualSolutionObject visualSolution; // Contains all the information of a solution
@@ -127,12 +129,19 @@ namespace Visualiser
             Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
         }
 //  #endregion
-
+		bool Allstop(){
+			foreach (GameObject spriteobject in spritePool.Values) {
+				if (spriteobject.GetComponent<SpriteController> ().moving ()) {
+					return false;
+				}
+			}
+			return true;
+		}
         // Unity built-in method, it will be fired in every frame
         void Update()
         {
             // Plays animation
-            if (playing && (++frameCount % 60 == 0))
+			if (playing && Allstop())
             {
                 PresentNextStage();
             }
