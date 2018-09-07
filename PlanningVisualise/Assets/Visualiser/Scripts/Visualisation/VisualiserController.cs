@@ -27,7 +27,7 @@ namespace Visualiser
         // dynamic interface
 
         public GameObject buttonPrefab;
-        public Transform stepPanel;
+        public GameObject stepPanel;
 
         // Use this for initialization
 
@@ -55,13 +55,28 @@ namespace Visualiser
             {
                 
                 string stepName = visualSolution.visualStages[i].getStageName();
+                // Create Step button
                 GameObject button = (GameObject)Instantiate(buttonPrefab);
-                button.GetComponentInChildren<Text>().text = stepName;
+                // Attach button to Step panel
+                button.transform.SetParent(stepPanel.transform);
+                // Add Stage name as child component of button
+                button.GetComponentInChildren<Text>().text = i+"."+stepName;
                 button.GetComponent<Button>().onClick.AddListener(
-                    () => { PresentSelectedStage(i); }
+                        
+                            () => { PresentSelectedStage(tokenizerToGetIndex(button.GetComponentInChildren<Text>().text)); }
+
                     );
-                button.transform.parent = stepPanel;
+                
             }
+        }
+
+        private int tokenizerToGetIndex(string indexedStepName)
+        {
+            int index = 0;
+
+            
+            string[] tokens = indexedStepName.Split('.');
+            return Int32.TryParse(tokens[0], out index);
         }
 
 //      #region UI event handlers
