@@ -1,5 +1,6 @@
 
 
+
 # 1 Purpose
 
 This document explains the functioning of the Visualisation File Generator (VFG) for the purposes of development. For deployment and the user guide, see README.md.
@@ -41,7 +42,7 @@ To build the VFG, see README.md
 ### Overall Architecture:
 
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg_overview.png?at=65e3dd12425df98ae934c6aadeef30498d32b132" alt="drawing" width="2000"/>
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg_overview.png?at=65e3dd12425df98ae934c6aadeef30498d32b132)
  
 
 # 4 Components
@@ -49,7 +50,7 @@ To build the VFG, see README.md
 
 ## 4.1 Parser 
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/parser.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069">
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/parser.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
 Here is the code structure of parser. The **Parser component** gets domain PDDL file, problem PDDL file, animation PDDL file and plan PDDL file and parsers these files into**predicates list** and **animation profile json** to feed **Solver component**.
 
@@ -75,11 +76,11 @@ def get_domain_json(file_name):
 Here is an example of the **output**:
 ```
 {
-	"on": 2,
-	"on-table": 1,
-	"clear": 1,
-	"arm-free": 0,
-	"holding": 1
+    "on": 2,
+    "on-table": 1,
+    "clear": 1,
+    "arm-free": 0,
+    "holding": 1
 }
 ```
   
@@ -107,43 +108,43 @@ def get_problem_json(file_name, predicates_lists):
 Here is an example of the **output**:
 ```
 [{
-	"init": [{
-		"name": "on",
-		"objectNames": ["c", "b"]
-	}, {
-		"name": "on-table",
-		"objectNames": ["a"]
-	}, {
-		"name": "on-table",
-		"objectNames": ["b"]
-	}, {
-		"name": "on-table",
-		"objectNames": ["d"]
-	}, {
-		"name": "clear",
-		"objectNames": ["a"]
-	}, {
-		"name": "clear",
-		"objectNames": ["c"]
-	}, {
-		"name": "clear",
-		"objectNames": ["d"]
-	}, {
-		"name": "arm-free",
-		"objectNames": ["No objects"]
-	}]
+    "init": [{
+        "name": "on",
+        "objectNames": ["c", "b"]
+    }, {
+        "name": "on-table",
+        "objectNames": ["a"]
+    }, {
+        "name": "on-table",
+        "objectNames": ["b"]
+    }, {
+        "name": "on-table",
+        "objectNames": ["d"]
+    }, {
+        "name": "clear",
+        "objectNames": ["a"]
+    }, {
+        "name": "clear",
+        "objectNames": ["c"]
+    }, {
+        "name": "clear",
+        "objectNames": ["d"]
+    }, {
+        "name": "arm-free",
+        "objectNames": ["No objects"]
+    }]
 }, {
-	"goal": [{
-		"name": "on",
-		"objectNames": ["a", "b"]
-	}, {
-		"name": "on",
-		"objectNames": ["b", "c"]
-	}, {
-		"name": "on",
-		"objectNames": ["c", "d"]
-	}],
-	"goal-condition": ["and"]
+    "goal": [{
+        "name": "on",
+        "objectNames": ["a", "b"]
+    }, {
+        "name": "on",
+        "objectNames": ["b", "c"]
+    }, {
+        "name": "on",
+        "objectNames": ["c", "d"]
+    }],
+    "goal-condition": ["and"]
 }]
 ```
   
@@ -171,7 +172,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
 
 ### 4.2.1 Overview
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/predicate_solver.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069">
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/predicate_solver.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
 Here is the code structure of solver. This module will generate the visualisation file by using the predicates of all stages and animation profile.
 
@@ -188,7 +189,7 @@ This module will generate the visualisation file by using the predicates of all 
 
 Here is the algorithm diagram of our constraint solver:
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/constraint_solver.jpg?at=770fa03adeb19f41dc64bf3a4415897e93cab069">
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/constraint_solver.jpg?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
 Here is the link for this diagram: [https://www.draw.io/#G12sCLukE55c_9VOKCJZqUiMh7OWFeaAXJ](https://www.draw.io/#G12sCLukE55c_9VOKCJZqUiMh7OWFeaAXJ)
 
@@ -200,7 +201,7 @@ For instance, here are the predicates that need to be solved:
 ```
 In the predicates, the object ahead is the object to be solved and the object behind is the predefined object. To calculate the position of "c", we must know the position of "b". Similarly, to calculate the position of "b", we must know the position of "a". From (on-table a), we can know the position of a, so "b" is solved and then "c" is solved. The diagram below shows how the objects are referenced.
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/reference.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069">
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/reference.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
   
 
@@ -346,7 +347,7 @@ a.y = 0
 ```
 ## 4.3 Adaptor 
 
-<img src="https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/adapter.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069">
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/adapter.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
 Here is the code structure of adapter. This component transfers the result generated by Predicate Solver into the final visualisation file.
 
@@ -405,6 +406,20 @@ These functions are the main functions of this module,they will call the other f
 
   
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
