@@ -80,6 +80,9 @@ To add a new domain:
 
 Planning Visualiser is modular and can be extended in multiple ways.
 
+![Overview](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg_overview.png?at=65e3dd12425df98ae934c6aadeef30498d32b132)
+
+
 Many simple domains can be captured in the existing Animation Profile language. For more complex domains, modifications may need to be made to the application. These are detailed as follows:
 
 ## 4.2 Extending the Visualisation File Generator
