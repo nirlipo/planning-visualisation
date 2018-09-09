@@ -125,7 +125,7 @@ def get_panel_size(result, padding=20):
     return max(max_x, max_y) + 2 * padding, abs(min_x), abs(min_y)
 
 
-def generate_visualisation_file(result, object_list,animation_profile):
+def generate_visualisation_file(result, object_list,animation_profile,subgoals):
     """This function generates the visualisation file.
     Args:
         result(Dict): the dict to be converted.
@@ -136,6 +136,7 @@ def generate_visualisation_file(result, object_list,animation_profile):
     sprite_list = []
     lists = result["visualStages"]
     panel_size,shiftx,shifty= get_panel_size(result)
+    # print(lists)
     for item in lists:
         one_stage = item["visualSprites"]
         transfered_stage=transfer(one_stage, object_list, panel_size,shiftx,shifty)
@@ -143,9 +144,10 @@ def generate_visualisation_file(result, object_list,animation_profile):
         transfered_stage["stageInfo"]=item["stageInfo"]
         sprite_list.append(transfered_stage)
     final["visualStages"] = sprite_list
+    final["subgoals"] = copy.deepcopy(subgoals)
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
-
+    # print(transfered_stage["subgoal"])
     return final
 
 def get_visualisation_json(predicates, animation_profile):
@@ -161,6 +163,9 @@ def get_visualisation_json(predicates, animation_profile):
 
     object_list = copy.deepcopy(predicates["objects"])
     stages = copy.deepcopy(predicates["stages"])
+    subgoals = copy.deepcopy(predicates["subgoals"])
+    # print(predicates["subgoals"])
+    # print("test")
     predicates_rules = animation_profile["predicates_rules"]
     objects_dic = initialise.initialise_objects(object_list, animation_profile)
     solver.add_fixed_objects(objects_dic, animation_profile)
@@ -170,4 +175,4 @@ def get_visualisation_json(predicates, animation_profile):
     # result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space)
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, object_list)
 
-    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile)
+    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,subgoals)

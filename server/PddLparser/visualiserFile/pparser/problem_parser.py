@@ -69,6 +69,7 @@ def get_problem_json(file_name, predicates_lists):
     # Get GOAL
     str_goal = str_file[str_file.index("goal"):]
     goal_object_list = get_object_list(predicates_lists, str_goal)
+
     goal_data_object = {"goal": goal_object_list, "goal-condition": ["and"]}
 
     # Get Result

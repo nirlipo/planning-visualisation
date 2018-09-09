@@ -198,19 +198,28 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
     """
     result = {}
     result["visualStages"] = []
+    sublist = []
+    index = 0
     for stage in stages:
+
         stage_dic = {}
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
         solvepredicates(predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:
-            stage_dic["stageName"]="Inital Stage" 
+            stage_dic["stageName"]="Inital Stage"
             stage_dic["stageInfo"]="No step information"
+            stage_dic["subgoal"] = ""
         else:
             stage_dic["stageName"]=stage["stageName"]
             stage_dic["stageInfo"]=stage["stageInfo"]
+
+
         result["visualStages"].append(stage_dic)
+        index = index +1
+
+
     return result
 
 
