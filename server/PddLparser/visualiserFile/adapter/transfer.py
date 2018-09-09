@@ -17,7 +17,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
 import initialise
 import solver
-
+import json
 
 # This python file aims to finish step 4 in our solution
 #######################################################
@@ -26,7 +26,7 @@ import solver
 # Output : Visualisation File
 #######################################################
 
-def transfer(one_stage, initialobjects, panel_size,shiftx,shifty, padding=20):
+def transfer(one_stage, initialobjects, panel_size,shift, padding=20):
     """This function converts the dictionary into the info needed in visualisation file.
     Args:
         one_stage(Dict): a dictionary contains the locaiton of objects for one stage/step
@@ -64,10 +64,10 @@ def transfer(one_stage, initialobjects, panel_size,shiftx,shifty, padding=20):
             width = panel_size - 2 * padding
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
-        min_x = (x_num + padding+shiftx) / panel_size
-        max_x = (x_num+shiftx + width + padding) / panel_size
-        min_y = (y_num+shifty+padding) / panel_size
-        max_y = (y_num +shifty+ height+padding) / panel_size
+        min_x = (x_num + padding+shift) / panel_size
+        max_x = (x_num+shift + width + padding) / panel_size
+        min_y = (y_num+shift+padding) / panel_size
+        max_y = (y_num +shift+ height+padding) / panel_size
         position_dic["minX"] = round(min_x, 3)
         position_dic["maxX"] = round(max_x, 3)
         position_dic["minY"] = round(min_y, 3)
@@ -122,8 +122,9 @@ def get_panel_size(result, padding=20):
                     max_y = new_y
                 if y < min_y:
                     min_y = y
-    return max(max_x, max_y) + 2 * padding, abs(min_x), abs(min_y)
-
+    shift=max(abs(min_x), abs(min_y))
+    panel_size=max(max_x, max_y)+ shift+ 2 * padding
+    return panel_size, shift
 
 def generate_visualisation_file(result, object_list,animation_profile,subgoals):
     """This function generates the visualisation file.
@@ -135,11 +136,11 @@ def generate_visualisation_file(result, object_list,animation_profile,subgoals):
     one_stage = {}
     sprite_list = []
     lists = result["visualStages"]
-    panel_size,shiftx,shifty= get_panel_size(result)
+    panel_size,shift= get_panel_size(result)
     # print(lists)
     for item in lists:
         one_stage = item["visualSprites"]
-        transfered_stage=transfer(one_stage, object_list, panel_size,shiftx,shifty)
+        transfered_stage=transfer(one_stage, object_list, panel_size,shift)
         transfered_stage["stageName"]=item["stageName"]
         transfered_stage["stageInfo"]=item["stageInfo"]
         sprite_list.append(transfered_stage)
@@ -164,15 +165,15 @@ def get_visualisation_json(predicates, animation_profile):
     object_list = copy.deepcopy(predicates["objects"])
     stages = copy.deepcopy(predicates["stages"])
     subgoals = copy.deepcopy(predicates["subgoals"])
-    # print(predicates["subgoals"])
-    # print("test")
     predicates_rules = animation_profile["predicates_rules"]
     objects_dic = initialise.initialise_objects(object_list, animation_profile)
     solver.add_fixed_objects(objects_dic, animation_profile)
-    # space ={}
-    # space["distributex"]=custom_functions.init_space(len(object_list))
-    # space["distribute_vertical"]={}
-    # result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space)
-    result = solver.solve_all_stages(stages, objects_dic, predicates_rules, object_list)
+
+    space = {}
+    space["distributex"] = {}
+    space["distribute_vertical"] = {}
+    space["apply_smaller"] = {}
+    space["distribute_horizontal"] = {}
+    result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space)
 
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,subgoals)

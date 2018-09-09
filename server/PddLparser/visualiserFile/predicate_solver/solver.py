@@ -113,7 +113,17 @@ def applypredicates(predicate,
                 elif value["function"] == "distribute_vertical":
                     node=objects[1]
                     objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
-                    
+                elif value["function"] == "apply_smaller":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.apply_smaller(objects_dic[left],objects_dic[obj2],10,space)
+                elif value["function"] == "shiftx":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.shiftx(objects_dic[left],objects_dic[obj2])
+                elif value["function"] == "distributey":
+                    objects_dic[left][propertyname]= custom_functions.distributey(objects_dic[left],50)      
+                elif value["function"] == "distribute_horizontal":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.distribute_horizontal(objects_dic[left],objects_dic[obj2],space) 
             elif "equal" in value:
                 right_value = value["equal"]
                 if type(right_value) is not dict:#for color dic
@@ -151,7 +161,7 @@ def applypredicates(predicate,
                     objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
 
 
-def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
+def solvepredicates(predicates, objects_dic, predicates_rules, space):
     """This function will pop an predicate from a list of predicates, and try to solve
     it, the predicate will be put back to the predicates list if it can not be solved at
     one turn. The funtion will return true if all the predicates has been solved.
@@ -163,16 +173,13 @@ def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
               that in the space.
 
     """
-    space = {}
-    space["distributex"] = custom_functions.init_space(len(object_list))
-    space["distribute_vertical"] = {}
-
     i=0
     while (predicates and i<2000):
         predicate = predicates.pop(0)
         if predicate["name"] not in predicates_rules:
             continue
         if check_rule_complete(predicate, objects_dic, predicates_rules):
+            space["apply_smaller"]={} #For hanoi problem, reset each stage
             applypredicates(predicate, objects_dic, predicates_rules, space)
         else:
             if not predicates:  # if the last predicate can not be solved
@@ -180,6 +187,19 @@ def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
             predicates.append(predicate)
         i+=1
     return True
+
+
+def keysort(name,predicates_rules):
+    if name in predicates_rules:
+        if "priority" in predicates_rules[name]:
+            return predicates_rules[name]["priority"]
+        else:
+            return 10
+    else:
+        return 10
+def priority(predicates,predicates_rules):
+
+    return sorted(predicates, key=lambda k: keysort(k["name"],predicates_rules))
 
 
 def solve_all_stages(stages, objects_dic, predicates_rules, space):
@@ -205,7 +225,8 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
         stage_dic = {}
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
-        solvepredicates(predicates, object_dic_copy, predicates_rules, space)
+        sorted_predicates=priority(predicates,predicates_rules)
+        solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:
             stage_dic["stageName"]="Inital Stage"

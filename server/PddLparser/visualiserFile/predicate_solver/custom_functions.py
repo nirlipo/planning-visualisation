@@ -20,22 +20,13 @@ import numpy as np
 
 __all__ = ['init_space', 'distributex','distribute_grid_around_pointx']
 
-def init_space(size):
-    """The funtion initialise an space for distributex function
-    Args:
-        size(int): the max number of item in space
-    Returns:
-        space: an array of integer
-    """
-    space = []
-    for i in range(size):
-        space.append(i)
-    return space
-
 
 def distributex(obj, gspace, spacebtw, width, remove):
     """The function return the x location of object of an given space"""
     space=gspace["distributex"]
+    if not space:
+        gspace["distributex"]=[0]
+        space=gspace["distributex"]
     if not remove:
         if obj in space:
             objindex = space.index(obj)
@@ -44,6 +35,7 @@ def distributex(obj, gspace, spacebtw, width, remove):
             for num, value in enumerate(space):
                 if num == value:
                     space[num] = obj
+                    space.append(num+1)
                     return num * (width + spacebtw)
     else:
         if obj in space:
@@ -51,6 +43,14 @@ def distributex(obj, gspace, spacebtw, width, remove):
             space[objindex] = objindex
             return True
     return False
+def distributey(obj,spacebtw):
+    """The function return the x location of object of an given space"""
+    objname=obj["name"]
+    height=obj["height"]
+    row=int(re.findall('\d+',objname)[0])
+
+    return row*(height+spacebtw)
+
 
 def distribute_grid_around_pointx(obj,rowindex,margin):
     row=int(re.findall('\d+',obj)[rowindex])
@@ -120,3 +120,48 @@ def distribute_vertical(obj,node,colcount,axis,gspace,padding=5):
                     space[nodename][num] = objname
                     space[nodename].append(num+1)
                     return node["y"]+(num%colcount)*obj["height"]+padding
+def distribute_horizontal(obj,parent,gspace,padding=40):
+    
+    objname=obj["name"]
+    parentname=parent["name"]
+    space=gspace["distribute_horizontal"]
+    if parentname not in space:
+        space[parentname]=[0]
+    if objname in space[parentname]:
+        objindex = space[parentname].index(objname)
+        return parent["x"]+objindex*(obj["width"]+padding)
+    else:
+        for num, value in enumerate(space[parentname]):
+            if num == value:
+                space[parentname][num] = objname
+                space[parentname].append(num+1)
+                return parent["x"]+num*(obj["width"]+padding)
+def apply_smaller(obj1,obj2,increase_width,gspace):
+    obj1name=obj1["name"]
+    obj2name=obj2["name"]
+    #remove the digital char
+    obj1type=''.join(filter(lambda x: x.isalpha(), obj1name))
+    obj2type=''.join(filter(lambda x: x.isalpha(), obj2name))
+    space=gspace["apply_smaller"]
+    
+    if obj1type==obj2type:
+        if obj1name not in space:
+            space[obj1name]=1
+        else:
+            space[obj1name]=space[obj1name]+1
+        return obj1["width"]+space[obj1name]*increase_width
+    else:
+        return obj1["width"]
+        
+def shiftx(obj1,obj2):
+    obj1name=obj1["name"]
+    obj2name=obj2["name"]
+    #remove the digital char
+    obj1type=''.join(filter(lambda x: x.isalpha(), obj1name))
+    obj2type=''.join(filter(lambda x: x.isalpha(), obj2name))
+    # space=gspace["apply_smaller"]
+    
+    # if obj1type==obj2type:
+    #     return obj2["x"]+(obj2["width"]-obj1["width"])/2
+    # else:
+    return obj2["x"]+(obj2["width"]-obj1["width"])/2
