@@ -190,6 +190,9 @@ def solvepredicates(predicates, objects_dic, predicates_rules, space):
 
 
 def keysort(name,predicates_rules):
+    """This funtion will return weight for each predicates, default 10(not important).
+    """
+
     if name in predicates_rules:
         if "priority" in predicates_rules[name]:
             return predicates_rules[name]["priority"]
@@ -198,7 +201,8 @@ def keysort(name,predicates_rules):
     else:
         return 10
 def priority(predicates,predicates_rules):
-
+    """This funtion will return sorted predicates based on the priority point
+    """
     return sorted(predicates, key=lambda k: keysort(k["name"],predicates_rules))
 
 
