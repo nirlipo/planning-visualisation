@@ -1,3 +1,19 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: The controller of the entire visualisation [********Important file**********]
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * Reviewers: Sharukh, Gang and May
+ * Review date: 10/09/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
+
+
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -14,7 +30,7 @@ namespace Visualiser
         // Editor interface
         public GameObject AniFrame;
         public GameObject InforScreen;
-		public GameObject Speedbar;
+        public GameObject Speedbar;
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
@@ -23,7 +39,7 @@ namespace Visualiser
 
         int frameCount = 0; // Indicates the progress of an animation
         bool playing;   // Indicates if palying animation
-        
+
         // dynamic interface
 
         public GameObject buttonPrefab;
@@ -51,22 +67,22 @@ namespace Visualiser
         {
             int numberOfSteps = visualSolution.getTotalStages();
             Debug.Log(numberOfSteps);
-            for (int i = 0; i< numberOfSteps; i++)
+            for (int i = 0; i < numberOfSteps; i++)
             {
-                
+
                 string stepName = visualSolution.visualStages[i].getStageName();
                 // Create Step button
                 GameObject button = (GameObject)Instantiate(buttonPrefab);
                 // Attach button to Step panel
                 button.transform.SetParent(stepPanel.transform);
                 // Add Stage name as child component of button
-                button.GetComponentInChildren<Text>().text = i+"."+stepName;
+                button.GetComponentInChildren<Text>().text = i + "." + stepName;
                 button.GetComponent<Button>().onClick.AddListener(
-                        
+
                             () => { PresentSelectedStage(tokenizerToGetIndex(button.GetComponentInChildren<Text>().text)); }
 
                     );
-                
+
             }
         }
 
@@ -74,12 +90,12 @@ namespace Visualiser
         {
             int index = 0;
 
-            
+
             string[] tokens = indexedStepName.Split('.');
             return Int32.TryParse(tokens[0], out index);
         }
 
-//      #region UI event handlers
+        //      #region UI event handlers
 
         // UI event handler: Presents the contents of selected stage
 
@@ -114,7 +130,7 @@ namespace Visualiser
             var stages = visualSolution.visualStages;
             TryRenderFrame(stages[i]);
             TryRenderInformationFrame(stages[i]);
-           
+
         }
 
         // UI event handler: Cleans up visualisation states and goes back to the first stage
@@ -143,20 +159,23 @@ namespace Visualiser
 
             Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
         }
-//  #endregion
-		bool Allstop(){
-			foreach (GameObject spriteobject in spritePool.Values) {
-				if (spriteobject.GetComponent<SpriteController> ().moving ()) {
-					return false;
-				}
-			}
-			return true;
-		}
+        //  #endregion
+        bool Allstop()
+        {
+            foreach (GameObject spriteobject in spritePool.Values)
+            {
+                if (spriteobject.GetComponent<SpriteController>().moving())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         // Unity built-in method, it will be fired in every frame
         void Update()
         {
             // Plays animation
-			if (playing && Allstop())
+            if (playing && Allstop())
             {
                 PresentNextStage();
             }
@@ -215,13 +234,13 @@ namespace Visualiser
                     controller.BindVisualSpriteObject(visualSprite);
                     //controller.FadeOutForUpdate();
                     controller.MoveToNewPosition();
-               
+
                 }
                 /*
                  * This part should be refactored in order to achieve better OO design
                  * Some code placed here are for temporary experiments
                  */
-                else 
+                else
                 {
                     //Create a new sprite if it does not exist
                     GameObject sprite;

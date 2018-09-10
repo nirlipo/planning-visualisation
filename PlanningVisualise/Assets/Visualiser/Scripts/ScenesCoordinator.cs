@@ -1,3 +1,16 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: The scenes coordinator manages parameters that are passing through different scenes
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * Reviewers: Sharukh, Gang and May
+ * Review date: 10/09/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
 /* The scenes coordinator manages parameters that are passing through different scenes, including
  * all the uploaded files and the visualisation file*/
 using UnityEngine;
