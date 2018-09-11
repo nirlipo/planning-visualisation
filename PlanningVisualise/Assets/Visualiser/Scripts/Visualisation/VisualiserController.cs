@@ -36,6 +36,7 @@ namespace Visualiser
         public GameObject InforScreen;
         public GameObject Speedbar;
         public GameObject stepButtonPrefab;
+        
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
@@ -124,21 +125,13 @@ namespace Visualiser
         {
             int lastStageNumber = visualSolution.getTotalStages() - 1;
             var stages = visualSolution.visualStages;
-            int saveStageState = getCurrentStageIndex();
-            setCurrentStageIndex(lastStageNumber);
-            Pasue();
+            
+
+            
             TryRenderFrame(stages[lastStageNumber]);
             TryRenderInformationFrame(stages[lastStageNumber]);
-            Stopwatch s = new Stopwatch();
-            s.Start();
-            while (s.Elapsed < TimeSpan.FromSeconds(600))
-            {
-                //just wait
-            }
 
-            s.Stop();
-            PresentCurrent(saveStageState);
-
+                       
 
         }
         // UI event handler: Presents the contents of next stage
@@ -169,6 +162,18 @@ namespace Visualiser
             TryRenderInformationFrame(stages[i]);
 
         }
+
+        // UI event handler: Presents the contents of current stage
+        public void PresentCurrentSavedState()
+        {
+            int index = getCurrentStageIndex();
+            Pasue();
+            var stages = visualSolution.visualStages;
+            TryRenderFrame(stages[index]);
+            TryRenderInformationFrame(stages[index]);
+
+        }
+
 
         // UI event handler: Cleans up visualisation states and goes back to the first stage
         public void ResetStage()

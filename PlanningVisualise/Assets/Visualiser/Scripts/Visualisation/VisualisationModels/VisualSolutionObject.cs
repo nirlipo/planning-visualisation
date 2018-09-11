@@ -82,6 +82,11 @@ namespace Visualiser
         {
             return ++stageIndex;
         }
+
+        public void setCurrentStage(int index)
+        {
+            stageIndex = index;
+        }
        
         public int getTotalStages()
         {
