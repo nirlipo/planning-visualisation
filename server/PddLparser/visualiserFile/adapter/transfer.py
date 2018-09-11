@@ -126,7 +126,7 @@ def get_panel_size(result, padding=20):
     panel_size=max(max_x, max_y)+ shift+ 2 * padding
     return panel_size, shift
 
-def generate_visualisation_file(result, object_list,animation_profile):
+def generate_visualisation_file(result, object_list,animation_profile,actionlist):
     """This function generates the visualisation file.
     Args:
         result(Dict): the dict to be converted.
@@ -137,15 +137,21 @@ def generate_visualisation_file(result, object_list,animation_profile):
     sprite_list = []
     lists = result["visualStages"]
     panel_size,shift= get_panel_size(result)
-    # print(lists)
+    index = 0
     for item in lists:
         one_stage = item["visualSprites"]
         transfered_stage=transfer(one_stage, object_list, panel_size,shift)
         transfered_stage["stageName"]=item["stageName"]
         transfered_stage["stageInfo"]=item["stageInfo"]
+        if (index == len(actionlist)):
+            transfered_stage["isFinal"] = "true"
+        else:
+            transfered_stage["isFinal"] = "false"
         sprite_list.append(transfered_stage)
+        index = index + 1
     final["visualStages"] = sprite_list
-    final["subgoals"] = generate_subgoal(result["subgoals"])
+    final["subgoalPool"] = generate_subgoal(result["subgoals"])["subgoalPool"]
+    final["subgoalMap"] = generate_subgoal(result["subgoals"])["subgoalMap"]
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
     # print(generate_subgoal(result["subgoals"]))
@@ -186,7 +192,8 @@ def dedupe(items):
     return result
 
 def generate_subgoal(subgoals):
-    # print(dedupe(subgoals))
+    """This function transfers the subgoal structure into the final one
+    """
     m_keys = []
     m_values = []
     for subgoal in dedupe(subgoals):
@@ -238,4 +245,4 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     space["distribute_horizontal"] = {}
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
-    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile)
+    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)
