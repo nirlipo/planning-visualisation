@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using System.Collections;
 namespace Visualiser
 {
     /*
@@ -31,6 +32,7 @@ namespace Visualiser
         public GameObject AniFrame;
         public GameObject InforScreen;
         public GameObject Speedbar;
+        public GameObject stepButtonPrefab;
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
@@ -42,8 +44,10 @@ namespace Visualiser
 
         // dynamic interface
 
-        public GameObject buttonPrefab;
-        public GameObject stepPanel;
+        
+        public SimpleObjectPool buttonObjectPool;
+        public Transform stepPanel;
+
 
         // Use this for initialization
 
@@ -61,51 +65,59 @@ namespace Visualiser
             RenderFrame(visualStage);
             RenderSteps(visualSolution);
             RenderInformationFrame(visualStage);
+            stepButtonPrefab.GetComponent<Button>().interactable = false; ;
+            
+            
         }
 
-        private void RenderSteps(VisualSolutionObject visualSolution)
+       
+
+        public void RenderSteps(VisualSolutionObject visualSolution)
         {
             int numberOfSteps = visualSolution.getTotalStages();
             Debug.Log(numberOfSteps);
             for (int i = 0; i < numberOfSteps; i++)
             {
-
-                string stepName = visualSolution.visualStages[i].getStageName();
+                int tempInt = i;
+               
                 // Create Step button
-                GameObject button = (GameObject)Instantiate(buttonPrefab);
-                // Attach button to Step panel
-                button.transform.SetParent(stepPanel.transform);
+                GameObject goButton = buttonObjectPool.GetObject();
+                goButton.transform.SetParent(stepPanel);
                 // Add Stage name as child component of button
-                button.GetComponentInChildren<Text>().text = i + "." + stepName;
-                button.GetComponent<Button>().onClick.AddListener(
+                goButton.SetActive(true);               
+                
+                var stage = visualSolution.visualStages[i].stageName;
+                goButton.GetComponentInChildren<Text>().text = i + ". " + stage;
+                Button tempButton = goButton.GetComponent<Button>();
+                
 
-                            () => { PresentSelectedStage(tokenizerToGetIndex(button.GetComponentInChildren<Text>().text)); }
+                tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
 
-                    );
 
             }
         }
 
-        private int tokenizerToGetIndex(string indexedStepName)
+        void ButtonClicked(int buttonNo)
         {
-            int index = 0;
-
-
-            string[] tokens = indexedStepName.Split('.');
-            return Int32.TryParse(tokens[0], out index);
+            Debug.Log("Button clicked = " + buttonNo);
+            PresentCurrent(buttonNo);
         }
+
+
 
         //      #region UI event handlers
 
-        // UI event handler: Presents the contents of selected stage
 
-        public void PresentSelectedStage(int stage)
+        // UI event handler: Presents the contents of next stage
+        public void PresentLastStage()
         {
-            var visualStage = visualSolution.visualStages[stage];
-            TryRenderFrame(visualStage);
-            TryRenderInformationFrame(visualStage);
-        }
+            int lastStageNumber = visualSolution.getTotalStages() - 1;
+            var stages = visualSolution.visualStages;
+            TryRenderFrame(stages[lastStageNumber]);
+            TryRenderInformationFrame(stages[lastStageNumber]);
 
+
+        }
         // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {

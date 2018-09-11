@@ -69,7 +69,9 @@ namespace Visualiser
             }
         }
 
-		// Get the initial stage of the animation
+        
+
+        // Get the initial stage of the animation
         public VisualStageObject ResetStage()
         {
             stageIndex = -1;
