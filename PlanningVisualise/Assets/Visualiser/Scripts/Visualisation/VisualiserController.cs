@@ -20,6 +20,9 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using System.Collections;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
+
 namespace Visualiser
 {
     /*
@@ -58,7 +61,7 @@ namespace Visualiser
 
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
-            Debug.Log(parameters);
+            UnityEngine.Debug.Log(parameters);
             Debug.Log("transferType" + visualSolution.transferType);
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
@@ -82,7 +85,7 @@ namespace Visualiser
                
                 // Create Step button
                 GameObject goButton = buttonObjectPool.GetObject();
-                goButton.transform.SetParent(stepPanel);
+                goButton.transform.SetParent(stepPanel, false);
                 // Add Stage name as child component of button
                 goButton.SetActive(true);               
                 
@@ -103,6 +106,14 @@ namespace Visualiser
             PresentCurrent(buttonNo);
         }
 
+        void setCurrentStageIndex(int i)
+        {
+            visualSolution.setCurrentStage(i);
+        }
+        int getCurrentStageIndex()
+        {
+            return visualSolution.getCurrentStage();
+        }
 
 
         //      #region UI event handlers
@@ -113,8 +124,20 @@ namespace Visualiser
         {
             int lastStageNumber = visualSolution.getTotalStages() - 1;
             var stages = visualSolution.visualStages;
+            int saveStageState = getCurrentStageIndex();
+            setCurrentStageIndex(lastStageNumber);
+            Pasue();
             TryRenderFrame(stages[lastStageNumber]);
             TryRenderInformationFrame(stages[lastStageNumber]);
+            Stopwatch s = new Stopwatch();
+            s.Start();
+            while (s.Elapsed < TimeSpan.FromSeconds(600))
+            {
+                //just wait
+            }
+
+            s.Stop();
+            PresentCurrent(saveStageState);
 
 
         }
@@ -139,6 +162,8 @@ namespace Visualiser
         // UI event handler: Presents the contents of current stage
         public void PresentCurrent(int i)
         {
+            setCurrentStageIndex(i);
+            Pasue();
             var stages = visualSolution.visualStages;
             TryRenderFrame(stages[i]);
             TryRenderInformationFrame(stages[i]);
