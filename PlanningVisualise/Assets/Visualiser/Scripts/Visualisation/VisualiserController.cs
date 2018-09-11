@@ -22,6 +22,7 @@ using System.Linq;
 using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
+using UnityEngine.EventSystems;
 
 namespace Visualiser
 {
@@ -36,7 +37,8 @@ namespace Visualiser
         public GameObject InforScreen;
         public GameObject Speedbar;
         public GameObject stepButtonPrefab;
-        
+        public GameObject[] StepsButtons;
+
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
@@ -66,8 +68,8 @@ namespace Visualiser
             Debug.Log("transferType" + visualSolution.transferType);
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
-            RenderFrame(visualStage);
             RenderSteps(visualSolution);
+            RenderFrame(visualStage);            
             RenderInformationFrame(visualStage);
             stepButtonPrefab.GetComponent<Button>().interactable = false; ;
             
@@ -79,6 +81,7 @@ namespace Visualiser
         public void RenderSteps(VisualSolutionObject visualSolution)
         {
             int numberOfSteps = visualSolution.getTotalStages();
+            StepsButtons = new GameObject[numberOfSteps];
             Debug.Log(numberOfSteps);
             for (int i = 0; i < numberOfSteps; i++)
             {
@@ -92,13 +95,23 @@ namespace Visualiser
                 
                 var stage = visualSolution.visualStages[i].stageName;
                 goButton.GetComponentInChildren<Text>().text = i + ". " + stage;
-                Button tempButton = goButton.GetComponent<Button>();
-                
+                StepsButtons[i] = goButton;
+                Button tempButton = goButton.GetComponent<Button>();             
 
                 tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
 
 
             }
+        }
+
+
+        public void highlightButton(int index)
+        {
+            
+            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+            StepsButtons[index].GetComponent<Button>().Select();
+               
+            
         }
 
         void ButtonClicked(int buttonNo)
@@ -130,16 +143,20 @@ namespace Visualiser
             
             TryRenderFrame(stages[lastStageNumber]);
             TryRenderInformationFrame(stages[lastStageNumber]);
+            
 
-                       
+
+
 
         }
         // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {
+            
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
             TryRenderInformationFrame(visualStage);
+            
 
 
         }
@@ -147,9 +164,11 @@ namespace Visualiser
         // UI event handler: Presents the contents of previous stage
         public void PresentPreviousStage()
         {
+            
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
             TryRenderInformationFrame(visualStage);
+            
         }
 
         // UI event handler: Presents the contents of current stage
@@ -158,8 +177,10 @@ namespace Visualiser
             setCurrentStageIndex(i);
             Pasue();
             var stages = visualSolution.visualStages;
+            highlightButton(i);
             TryRenderFrame(stages[i]);
             TryRenderInformationFrame(stages[i]);
+            
 
         }
 
@@ -169,8 +190,10 @@ namespace Visualiser
             int index = getCurrentStageIndex();
             Pasue();
             var stages = visualSolution.visualStages;
-            TryRenderFrame(stages[index]);
-            TryRenderInformationFrame(stages[index]);
+
+            TryRenderFrame(stages[--index]);
+            TryRenderInformationFrame(stages[--index]);
+            setCurrentStageIndex(--index);
 
         }
 
@@ -178,6 +201,7 @@ namespace Visualiser
         // UI event handler: Cleans up visualisation states and goes back to the first stage
         public void ResetStage()
         {
+            Pasue();
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
@@ -228,6 +252,7 @@ namespace Visualiser
         {
             if (visualStage != null)
             {
+                
                 RenderFrame(visualStage);
             }
         }
@@ -259,6 +284,8 @@ namespace Visualiser
         // Renders a frame (stage), all visible objects will be drawn on the screen in this process
         void RenderFrame(VisualStageObject visualStage)
         {
+            //highlight stage object for rendering
+            highlightButton(getCurrentStageIndex());
             //Render all visual sprite objects of current visual stage
             foreach (var visualSprite in visualStage.visualSprites)
             {

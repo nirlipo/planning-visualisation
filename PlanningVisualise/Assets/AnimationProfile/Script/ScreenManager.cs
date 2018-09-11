@@ -21,7 +21,13 @@ public class ScreenManager : MonoBehaviour
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Start");
     }
-	// Load the index page scene
+    // Load the visualiser solution uploading scene 
+    public void loadVisualiseSolutionScene()
+    {
+        Destroy(GameObject.Find("Coordinator"));
+        SceneManager.LoadScene("StartSolution");
+    }
+    // Load the index page scene
     public void loadMainScene(){
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Landing Page");

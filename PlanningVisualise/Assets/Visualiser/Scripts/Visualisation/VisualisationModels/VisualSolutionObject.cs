@@ -80,7 +80,7 @@ namespace Visualiser
         // Get current index
         public int getCurrentStage()
         {
-            return ++stageIndex;
+            return stageIndex;
         }
 
         public void setCurrentStage(int index)
