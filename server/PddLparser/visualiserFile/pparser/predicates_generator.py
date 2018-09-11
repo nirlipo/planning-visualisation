@@ -99,16 +99,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         "stageName": "Initial Stage",
         "stageInfo": "No Step Information"
         })
-    stepindex = 1;
 
-    # define subgoals dict
-    subgoals = {"subgoals": []}
-
-    # subgoal = {"names":"",
-    #            "stepNum":[],
-    #            "stepName":[],
-    #            "objects": []
-    #            }
     for counter in range(0, len(actionlist)):
         init_object_list = problem_parser.get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
@@ -136,30 +127,6 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         #print(action_name)
 
 
-
-        # 3.
-        # Get the subgoal information
-        stepNum = []
-        stepNames = []
-        objectlist = []
-        # predicate in each step
-        for a in init_object_list:
-            # predicate in final step
-            if a in finalstage:
-                str = "("+ a["name"]+ " "
-                for name in a["objectNames"]:
-                    str = str + name + " "
-                    objectlist.append(name)
-                str += ")"
-
-                stepNum.append(stepindex)
-                stepNames.append(action_name)
-                sub = {"name": str, "stepNum": stepindex, "stepName": action_name, "objects":objectlist }
-
-                subgoals["subgoals"].append(sub)
-
-
-
         # 4.
         # Get the step information about the current step
         # Replacing \n with \r\n in order to display it correctly
@@ -176,42 +143,9 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
                   }
 
         content['stages'].append(result)
-        stepindex  = stepindex + 1
 
-    content["subgoals"] = subgoals["subgoals"]
-    content["subgoals"] = dedupe(content["subgoals"])
+
 
     return content
 
-
-#######################################################
-# This function is designed to combine the subgoal
-# with the same name into one dict.
-def dedupe(items):
-    """The function is to convert subgoal list into correct format
-           Args:
-               items: subgoal list
-           Returns:
-               subgoal list in correct format
-       """
-    seen = []
-    result = []
-
-    for item in items:
-        if item["name"] not in seen:
-            seen.append(item["name"])
-    # print(seen)
-    for se in seen:
-        # print (se)
-        numlist = []
-        namelist = []
-        objectlist = []
-        for item in items:
-            if item["name"] == se:
-                numlist.append(item["stepNum"])
-                namelist.append(item["stepName"])
-                objectlist = item["objects"]
-        result.append({"name":se,"stepNum":numlist,"stepName": namelist,"objects":objectlist})
-        # print(numlist)
-    return result
 

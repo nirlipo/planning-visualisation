@@ -38,6 +38,7 @@ def get_visualisation_file():
     animation_profile = json.loads(content)
 
     plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), open(problem_file, 'r').read())
+
     # print(json.dumps(plan))
     predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
     # print(json.dumps(predicates_list))
@@ -46,6 +47,6 @@ def get_visualisation_file():
     stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
     # print(stages)
-    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile)["subgoals"]))
+    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
 if __name__ == "__main__":
     get_visualisation_file()
