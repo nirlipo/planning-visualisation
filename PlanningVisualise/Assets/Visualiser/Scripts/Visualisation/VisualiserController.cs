@@ -23,6 +23,8 @@ using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using UnityEngine.EventSystems;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Visualiser
 {
@@ -33,6 +35,7 @@ namespace Visualiser
     public class VisualiserController : MonoBehaviour
     {
         // Editor interface
+        public Transform SubgoalPanel;
         public GameObject AniFrame;
         public GameObject InforScreen;
         public GameObject Speedbar;
@@ -50,13 +53,12 @@ namespace Visualiser
 
         // dynamic interface
 
-        
+
         public SimpleObjectPool buttonObjectPool;
         public Transform stepPanel;
 
 
         // Use this for initialization
-
         void Start()
         {
             // Reads visualisation file data
@@ -64,19 +66,75 @@ namespace Visualiser
 
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
+
+            // ------- json parsing work around
+            var jo = JsonConvert.DeserializeObject<Dictionary<string, object>>(parameters);
+            var smjo = JObject.FromObject(jo["subgoalMap"]);
+            var spjo = JObject.FromObject(jo["subgoalPool"]);
+            var smjs = smjo.ToString(Formatting.None);
+            var spjs = spjo.ToString(Formatting.None);
+            var sm = JsonConvert.DeserializeObject<SubgoalMapDictionary>(smjs);
+            var sp = JsonConvert.DeserializeObject<SubgoalPoolDictionary>(spjs);
+            for (var i = 0; i < sm.m_keys.Length; ++i)
+            {
+                visualSolution.subgoalMap.Add(sm.m_keys[i], sm.m_values[i]);
+            }
+            for (var i = 0; i < sp.m_keys.Length; ++i)
+            {
+                visualSolution.subgoalPool.Add(sp.m_keys[i], sp.m_values[i]);
+            }
+            // -------- 
+
+
             UnityEngine.Debug.Log(parameters);
             Debug.Log("transferType" + visualSolution.transferType);
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
+            RenderSubgoals();
             RenderSteps(visualSolution);
-            RenderFrame(visualStage);            
+            RenderFrame(visualStage);
             RenderInformationFrame(visualStage);
             stepButtonPrefab.GetComponent<Button>().interactable = false; ;
-            
-            
+
+
         }
 
-       
+        public SimpleObjectPool subgoalPool = new SimpleObjectPool();
+        public void RenderSubgoals()
+        {
+            foreach (var subgoal in visualSolution.subgoalMap)
+            {
+                var stageIndex = subgoal.Key;
+                var subgoalName = subgoal.Value;
+                GameObject subgoalBtn = subgoalPool.GetObject();
+                subgoalBtn.transform.SetParent(SubgoalPanel, false);
+
+                var btnText = stageIndex + ". ";
+                foreach (var sn in subgoalName)
+                {
+                    btnText += sn + " | ";
+                }
+                var textCompt = subgoalBtn.GetComponentInChildren<Text>();
+                textCompt.text = btnText;
+                textCompt.alignment = TextAnchor.MiddleLeft;
+                Button btnComp = subgoalBtn.GetComponent<Button>();
+                btnComp.onClick.AddListener(() =>
+                {
+                    PresentStageByIndex(stageIndex);
+                });
+
+                subgoalBtn.SetActive(true);
+            }
+        }
+
+
+        public void PresentStageByIndex(int index)
+        {
+            var stage = visualSolution.GetStageByIndex(index);
+            visualSolution.setCurrentStage(index);
+            TryRenderFrame(stage);
+            TryRenderInformationFrame(stage);
+        }
 
         public void RenderSteps(VisualSolutionObject visualSolution)
         {
@@ -86,17 +144,17 @@ namespace Visualiser
             for (int i = 0; i < numberOfSteps; i++)
             {
                 int tempInt = i;
-               
+
                 // Create Step button
                 GameObject goButton = buttonObjectPool.GetObject();
                 goButton.transform.SetParent(stepPanel, false);
                 // Add Stage name as child component of button
-                goButton.SetActive(true);               
-                
+                goButton.SetActive(true);
+
                 var stage = visualSolution.visualStages[i].stageName;
                 goButton.GetComponentInChildren<Text>().text = i + ". " + stage;
                 StepsButtons[i] = goButton;
-                Button tempButton = goButton.GetComponent<Button>();             
+                Button tempButton = goButton.GetComponent<Button>();
 
                 tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
 
@@ -107,11 +165,11 @@ namespace Visualiser
 
         public void highlightButton(int index)
         {
-            
+
             EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
             StepsButtons[index].GetComponent<Button>().Select();
-               
-            
+
+
         }
 
         void ButtonClicked(int buttonNo)
@@ -138,13 +196,11 @@ namespace Visualiser
         {
             int lastStageNumber = visualSolution.getTotalStages() - 1;
             var stages = visualSolution.visualStages;
-            
 
-            
             TryRenderFrame(stages[lastStageNumber]);
             TryRenderInformationFrame(stages[lastStageNumber]);
             highlightButton(lastStageNumber);
-            
+
 
 
 
@@ -153,11 +209,11 @@ namespace Visualiser
         // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {
-            
+
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
             TryRenderInformationFrame(visualStage);
-            
+
 
 
         }
@@ -165,11 +221,11 @@ namespace Visualiser
         // UI event handler: Presents the contents of previous stage
         public void PresentPreviousStage()
         {
-            
+
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
             TryRenderInformationFrame(visualStage);
-            
+
         }
 
         // UI event handler: Presents the contents of current stage
@@ -181,7 +237,7 @@ namespace Visualiser
             //highlightButton(i);
             TryRenderFrame(stages[i]);
             TryRenderInformationFrame(stages[i]);
-            
+
 
         }
 
@@ -239,7 +295,7 @@ namespace Visualiser
             {
                 PresentNextStage();
             }
-          
+
         }
 
         // Renders a frame if it is not null
@@ -247,7 +303,7 @@ namespace Visualiser
         {
             if (visualStage != null)
             {
-                
+
                 RenderFrame(visualStage);
             }
         }
@@ -279,6 +335,10 @@ namespace Visualiser
         // Renders a frame (stage), all visible objects will be drawn on the screen in this process
         void RenderFrame(VisualStageObject visualStage)
         {
+            //get subgoals
+            var stageIndex = visualSolution.GetCurrentStageIndex();
+            var subgoalNames = visualSolution.GetSubgoalNames(stageIndex);
+            var subgoalObjectNames = visualSolution.GetSubgoalObjectNames(stageIndex);
             //highlight stage object for rendering
             highlightButton(getCurrentStageIndex());
             //Render all visual sprite objects of current visual stage
@@ -374,6 +434,14 @@ namespace Visualiser
                 }
             }
 
+            // set subgoals
+            foreach (var sprite in spritePool)
+            {
+                var controller = sprite.Value.GetComponent<SpriteController>();
+                var flag = subgoalObjectNames.Contains(sprite.Key);
+                controller.SetSubgoal(flag);
+
+            }
         }
     }
 }
