@@ -1,8 +1,16 @@
-# 1. System overview 
+# 1. Overview 
 
 This document contains the User Guide for Planning Visualiser.
 
 The Planning Visualiser is an open-source program which visualises solutions to Planning Problems. It is an executable Unity architecture in a browser.
+
+For further documentation, see
+* /Docs/Animation Profile Guide.md
+	* Contains a guide to Animation Profiles and the Animation Profile Language
+* /VFG Guide.md
+	* Contains a guide to the Visualisation File Generator Component
+* /Docs/Visualiser Guide.md
+	* Contains a guide to the VisualiserComponent 
 
 
 ## 1.1 Planning Problems
