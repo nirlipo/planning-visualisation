@@ -37,5 +37,10 @@ public class ScreenManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Visualisation");
 	}
+    // Goto user documentation link
+    public void gotoDocumentation()
+    {
+        Application.OpenURL("https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/browse?at=refs%2Fheads%2Ffeature-userdocs");
+    }
 
 }

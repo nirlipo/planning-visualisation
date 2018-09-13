@@ -143,6 +143,7 @@ namespace Visualiser
             
             TryRenderFrame(stages[lastStageNumber]);
             TryRenderInformationFrame(stages[lastStageNumber]);
+            highlightButton(lastStageNumber);
             
 
 
@@ -177,7 +178,7 @@ namespace Visualiser
             setCurrentStageIndex(i);
             Pasue();
             var stages = visualSolution.visualStages;
-            highlightButton(i);
+            //highlightButton(i);
             TryRenderFrame(stages[i]);
             TryRenderInformationFrame(stages[i]);
             
@@ -187,14 +188,7 @@ namespace Visualiser
         // UI event handler: Presents the contents of current stage
         public void PresentCurrentSavedState()
         {
-            int index = getCurrentStageIndex();
-            Pasue();
-            var stages = visualSolution.visualStages;
-
-            TryRenderFrame(stages[--index]);
-            TryRenderInformationFrame(stages[--index]);
-            setCurrentStageIndex(--index);
-
+            PresentCurrent(getCurrentStageIndex());
         }
 
 
@@ -245,6 +239,7 @@ namespace Visualiser
             {
                 PresentNextStage();
             }
+          
         }
 
         // Renders a frame if it is not null
