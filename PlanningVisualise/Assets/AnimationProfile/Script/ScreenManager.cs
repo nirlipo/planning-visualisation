@@ -21,7 +21,13 @@ public class ScreenManager : MonoBehaviour
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Start");
     }
-	// Load the index page scene
+    // Load the visualiser solution uploading scene 
+    public void loadVisualiseSolutionScene()
+    {
+        Destroy(GameObject.Find("Coordinator"));
+        SceneManager.LoadScene("StartSolution");
+    }
+    // Load the index page scene
     public void loadMainScene(){
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Landing Page");
@@ -31,5 +37,10 @@ public class ScreenManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Visualisation");
 	}
+    // Goto user documentation link
+    public void gotoDocumentation()
+    {
+        Application.OpenURL("https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/browse?at=refs%2Fheads%2Ffeature-userdocs");
+    }
 
 }
