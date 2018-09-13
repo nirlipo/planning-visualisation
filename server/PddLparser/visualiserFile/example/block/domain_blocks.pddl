@@ -9,6 +9,7 @@
                    (clear ?x)
 
                    (arm-free)
+
                    (holding ?x)
 
                    )
