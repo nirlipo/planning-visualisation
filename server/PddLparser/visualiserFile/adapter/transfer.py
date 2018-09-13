@@ -17,7 +17,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
 import initialise
 import solver
-
+import json
 
 # This python file aims to finish step 4 in our solution
 #######################################################
@@ -26,7 +26,7 @@ import solver
 # Output : Visualisation File
 #######################################################
 
-def transfer(one_stage, initialobjects, panel_size,shiftx,shifty, padding=20):
+def transfer(one_stage, initialobjects, panel_size,shift, padding=20):
     """This function converts the dictionary into the info needed in visualisation file.
     Args:
         one_stage(Dict): a dictionary contains the locaiton of objects for one stage/step
@@ -64,10 +64,10 @@ def transfer(one_stage, initialobjects, panel_size,shiftx,shifty, padding=20):
             width = panel_size - 2 * padding
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
-        min_x = (x_num + padding+shiftx) / panel_size
-        max_x = (x_num+shiftx + width + padding) / panel_size
-        min_y = (y_num+shifty+padding) / panel_size
-        max_y = (y_num +shifty+ height+padding) / panel_size
+        min_x = (x_num + padding+shift) / panel_size
+        max_x = (x_num+shift + width + padding) / panel_size
+        min_y = (y_num+shift+padding) / panel_size
+        max_y = (y_num +shift+ height+padding) / panel_size
         position_dic["minX"] = round(min_x, 3)
         position_dic["maxX"] = round(max_x, 3)
         position_dic["minY"] = round(min_y, 3)
@@ -122,10 +122,11 @@ def get_panel_size(result, padding=20):
                     max_y = new_y
                 if y < min_y:
                     min_y = y
-    return max(max_x, max_y) + 2 * padding, abs(min_x), abs(min_y)
+    shift=max(abs(min_x), abs(min_y))
+    panel_size=max(max_x, max_y)+ shift+ 2 * padding
+    return panel_size, shift
 
-
-def generate_visualisation_file(result, object_list,animation_profile):
+def generate_visualisation_file(result, object_list,animation_profile,actionlist):
     """This function generates the visualisation file.
     Args:
         result(Dict): the dict to be converted.
@@ -135,20 +136,91 @@ def generate_visualisation_file(result, object_list,animation_profile):
     one_stage = {}
     sprite_list = []
     lists = result["visualStages"]
-    panel_size,shiftx,shifty= get_panel_size(result)
+    panel_size,shift= get_panel_size(result)
+    index = 0
     for item in lists:
         one_stage = item["visualSprites"]
-        transfered_stage=transfer(one_stage, object_list, panel_size,shiftx,shifty)
+        transfered_stage=transfer(one_stage, object_list, panel_size,shift)
         transfered_stage["stageName"]=item["stageName"]
         transfered_stage["stageInfo"]=item["stageInfo"]
+        if (index == len(actionlist)):
+            transfered_stage["isFinal"] = "true"
+        else:
+            transfered_stage["isFinal"] = "false"
         sprite_list.append(transfered_stage)
+        index = index + 1
     final["visualStages"] = sprite_list
+    final["subgoalPool"] = generate_subgoal(result["subgoals"])["subgoalPool"]
+    final["subgoalMap"] = generate_subgoal(result["subgoals"])["subgoalMap"]
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
-
+    # print(generate_subgoal(result["subgoals"]))
     return final
 
-def get_visualisation_json(predicates, animation_profile):
+
+#######################################################
+# This function is designed to combine the subgoal
+# with the same name into one dict.
+def dedupe(items):
+    """The function is to convert subgoal list into correct format
+           Args:
+               items: subgoal list
+           Returns:
+               subgoal list in correct format
+       """
+    seen = []
+    result = []
+
+    for item in items:
+        if item["name"] not in seen:
+            seen.append(item["name"])
+    # print(seen)
+    for se in seen:
+        # print (se)
+        numlist = []
+        namelist = []
+        objectlist = []
+        for item in items:
+            if item["name"] == se:
+                numlist.append(item["stepNum"])
+                namelist.append(item["stepName"])
+                objectlist = item["objects"]
+        result.append({"name":se,"stepNum":numlist,"stepName": namelist,"objects":objectlist})
+        # result.append({"name":se,"stepNum":numlist,"objects":objectlist})
+
+        # print(numlist)
+    return result
+
+def generate_subgoal(subgoals):
+    """This function transfers the subgoal structure into the final one
+    """
+    m_keys = []
+    m_values = []
+    for subgoal in dedupe(subgoals):
+        m_keys.append(subgoal["name"])
+        m_values.append(subgoal["objects"])
+    subgoal_pool = {"m_keys": m_keys, "m_values": m_values}
+
+    step_list = []
+    values = []
+    for subgoal in subgoals:
+        if subgoal["stepNum"] not in step_list:
+            step_list.append(subgoal["stepNum"])
+
+    # print(step_list)
+    for step in step_list:
+        value = []
+        for subgoal in subgoals:
+            if subgoal["stepNum"] == step:
+                value.append(subgoal["name"])
+        values.append(value)
+    pool_map = {"m_keys": step_list,"m_values":values}
+    subgoal_transfer = {"subgoalPool": subgoal_pool,"subgoalMap": pool_map}
+    # print(pool_map)
+    return subgoal_transfer
+
+
+def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic):
     """This function is the main function of this module, it will call the other functions
     to manipulate the visualisation file for the unity visualiser.
 
@@ -161,13 +233,16 @@ def get_visualisation_json(predicates, animation_profile):
 
     object_list = copy.deepcopy(predicates["objects"])
     stages = copy.deepcopy(predicates["stages"])
+    # subgoals = copy.deepcopy(predicates["subgoals"])
     predicates_rules = animation_profile["predicates_rules"]
     objects_dic = initialise.initialise_objects(object_list, animation_profile)
     solver.add_fixed_objects(objects_dic, animation_profile)
-    # space ={}
-    # space["distributex"]=custom_functions.init_space(len(object_list))
-    # space["distribute_vertical"]={}
-    # result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space)
-    result = solver.solve_all_stages(stages, objects_dic, predicates_rules, object_list)
 
-    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile)
+    space = {}
+    space["distributex"] = {}
+    space["distribute_vertical"] = {}
+    space["apply_smaller"] = {}
+    space["distribute_horizontal"] = {}
+    result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
+    # print(result["subgoals"])
+    return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)

@@ -43,13 +43,13 @@ class FileUploadView(APIView):
         domain_file = request.data['domain']
         problem_file = request.data['problem']
         animation_file = json.loads(request.data['animation'])
-        
+
         predicates_list = domain_parser.get_domain_json(domain_file)
         plan = plan_generator.get_plan(domain_file, problem_file)
         problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
         stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
         # A file called visualistaion.json will be generated in the folder if successful
-        final = transfer.get_visualisation_json(stages,animation_file)
+        final = transfer.get_visualisation_json(stages,animation_file,plan['result']['plan'],problem_json)
         return Response(final)
     
 

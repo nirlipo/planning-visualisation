@@ -80,15 +80,18 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     objects = re.findall(r'\b\S+\b', problem_file[problem_file.index("objects")
                                               + len("objects"):problem_file.index("init")])
 
+    finalstage = problem_dic[1]['goal'].copy()
+
     # Getting the list of actions from results returned from planning.domain api
     try:
         actionlist = plan['result']['plan']
+        #print(actionlist)
     except KeyError:
         sys.exit("No plan has been returned")
     cleanactionlist = remove_unused_char(actionlist)
 
     # Adding initial stage
-    content = {"stages": [], "objects": objects}
+    content = {"stages": [], "objects": objects,"subgoals":[]}
     content['stages'].append({
         "items": stages.copy(),
         "add": "",
@@ -96,11 +99,10 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         "stageName": "Initial Stage",
         "stageInfo": "No Step Information"
         })
+
     for counter in range(0, len(actionlist)):
-        checklist = []
         init_object_list = problem_parser.get_object_list(predicates_list, cleanactionlist[counter])
         checklist = (init_object_list)
-        action_name = ""
 
         # 1. Find the difference between 2 steps
         addactionlistarr = []
@@ -111,6 +113,8 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
             else:
                 addactionlistarr.append(var)
 
+
+
         # Append the list to get the final result
         for addvar in addactionlistarr:
             stages.append(addvar)
@@ -120,20 +124,28 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         # 2.
         # Get the action name of this step from the plan
         action_name = get_action_name(actionlist[counter]['action'])
+        #print(action_name)
 
-        # 3.
+
+        # 4.
         # Get the step information about the current step
         # Replacing \n with \r\n in order to display it correctly
         step_info_with_padding = actionlist[counter]['action'].replace("\n", "\r\n")
         step_info = step_info_with_padding[step_info_with_padding.index("(:action"):]
 
-        # 4.
+        # 5.
         # Append everything to get the final output - content
         result = {"items": stages.copy(),
                   "add": addactionlistarr,
                   "remove": removeactionlistarr,
                   "stageName": action_name,
-                  "stageInfo": step_info}
+                  "stageInfo": step_info,
+                  }
 
         content['stages'].append(result)
+
+
+
     return content
+
+

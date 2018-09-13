@@ -136,7 +136,34 @@ namespace Visualiser
                     imgComp.color = visualSprite.color;
                 }
             }
+
+            if (!isMoving && isSubgoal)
+            {
+                var imgComp = gameObject.GetComponent<Image>();
+                var a = (float)new System.Random().NextDouble();
+                imgComp.color = new Color(imgComp.color.r, imgComp.color.g, imgComp.color.b, a);
+                //var color = imgComp.color;
+                //a += fadeingOut ? -1f / 60f : 1f / 60f;
+                //imgComp.color = new Color(color.r, color.g, color.b, color.a);
+                //if (imgComp.color.a <= 0)
+                //{
+                //    fadeingOut = false;
+                //}
+                //else if (imgComp.color.a >= 1)
+                //{
+                //    fadeingOut = true;
+                //}
+            }
         }
+        double a = 1;
+        bool fadeingOut = true;
+        bool isSubgoal = false;
+
+        public void SetSubgoal(bool flag)
+        {
+            isSubgoal = flag;
+        }
+
         public bool moving()
         {
             return isMoving;
