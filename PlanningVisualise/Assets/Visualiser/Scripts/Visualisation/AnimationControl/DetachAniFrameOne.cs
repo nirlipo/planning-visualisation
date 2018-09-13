@@ -1,4 +1,20 @@
-﻿using System.Collections;
+﻿
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: The file has fucntionality to set the transfer object type
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * Reviewers: Sharukh, Gang and May
+ * Review date: 10/09/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +43,7 @@ public class DetachAniFrameOne : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         
 	}
-
+    //TODO
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
 	//override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 	//

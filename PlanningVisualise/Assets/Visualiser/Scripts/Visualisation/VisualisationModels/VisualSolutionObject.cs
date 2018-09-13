@@ -1,3 +1,19 @@
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: The file is the solution object which has data that is sent by the server to Unity application
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * Reviewers: Sharukh, Gang and May
+ * Review date: 10/09/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
+
 using UnityEngine;
 using System.Collections;
 using System;
@@ -53,7 +69,9 @@ namespace Visualiser
             }
         }
 
-		// Get the initial stage of the animation
+        
+
+        // Get the initial stage of the animation
         public VisualStageObject ResetStage()
         {
             stageIndex = -1;
@@ -62,7 +80,12 @@ namespace Visualiser
         // Get current index
         public int getCurrentStage()
         {
-            return ++stageIndex;
+            return stageIndex;
+        }
+
+        public void setCurrentStage(int index)
+        {
+            stageIndex = index;
         }
        
         public int getTotalStages()

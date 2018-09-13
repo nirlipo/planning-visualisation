@@ -18,6 +18,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
 import custom_functions
 import initialise
+# import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
 #######################################################
 # Input File: the reuslt of Customer Function component
@@ -113,7 +114,17 @@ def applypredicates(predicate,
                 elif value["function"] == "distribute_vertical":
                     node=objects[1]
                     objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
-                    
+                elif value["function"] == "apply_smaller":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.apply_smaller(objects_dic[left],objects_dic[obj2],10,space)
+                elif value["function"] == "shiftx":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.shiftx(objects_dic[left],objects_dic[obj2])
+                elif value["function"] == "distributey":
+                    objects_dic[left][propertyname]= custom_functions.distributey(objects_dic[left],50)      
+                elif value["function"] == "distribute_horizontal":
+                    obj2=objects[1]
+                    objects_dic[left][propertyname]= custom_functions.distribute_horizontal(objects_dic[left],objects_dic[obj2],space) 
             elif "equal" in value:
                 right_value = value["equal"]
                 if type(right_value) is not dict:#for color dic
@@ -151,7 +162,7 @@ def applypredicates(predicate,
                     objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
 
 
-def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
+def solvepredicates(predicates, objects_dic, predicates_rules, space):
     """This function will pop an predicate from a list of predicates, and try to solve
     it, the predicate will be put back to the predicates list if it can not be solved at
     one turn. The funtion will return true if all the predicates has been solved.
@@ -163,16 +174,13 @@ def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
               that in the space.
 
     """
-    space = {}
-    space["distributex"] = custom_functions.init_space(len(object_list))
-    space["distribute_vertical"] = {}
-
     i=0
     while (predicates and i<2000):
         predicate = predicates.pop(0)
         if predicate["name"] not in predicates_rules:
             continue
         if check_rule_complete(predicate, objects_dic, predicates_rules):
+            space["apply_smaller"]={} #For hanoi problem, reset each stage
             applypredicates(predicate, objects_dic, predicates_rules, space)
         else:
             if not predicates:  # if the last predicate can not be solved
@@ -182,7 +190,24 @@ def solvepredicates(predicates, objects_dic, predicates_rules, object_list):
     return True
 
 
-def solve_all_stages(stages, objects_dic, predicates_rules, space):
+def keysort(name,predicates_rules):
+    """This funtion will return weight for each predicates, default 10(not important).
+    """
+
+    if name in predicates_rules:
+        if "priority" in predicates_rules[name]:
+            return predicates_rules[name]["priority"]
+        else:
+            return 10
+    else:
+        return 10
+def priority(predicates,predicates_rules):
+    """This funtion will return sorted predicates based on the priority point
+    """
+    return sorted(predicates, key=lambda k: keysort(k["name"],predicates_rules))
+
+
+def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic):
     """This funtion will run through each stage which contains a list of predicates, solve the
     predictaes and get the solved visualistaion file.
     Args:
@@ -198,22 +223,89 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space):
     """
     result = {}
     result["visualStages"] = []
+    result["subgoals"] = []
+    sublist = []
+    index = 1
+
+    stepNum = []
+
+    stepindex = 1;
+    # define subgoals dict
+    subgoals = {"subgoals": []}
+    finalstage = problem_dic[1]['goal'].copy()
+    action_name_list = []
+    for counter in range(0, len(actionlist)):
+        action_name = get_action_name(actionlist[counter]['action'])
+        action_name_list.append(action_name)
+
+        # predicate in each step
+    for a in stages:
+            # predicate in final step
+
+        if a["stageName"] != "Initial Stage":
+
+            for item in a["items"]:
+                if item in finalstage:
+                    # print(item)
+                    str = "(" + item["name"] + " "
+                    for name in item["objectNames"]:
+                        str = str + name + " "
+
+                    str += ")"
+                    objectlist = item["objectNames"]
+                    stepNum.append(stepindex)
+                    stepNames = action_name_list[stepindex-1]
+                    # print(stepNames)
+                    # sub = {"name": str, "stepNum": stepindex, "stepName": action_name, "objects": objectlist}
+                    sub = {"name": str, "stepNum": stepindex, "stepName": stepNames,  "objects": objectlist}
+
+                    subgoals["subgoals"].append(sub)
+            stepindex = stepindex + 1
+
+
+
+    # print(subgoals)
+    # print(dedupe(subgoals["subgoals"]))
     for stage in stages:
+
         stage_dic = {}
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
-        solvepredicates(predicates, object_dic_copy, predicates_rules, space)
+        sorted_predicates=priority(predicates,predicates_rules)
+        solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:
-            stage_dic["stageName"]="Inital Stage" 
+            stage_dic["stageName"]="Inital Stage"
             stage_dic["stageInfo"]="No step information"
+
         else:
             stage_dic["stageName"]=stage["stageName"]
             stage_dic["stageInfo"]=stage["stageInfo"]
+
+
         result["visualStages"].append(stage_dic)
+
+    result["subgoals"] = subgoals["subgoals"]
+
     return result
 
-
+#######################################################
+# This function is designed to return the action name of the current step
+def get_action_name(current_step):
+    """The function is to remove all the useless characters from api file.
+        Args:
+            current_step: an array of the current step.
+        Returns:
+            action_name: a cleaned action name.
+    """
+    # find the predicate name
+    action = current_step[current_step.index("action")
+                                      + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
+    # find all the parameters followed by that object
+    objects = current_step[current_step.index("parameters")
+                                      + len("parameters"):current_step.index(":precondition")].rstrip()
+    action_name = action + " " + objects
+    return action_name
 
 def add_fixed_objects(object_dic, animation_profile):
     """This function will added the custom object to the obj_dic

@@ -1,3 +1,16 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: The scenes coordinator manages parameters that are passing through different scenes
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * Reviewers: Sharukh, Gang and May
+ * Review date: 10/09/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
 /* The scenes coordinator manages parameters that are passing through different scenes, including
  * all the uploaded files and the visualisation file*/
 using UnityEngine;
@@ -53,6 +66,7 @@ public class ScenesCoordinator : MonoBehaviour
 		formData.Add( new MultipartFormDataSection("animation",animationprofile ));;
 		//serialize form fields into byte[] => requires a bounday to put in between fields
 		byte[] formSections = UnityWebRequest.SerializeFormSections(formData, boundary);
+        //UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8000/upload/pddl", formData);
 		UnityWebRequest www = UnityWebRequest.Post("https://immense-bastion-42146.herokuapp.com/upload/pddl", formData);
 		www.uploadHandler =  new UploadHandlerRaw(formSections);
 		www.SetRequestHeader("Content-Type", "multipart/form-data; boundary="+ Encoding.UTF8.GetString(boundary));
