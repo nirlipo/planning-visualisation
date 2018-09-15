@@ -23,6 +23,7 @@ using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using UnityEngine.EventSystems;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -34,6 +35,9 @@ namespace Visualiser
      */
     public class VisualiserController : MonoBehaviour
     {
+		[DllImport("__Internal")]
+		private static extern void Download(string textptr,string fileTypeptr,string fileNameptr);
+
         // Editor interface
         public Transform SubgoalPanel;
         public GameObject AniFrame;
@@ -56,14 +60,14 @@ namespace Visualiser
 
         public SimpleObjectPool buttonObjectPool;
         public Transform stepPanel;
-
+		private string vf_string;
 
         // Use this for initialization
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
-
+			vf_string = parameters;
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
 
@@ -126,6 +130,10 @@ namespace Visualiser
                 subgoalBtn.SetActive(true);
             }
         }
+		public void DownloadVF(){
+		Download (this.vf_string,"text/plain","vf_out.txt");
+		}
+       
 
 
         public void PresentStageByIndex(int index)
