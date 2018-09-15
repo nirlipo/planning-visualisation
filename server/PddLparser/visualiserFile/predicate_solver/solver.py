@@ -17,7 +17,6 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
 import custom_functions
-import initialise
 # import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
 #######################################################
@@ -41,30 +40,22 @@ def check_rule_complete(predicate, objects_dic, predicates_rules):
         False: if the predicate can not be solved.
     """
     
-    predicatename = predicate["name"]
-    objectnamelist = copy.deepcopy(predicate["objectNames"])
-    predicate_rule = copy.deepcopy(predicates_rules[predicatename])
-
-    if ("left" in predicates_rules[predicatename]):
-        objectnamelist.insert(0,0)
-    if("right" in predicates_rules[predicatename]):
-        objectnamelist.append(predicates_rules[predicatename]["right"])
-    for rulename in predicate_rule["rules"]:
-        rule = predicate_rule[rulename]
-        for key in rule:
-            # 0 is on the left side of equation
-            if key != "value" and key != "0" and key!="action":
-                if key=="require":
-                    for objindex in rule[key]:
-                        for att in rule[key][objindex]:
-                            objectname=objectnamelist[int(objindex)]
-                            if objects_dic[objectname][att] is False:
-                                return False              
-                else:
-                    property_check = rule[key]
-                    objectname = objectnamelist[int(key)]
-                    if objects_dic[objectname][property_check] is False:
-                        return False
+    pname = predicate["name"]
+    predicate_rule = predicates_rules[pname]
+    objects = predicate["objectNames"]
+    if "custom_obj" in predicate_rule:
+        #addtional custom object not in the real pddl file
+        custom_obj=predicate_rule["custom_obj"]
+        #complete object list
+        object_list=objects+custom_obj
+    else:
+        object_list=objects
+    if "require" in predicate_rule:
+        for obj_index in predicate_rule["require"]:
+            for property in predicate_rule["require"][obj_index]:
+                objectname=object_list[int(obj_index)]
+                if objects_dic[objectname][property] is False:
+                    return False
     return True
 
 
@@ -84,23 +75,23 @@ def applypredicates(predicate,
                       obj that in the space.
     """
     pname = predicate["name"]
+    predicate_rule=predicates_rules[pname]
+
+    #objects in the real pddl file
     objects = copy.deepcopy(predicate["objectNames"])
-    
-    if ("left" in predicates_rules[pname]):
-        left = predicates_rules[pname]["left"]
-        objects.insert(0,0)
+    if "custom_obj" in predicate_rule:
+        #addtional custom object not in the real pddl file
+        custom_obj=predicate_rule["custom_obj"]
+        #complete object list
+        object_list=objects+custom_obj
     else:
-        left = objects[0]
-    
-    
-    if("right" in predicates_rules[pname]):
-        objects.append(predicates_rules[pname]["right"])
-        
-    for rulename in predicates_rules[pname]["rules"]:
-        if "value" in predicates_rules[pname][rulename]:
-            propertyname = predicates_rules[pname][rulename]["0"]
-            value = predicates_rules[pname][rulename]["value"]
-            rule = predicates_rules[pname][rulename]
+        object_list=objects
+
+    for rulename in predicate_rule["rules"]:
+        if "value" in predicate_rule[rulename]:
+            rule = predicate_rule[rulename]
+            left,propertyname=get_objname_property(rule["left"],object_list)
+            value = predicate_rule[rulename]["value"]
             if "function" in value:
                 if value["function"] == "distributex":
                     objects_dic[left][propertyname] = custom_functions.distributex(
@@ -112,45 +103,44 @@ def applypredicates(predicate,
                     objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointy(
                         left, 1,100)
                 elif value["function"] == "distribute_vertical":
-                    node=objects[1]
+                    node=object_list[1]
                     objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
                 elif value["function"] == "apply_smaller":
-                    obj2=objects[1]
+                    obj2=object_list[1]
                     objects_dic[left][propertyname]= custom_functions.apply_smaller(objects_dic[left],objects_dic[obj2],10,space)
                 elif value["function"] == "shiftx":
-                    obj2=objects[1]
+                    obj2=object_list[1]
                     objects_dic[left][propertyname]= custom_functions.shiftx(objects_dic[left],objects_dic[obj2])
                 elif value["function"] == "distributey":
                     objects_dic[left][propertyname]= custom_functions.distributey(objects_dic[left],50)      
                 elif value["function"] == "distribute_horizontal":
-                    obj2=objects[1]
+                    obj2=object_list[1]
                     objects_dic[left][propertyname]= custom_functions.distribute_horizontal(objects_dic[left],objects_dic[obj2],space) 
             elif "equal" in value:
                 right_value = value["equal"]
-                if type(right_value) is not dict:#for color dic
-                    if right_value in rule:
-                        right_proterpy = rule[right_value]
-                        right_object = objects[int(right_value)]
-                        objects_dic[left][propertyname] = objects_dic[
-                            right_object][right_proterpy]
-                    else:
-                        objects_dic[left][propertyname] = right_value
-                else:
+                if type(right_value) is not dict:
                     objects_dic[left][propertyname] = right_value
+                else:
+                    if "r" in right_value:#for color
+                        objects_dic[left][propertyname] = right_value
+                    else:
+                        right_index,right_property=list(right_value.items())[0]
+                        right_object=object_list[int(right_index)]
+                        objects_dic[left][propertyname]=objects_dic[right_object][right_property]
 
             elif "add" in value:
                 rightvalue = 0
                 for additem in value["add"]:
-                    if additem in rule:
-                        right_property = rule[additem]
-                        right_object = objects[int(additem)]
+                    if type(additem) is dict:
+
+                        right_object,right_property = get_objname_property(additem,object_list)
                         addvalue = objects_dic[right_object][right_property]
                         rightvalue += addvalue
                     else:
                         rightvalue += additem
                 objects_dic[left][propertyname] = rightvalue
         else:
-            action=predicates_rules[pname][rulename]["action"]
+            action=predicate_rule[rulename]["action"]
             if "function" in action:
                 object1,object2=objects
                 x1=objects_dic[object1]["x"]+objects_dic[object1]["width"]/2
@@ -160,6 +150,10 @@ def applypredicates(predicate,
                 if action["function"]=="draw_line":
                     key=pname+objects[0]+objects[1]
                     objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
+def get_objname_property(dictionary,object_list):
+    object_index, propertyname = list(dictionary.items())[0]
+    objname = object_list[int(object_index)]
+    return objname,propertyname
 
 
 def solvepredicates(predicates, objects_dic, predicates_rules, space):
@@ -224,11 +218,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
     result = {}
     result["visualStages"] = []
     result["subgoals"] = []
-    sublist = []
-    index = 1
-
     stepNum = []
-
     stepindex = 1;
     # define subgoals dict
     subgoals = {"subgoals": []}

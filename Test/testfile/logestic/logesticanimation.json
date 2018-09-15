@@ -91,7 +91,7 @@
       "x": false,
       "y": false,
       "width": 600,
-      "height":150,
+      "height": 150,
       "color": {
         "r": 0.7,
         "g": 0.647,
@@ -122,7 +122,9 @@
         "rule1"
       ],
       "rule1": {
-        "0": "y",
+        "left": {
+          "0": "y"
+        },
         "value": {
           "function": "distributey"
         }
@@ -133,64 +135,93 @@
         "rule1",
         "rule2"
       ],
+      "require": {
+        "1": [
+          "x",
+          "y"
+        ]
+      },
       "rule1": {
-        "0": "y",
-        "1": "y",
+        "left": {
+          "0": "y"
+        },
         "value": {
-          "equal": "1"
+          "equal": {
+            "1": "y"
+          }
         }
       },
       "rule2": {
-        "0": "x",
-        "1": "x",
+        "left": {
+          "0": "x"
+        },
         "value": {
           "function": "distribute_horizontal"
         }
       }
     },
     "at": {
-
       "rules": [
         "rule1",
         "rule2"
       ],
+      "require": {
+        "1": [
+          "x",
+          "y"
+        ]
+      },
       "rule1": {
-        "0": "y",
-        "1": "y",
+        "left": {
+          "0": "y"
+        },
         "value": {
-          "equal": "1"
+          "equal": {
+            "1": "y"
+          }
         }
       },
       "rule2": {
-        "0": "x",
-        "1": "x",
+        "left": {
+          "0": "x"
+        },
         "value": {
           "function": "distribute_horizontal"
         }
       }
     },
     "in": {
-         
       "rules": [
         "rule1",
         "rule2"
       ],
+      "require": {
+        "1": [
+          "x",
+          "y"
+        ]
+      },
       "rule1": {
-        "0": "y",
-        "1": "y",
+        "left": {
+          "0": "y"
+        },
         "value": {
-          "equal": "1"
+          "equal": {
+            "1": "y"
+          }
         }
       },
       "rule2": {
-        "0": "x",
-        "1": "x",
+        "left": {
+          "0": "x"
+        },
         "value": {
-          "equal": "1"
+          "equal": {
+            "1": "x"
+          }
         }
       }
     }
-
   },
   "imageTable": {
     "m_keys": [
