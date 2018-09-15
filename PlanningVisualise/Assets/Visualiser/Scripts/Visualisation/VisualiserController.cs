@@ -23,7 +23,6 @@ using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using UnityEngine.EventSystems;
-using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,9 +34,6 @@ namespace Visualiser
      */
     public class VisualiserController : MonoBehaviour
     {
-		[DllImport("__Internal")]
-		private static extern void Download(string textptr,string fileTypeptr,string fileNameptr);
-
         // Editor interface
         public Transform SubgoalPanel;
         public GameObject AniFrame;
@@ -60,14 +56,14 @@ namespace Visualiser
 
         public SimpleObjectPool buttonObjectPool;
         public Transform stepPanel;
-		private string vf_string;
+
 
         // Use this for initialization
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
-			vf_string = parameters;
+
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
 
@@ -130,10 +126,6 @@ namespace Visualiser
                 subgoalBtn.SetActive(true);
             }
         }
-		public void DownloadVF(){
-		Download (this.vf_string,"text/plain","vf_out.txt");
-		}
-       
 
 
         public void PresentStageByIndex(int index)
@@ -288,7 +280,7 @@ namespace Visualiser
         {
             foreach (GameObject spriteobject in spritePool.Values)
             {
-                if (spriteobject.GetComponent<SpriteController>().moving())
+                if (spriteobject.GetComponent<SpriteController>().IsAnimating())
                 {
                     return false;
                 }
@@ -357,16 +349,7 @@ namespace Visualiser
                 {
                     var sprite = spritePool[visualSprite.name];
                     var controller = sprite.GetComponent<SpriteController>();
-                    //Do nothing if the sprite has not changed
-                    if (!controller.IsVisualSpriteObjectChanged(visualSprite))
-                    {
-                        continue;
-                    }
-                    //Hide the changed sprite for updating
-                    controller.BindVisualSpriteObject(visualSprite);
-                    //controller.FadeOutForUpdate();
-                    controller.MoveToNewPosition();
-
+                    controller.UpdateState(visualSprite);
                 }
                 /*
                  * This part should be refactored in order to achieve better OO design
@@ -378,38 +361,19 @@ namespace Visualiser
                     GameObject sprite;
                     var imageKey = visualSprite.prefabImage;
                     var imageString = visualSolution.FetchImageString(imageKey);
-                    // Render custom prefab image
-                    if (imageString != null)
-                    {
-                        var spritePrefab = Resources.Load<GameObject>("EmptyVisualSprite");
-                        sprite = Instantiate(spritePrefab);
-                        var imageComp = sprite.GetComponent<Image>();
-
-                        var texture = new Texture2D(1, 1);
-                        texture.LoadImage(Convert.FromBase64String(imageString));
-                        texture.Apply();
-                        var rectTrans = sprite.GetComponent<RectTransform>();
-                        var imgSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                        imageComp.sprite = imgSprite;
-
-                        //add canvas
-                        var canvas = sprite.GetComponent<Canvas>();
-                        canvas.sortingOrder = visualSprite.depth + 1;
-                        canvas.overrideSorting = true;
-                    }
-                    // Search for built-in prefab image
-                    else
-                    {
-                        var spritePrefab = Resources.Load<GameObject>(visualSprite.prefabImage);
-                        sprite = Instantiate(spritePrefab);
-                    }
-
-                    var controller = sprite.GetComponent<SpriteController>();
-                    controller.BindVisualSpriteObject(visualSprite);
-                    controller.Init();
+                    sprite = imageString != null
+                        // Render custom prefab image
+                        ? UIVisualSpriteFactory.CreateCustom(imageString)
+                        // Render built-in prefab
+                        : UIVisualSpriteFactory.CreateBuiltIn(visualSprite.prefabImage);
+                    // Set parent relationship
                     sprite.transform.SetParent(AniFrame.transform, false);
-                    spritePool.Add(sprite.name, sprite);
-                    controller.FadeInForUpdate();
+                    // Store in sprite pool
+                    spritePool.Add(visualSprite.name, sprite);
+                    // Initialise sprite controller and start presenting the object
+                    var controller = sprite.GetComponent<SpriteController>();
+                    controller.Init(visualSprite);
+                    controller.Present();
                 }
             }
             //Remove stored sprites if they are not longer existing
@@ -438,7 +402,7 @@ namespace Visualiser
                         Destroy(sprite);
                         spritePool.Remove(temp);
                     };
-                    controller.FadeOutForDestory();
+                    controller.DisapperAndDestory();
                 }
             }
 

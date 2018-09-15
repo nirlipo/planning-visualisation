@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 95282414935687246}
   - component: {fileID: 114932756325786732}
   - component: {fileID: 223137729762983526}
+  - component: {fileID: 114811226721614912}
   m_Layer: 5
   m_Name: EmptyVisualSprite
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813904099013034}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 660b67a238cfb4ba48673da063be5a9c, type: 2}
   m_CullingMode: 0
@@ -77,6 +78,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114811226721614912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813904099013034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7fe3f3155474296863484875abe51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114932756325786732
 MonoBehaviour:
   m_ObjectHideFlags: 1

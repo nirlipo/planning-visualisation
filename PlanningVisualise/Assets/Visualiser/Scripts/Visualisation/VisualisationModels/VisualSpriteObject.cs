@@ -33,6 +33,7 @@ namespace Visualiser
         public float maxY;
         public float rotate;
         public int depth;
+        public int transferType;
 		// checking if the given VisualSpriteObject is same as this class
         public bool ContentsEqual(VisualSpriteObject vso)
         {

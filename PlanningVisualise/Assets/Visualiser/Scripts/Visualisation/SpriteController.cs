@@ -16,6 +16,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using VisualSpriteAnimation;
 
 namespace Visualiser
 {
@@ -27,45 +28,50 @@ namespace Visualiser
     {
 
         VisualSpriteObject visualSprite; // The game object this script binding to
-        Animator animator; // An animator use to control animations
-        bool willDestory; // Indicates whether the object should be destroyed
-        public event EventHandler OnDestory; // Trigged when the object is going to be destroyed
+        VisualSpriteAnimator animator; // An animator use to control animations
 
-        bool isMoving = false;  // Indicates whether the object is moving
-        RectTransform rectTran; // A reference to the RectTransform component of the object
-        Vector2 minOffset;  // Offsets of minX and minY
-        Vector2 maxOffset;  // Offsets of maxX and maxX
-        int frameCount = 0; // Indicates the progess of animation
-        double framepersecond = 60;
-        GameObject speedbar;
-        double framspeed = 1;
+        public event EventHandler OnDestory;
+
         // Unity built-in method, fired when the script is initialised
         void Awake()
         {
-            animator = gameObject.GetComponent<Animator>();
-
+            switch (visualSprite.transferType)
+            {
+                default:
+                    animator = gameObject.AddComponent<LinearAnimtor>();
+                    break;
+            }
         }
 
-        // Binds this script to a visual sprite object
-        public void BindVisualSpriteObject(VisualSpriteObject visualSpriteObject)
+        public void UpdateState(VisualSpriteObject vso)
         {
-            visualSprite = visualSpriteObject;
+            if (!visualSprite.ContentsEqual(vso))
+            {
+                visualSprite = vso;
+                // Updates color
+                var imgComp = gameObject.GetComponent<Image>();
+                imgComp.color = visualSprite.color;
+                // Transit to new state
+                animator.UpdateVisualSprite(vso);
+                animator.Animating = true;
+            }
         }
 
-        // Exams whether the binding object has changed
-        public bool IsVisualSpriteObjectChanged(VisualSpriteObject vso)
+        public VisualSpriteObject GetVisualSprite()
         {
-            return !visualSprite.ContentsEqual(vso);
+            return visualSprite;
         }
 
         // Starts rendering, this method is called by the VisualiserController
-        public void Init()
+        public void Init(VisualSpriteObject vso)
         {
-            speedbar = GameObject.Find("Slider");
+            // Binds visual sprite
+            visualSprite = vso;
+            // Sets game object name
+            gameObject.name = visualSprite.name;
+
             // Sets up size, position and rotation
             UpdateRect();
-            // Sets sprite name
-            gameObject.name = visualSprite.name;
             // Renders name text on the sprite
             if (visualSprite.showName)
             {
@@ -104,7 +110,9 @@ namespace Visualiser
             rectTransform.offsetMin = new Vector2(0, 0);
             rectTransform.offsetMax = new Vector2(0, 0);
             //set depth
-            transform.SetSiblingIndex(visualSprite.depth);
+            var canvas = gameObject.GetComponent<Canvas>();
+            canvas.sortingOrder = visualSprite.depth + 1;
+            canvas.overrideSorting = true;
             //set rotate
             rectTransform.rotation = Quaternion.Euler(0, 0, visualSprite.rotate);
         }
@@ -112,108 +120,39 @@ namespace Visualiser
         // Unity built-in method, it is fired when the script starts running
         void Start()
         {
-            var canvas = GetComponent<Canvas>();
+            var canvas = gameObject.GetComponent<Canvas>();
+            canvas.sortingOrder = visualSprite.depth + 1;
             canvas.overrideSorting = true;
         }
 
         // Unity built-in method, it is fired in every frame
         void Update()
         {
-            // Updates animation
-            if (isMoving)
-            {
-                float speed = speedbar.GetComponent<Slider>().value;
-                int rev_speed_per_sec = (int)(60 / speed);
-                var vecMin = new Vector2(visualSprite.minX, visualSprite.minY);
-                var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
-                rectTran.anchorMin = Vector2.MoveTowards(rectTran.anchorMin, vecMin, speed * Time.deltaTime);// - minOffset * 1/rev_speed_per_sec;
-                rectTran.anchorMax = Vector2.MoveTowards(rectTran.anchorMax, vecMax, speed * Time.deltaTime);//rectTran.anchorMax - maxOffset * 1/rev_speed_per_sec;
-                if (rectTran.anchorMin.Equals(vecMin) && rectTran.anchorMax.Equals(vecMax))//++frameCount % rev_speed_per_sec == 0)
-                {
-                    isMoving = false;
-                    // Updates color
-                    var imgComp = gameObject.GetComponent<Image>();
-                    imgComp.color = visualSprite.color;
-                }
-            }
-
-            if (!isMoving && isSubgoal)
-            {
-                var imgComp = gameObject.GetComponent<Image>();
-                var a = (float)new System.Random().NextDouble();
-                imgComp.color = new Color(imgComp.color.r, imgComp.color.g, imgComp.color.b, a);
-                //var color = imgComp.color;
-                //a += fadeingOut ? -1f / 60f : 1f / 60f;
-                //imgComp.color = new Color(color.r, color.g, color.b, color.a);
-                //if (imgComp.color.a <= 0)
-                //{
-                //    fadeingOut = false;
-                //}
-                //else if (imgComp.color.a >= 1)
-                //{
-                //    fadeingOut = true;
-                //}
-            }
         }
-        double a = 1;
-        bool fadeingOut = true;
-        bool isSubgoal = false;
 
         public void SetSubgoal(bool flag)
         {
-            isSubgoal = flag;
+            animator.Highlighting = flag;
         }
 
-        public bool moving()
+        public bool IsAnimating()
         {
-            return isMoving;
-        }
-        // Calculates the transition offets and starts the animation
-        public void MoveToNewPosition()
-        {
-            isMoving = true;
-
-            rectTran = gameObject.GetComponent<RectTransform>();
-            var vecMin = new Vector2(visualSprite.minX, visualSprite.minY);
-            var vecMax = new Vector2(visualSprite.maxX, visualSprite.maxY);
-            minOffset = rectTran.anchorMin - vecMin;
-            maxOffset = rectTran.anchorMax - vecMax;
+            return animator.Animating;
         }
 
         #region Fade in/out animation methods
-        public void FadeOutForUpdate()
+        public void Present()
         {
-            animator.SetTrigger("Hide");
+            animator.Forming = true;
         }
-        // play the animation of fade out and detroy the sprite object next
-        public void FadeOutForDestory()
+
+        public void DisapperAndDestory()
         {
-            animator.SetTrigger("Destory");
-            willDestory = true;
-        }
-        // play the animation of fade in and show the sprite object
-        public void FadeInForUpdate()
-        {
-            animator.SetTrigger("Show");
-        }
-        // Reset the animator "Show" trigger to default
-        public void OnFadeInFinished()
-        {
-            animator.ResetTrigger("Show");
-        }
-        // Reset the animator "Hide" triggerto default and detroy the sprite object if it is set to destroy
-        public void OnFadeOutFinished()
-        {
-            animator.ResetTrigger("Hide");
-            UpdateRect();
-            if (willDestory)
+            animator.Dying = true;
+            animator.OnDied += (object sender, EventArgs e) =>
             {
                 OnDestory?.Invoke(this, null);
-            }
-            else
-            {
-                animator.SetTrigger("Show");
-            }
+            };
         }
         #endregion
 
