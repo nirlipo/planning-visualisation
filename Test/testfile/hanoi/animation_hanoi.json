@@ -98,7 +98,15 @@
           "0": "x"
         },
         "value": {
-          "function": "shiftx"
+            "function": {
+              "fname": "align_middle",
+              "obj_indexs": [
+                0,
+                1
+              ],
+              "settings": {}
+            }
+
         }
       },
       "rule2": {
@@ -115,7 +123,7 @@
         }
       }
     },
-    "smaller": {
+        "smaller": {
       "priority": 0,
       "rules": [
         "rule1"
@@ -125,11 +133,21 @@
           "0": "width"
         },
         "value": {
-          "function": "apply_smaller"
+          "function": {
+            "fname": "apply_smaller",
+            "obj_indexs": [
+              0,
+              1
+            ],
+            "settings": {
+              "increase_width": 10
+            }
+          }
         }
       }
     }
   },
+
   "imageTable": {
     "m_keys": [
       "square"

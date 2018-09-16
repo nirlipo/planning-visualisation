@@ -62,7 +62,7 @@ def check_rule_complete(predicate, objects_dic, predicates_rules):
 def applypredicates(predicate,
                     objects_dic,
                     predicates_rules,
-                    space):
+                    gstate):
     """update the value of realated obj in the objects_dic by applying the animation rules.
     For example, (on-table a) will set the a's x value by using distributex function and a's
     y value to 0.
@@ -93,29 +93,21 @@ def applypredicates(predicate,
             left,propertyname=get_objname_property(rule["left"],object_list)
             value = predicate_rule[rulename]["value"]
             if "function" in value:
-                if value["function"] == "distributex":
-                    objects_dic[left][propertyname] = custom_functions.distributex(
-                        left, space, 20, 80, False)
-                elif value["function"] == "distribute_grid_around_pointx":
-                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointx(
-                        left, 0,100)
-                elif value["function"] == "distribute_grid_around_pointy":
-                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointy(
-                        left, 1,100)
-                elif value["function"] == "distribute_vertical":
-                    node=object_list[1]
-                    objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
-                elif value["function"] == "apply_smaller":
-                    obj2=object_list[1]
-                    objects_dic[left][propertyname]= custom_functions.apply_smaller(objects_dic[left],objects_dic[obj2],10,space)
-                elif value["function"] == "shiftx":
-                    obj2=object_list[1]
-                    objects_dic[left][propertyname]= custom_functions.shiftx(objects_dic[left],objects_dic[obj2])
-                elif value["function"] == "distributey":
-                    objects_dic[left][propertyname]= custom_functions.distributey(objects_dic[left],50)      
-                elif value["function"] == "distribute_horizontal":
-                    obj2=object_list[1]
-                    objects_dic[left][propertyname]= custom_functions.distribute_horizontal(objects_dic[left],objects_dic[obj2],space) 
+                fproperty = value["function"]
+                fname = fproperty["fname"]
+                obj_indexs=fproperty["obj_indexs"]
+                if "settings" in fproperty:
+                    settings=fproperty["settings"]
+                else:
+                    settings={}
+                state=gstate[fname]
+                obj_list=[]
+                for obj_index in obj_indexs:
+                    objname=object_list[obj_index]
+                    obj_list.append({objname:objects_dic[objname]})
+                print(fname)
+                print(gstate[fname])
+                objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]
                 if type(right_value) is not dict:

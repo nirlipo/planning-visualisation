@@ -172,8 +172,7 @@
     },
     "at": {
       "rules": [
-        "rule1",
-        "rule2"
+        "rule1"
       ],
       "require": {
         "0": [
@@ -187,18 +186,16 @@
       },
       "rule1": {
         "left": {
-          "0": "x"
+          "0": ""
         },
         "value": {
-          "function": "distribute_vertical"
-        }
-      },
-      "rule2": {
-        "left": {
-          "0": "y"
-        },
-        "value": {
-          "function": "distribute_vertical"
+            "function": {
+            "fname":"distribute_within_objects_vertical",
+            "obj_indexs":[0,1],
+            "settings":{
+              "spacebtw":20
+            }
+          }
         }
       }
     },
@@ -286,23 +283,20 @@
     },
     "place": {
       "rules": [
-        "rule1",
-        "rule2"
+        "rule1"
       ],
       "rule1": {
         "left": {
-          "0": "x"
+          "0": ""
         },
         "value": {
-          "function": "distribute_grid_around_pointx"
-        }
-      },
-      "rule2": {
-        "left": {
-          "0": "y"
-        },
-        "value": {
-          "function": "distribute_grid_around_pointy"
+          "function": {
+            "fname":"distribute_grid_around_point",
+            "obj_indexs":[0],
+            "settings":{
+
+            }
+          }
         }
       }
     },

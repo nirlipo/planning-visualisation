@@ -28,9 +28,9 @@ def get_visualisation_file():
     # 	print("python main.py [dommainfile] [problemfile] [animationprofile]")
     # 	sys.exit()
 
-    domain_file = "domain_blocks.pddl"
-    problem_file = "bw08.pddl"
-    animation_file = "block_animation_profile_upgrade.json"
+    domain_file = "domain.pddl"
+    problem_file = "prob01.pddl"
+    animation_file = "logesticanimation.json"
 
     # read animation profile from json
     file = open(animation_file)
@@ -47,6 +47,6 @@ def get_visualisation_file():
     stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
     # print(stages)
-    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
+    json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json))
 if __name__ == "__main__":
     get_visualisation_file()

@@ -100,7 +100,13 @@
           "0": "x"
         },
         "value": {
-          "function": "distributex"
+          "function": {
+            "fname":"distributex",
+            "obj_indexs":[0],
+            "settings":{
+              "spacebtw":20
+            }
+          }
         }
       },
       "rule2": {

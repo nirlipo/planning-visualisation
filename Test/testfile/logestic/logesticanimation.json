@@ -126,7 +126,13 @@
           "0": "y"
         },
         "value": {
-          "function": "distributey"
+            "function": {
+              "fname": "distributey",
+              "obj_indexs": [
+                0
+              ],
+              "settings": {}
+            }
         }
       }
     },
@@ -156,7 +162,13 @@
           "0": "x"
         },
         "value": {
-          "function": "distribute_horizontal"
+                      "function": {
+              "fname": "distribute_within_objects_horizontal",
+              "obj_indexs": [
+                0,1
+              ],
+              "settings": {}
+            }
         }
       }
     },
@@ -186,7 +198,13 @@
           "0": "x"
         },
         "value": {
-          "function": "distribute_horizontal"
+                 "function": {
+              "fname": "distribute_within_objects_horizontal",
+              "obj_indexs": [
+                0,1
+              ],
+              "settings": {}
+            }
         }
       }
     },
