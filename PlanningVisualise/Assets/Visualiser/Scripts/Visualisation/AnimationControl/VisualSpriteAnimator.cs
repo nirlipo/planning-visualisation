@@ -22,7 +22,8 @@ namespace VisualSpriteAnimation {
                 highlighting = value;
                 if (!highlighting)
                 {
-                    canvasGroup.alpha = 1;
+                    if (canvasGroup != null)
+                        canvasGroup.alpha = 1;
                 }
             }
         }

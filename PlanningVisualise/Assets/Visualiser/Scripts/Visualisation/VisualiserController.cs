@@ -41,12 +41,14 @@ namespace Visualiser
         public GameObject Speedbar;
         public GameObject stepButtonPrefab;
         public GameObject[] StepsButtons;
+        public GameObject SubgoalProgressText;
 
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
         VisualSolutionObject visualSolution; // Contains all the information of a solution
         Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>(); // Visible objects pool
+        List<Dropdown> subgoalDropdowns = new List<Dropdown>();
 
         int frameCount = 0; // Indicates the progress of an animation
         bool playing;   // Indicates if palying animation
@@ -102,29 +104,65 @@ namespace Visualiser
         public SimpleObjectPool subgoalPool = new SimpleObjectPool();
         public void RenderSubgoals()
         {
-            foreach (var subgoal in visualSolution.subgoalMap)
+            foreach (var subgoal in visualSolution.subgoalPool)
             {
-                var stageIndex = subgoal.Key;
-                var subgoalName = subgoal.Value;
-                GameObject subgoalBtn = subgoalPool.GetObject();
-                subgoalBtn.transform.SetParent(SubgoalPanel, false);
+                var dropdownPrefab = Resources.Load<GameObject>("SubgoalDropDown");
+                var subgoalDropdown = Instantiate(dropdownPrefab);
+                subgoalDropdown.transform.SetParent(SubgoalPanel, false);
 
-                var btnText = stageIndex + ". ";
-                foreach (var sn in subgoalName)
+                var subgoalText = subgoalDropdown.GetComponentInChildren<Text>();
+                subgoalText.text = subgoal.Key;
+
+                var dropdownComp = subgoalDropdown.GetComponent<Dropdown>();
+                dropdownComp.name = subgoal.Key;
+                var emptyOption = new Dropdown.OptionData(string.Empty);
+                dropdownComp.options.Add(emptyOption);
+                var stages = visualSolution.GetStagesBySubgoal(subgoal.Key);
+                foreach (var stage in stages)
                 {
-                    btnText += sn + " | ";
+                    var optionData = new Dropdown.OptionData("Step " + stage);
+                    dropdownComp.options.Add(optionData);
                 }
-                var textCompt = subgoalBtn.GetComponentInChildren<Text>();
-                textCompt.text = btnText;
-                textCompt.alignment = TextAnchor.MiddleLeft;
-                Button btnComp = subgoalBtn.GetComponent<Button>();
-                btnComp.onClick.AddListener(() =>
+                dropdownComp.onValueChanged.AddListener((int index) =>
                 {
-                    PresentStageByIndex(stageIndex);
+                    if (index != 0)
+                    {
+                        var stageText = dropdownComp.options[index].text;
+                        var stage = int.Parse(stageText.Replace("Step ", string.Empty));
+                        PresentStageByIndex(stage);
+                        dropdownComp.value = 0;
+                        subgoalText.text = subgoal.Key;
+                    }
                 });
 
-                subgoalBtn.SetActive(true);
+                subgoalDropdowns.Add(dropdownComp);
+
+                var spText = SubgoalProgressText.GetComponent<Text>();
+                spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
             }
+            //foreach (var subgoal in visualSolution.subgoalMap)
+            //{
+            //    var stageIndex = subgoal.Key;
+            //    var subgoalName = subgoal.Value;
+            //    GameObject subgoalBtn = subgoalPool.GetObject();
+            //    subgoalBtn.transform.SetParent(SubgoalPanel, false);
+
+            //    var btnText = stageIndex + ". ";
+            //    foreach (var sn in subgoalName)
+            //    {
+            //        btnText += sn + " | ";
+            //    }
+            //    var textCompt = subgoalBtn.GetComponentInChildren<Text>();
+            //    textCompt.text = btnText;
+            //    textCompt.alignment = TextAnchor.MiddleLeft;
+            //    Button btnComp = subgoalBtn.GetComponent<Button>();
+            //    btnComp.onClick.AddListener(() =>
+            //    {
+            //        PresentStageByIndex(stageIndex);
+            //    });
+
+            //    subgoalBtn.SetActive(true);
+            //}
         }
 
 
@@ -168,8 +206,6 @@ namespace Visualiser
 
             EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
             StepsButtons[index].GetComponent<Button>().Select();
-
-
         }
 
         void ButtonClicked(int buttonNo)
@@ -252,6 +288,14 @@ namespace Visualiser
         public void ResetStage()
         {
             Pasue();
+            // Reset subgoal panel
+            foreach (var subgoal in subgoalDropdowns)
+            {
+                subgoal.GetComponent<Image>().color = Color.white;
+            }
+            var spText = SubgoalProgressText.GetComponent<Text>();
+            spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
+            // Render the first stage
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
@@ -406,13 +450,30 @@ namespace Visualiser
                 }
             }
 
-            // set subgoals
+            // Update subgoal UI
+            if (subgoalNames != null)
+            {
+                foreach (var subgoal in subgoalDropdowns)
+                {
+                    if (subgoalNames.Contains(subgoal.name))
+                    {
+                        subgoal.GetComponent<Image>().color = new Color(0.237139f, 0.414301f, 0.688679f);
+                    }
+                    else
+                    {
+                        subgoal.GetComponent<Image>().color = Color.white;
+                    }
+                }
+                var spText = SubgoalProgressText.GetComponent<Text>();
+                spText.text = string.Format("{0}/{1}", subgoalNames.Length, visualSolution.subgoalPool.Count);
+            }
+
+            // Set subgoals
             foreach (var sprite in spritePool)
             {
                 var controller = sprite.Value.GetComponent<SpriteController>();
                 var flag = subgoalObjectNames.Contains(sprite.Key);
                 controller.SetSubgoal(flag);
-
             }
         }
     }

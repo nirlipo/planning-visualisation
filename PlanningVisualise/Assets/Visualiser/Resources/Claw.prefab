@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 225632578175887274}
   - component: {fileID: 95774638720643884}
   - component: {fileID: 223870631194360412}
-  - component: {fileID: 114128824710425572}
   m_Layer: 5
   m_Name: Claw
   m_TagString: Untagged
@@ -78,17 +77,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114128824710425572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1236763659234574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f7fe3f3155474296863484875abe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114845225608047408
 MonoBehaviour:
   m_ObjectHideFlags: 1

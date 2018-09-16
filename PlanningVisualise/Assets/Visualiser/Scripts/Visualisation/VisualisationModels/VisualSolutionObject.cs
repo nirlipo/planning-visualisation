@@ -75,7 +75,20 @@ namespace Visualiser
                     }
                 }
             }
-            return objectNames != null ? objectNames.ToArray() : null;
+            return objectNames?.ToArray();
+        }
+
+        public int[] GetStagesBySubgoal(string subgoalKey)
+        {
+            List<int> stages = new List<int>();
+            foreach (var sm in subgoalMap)
+            {
+                if (sm.Value.Contains(subgoalKey))
+                {
+                    stages.Add(sm.Key);
+                }
+            }
+            return stages?.ToArray();
         }
 
         // Retrieving the image of the object from the Visualisation file
