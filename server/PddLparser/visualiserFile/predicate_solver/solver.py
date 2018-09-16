@@ -105,8 +105,6 @@ def applypredicates(predicate,
                 for obj_index in obj_indexs:
                     objname=object_list[obj_index]
                     obj_list.append({objname:objects_dic[objname]})
-                print(fname)
-                print(gstate[fname])
                 objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]

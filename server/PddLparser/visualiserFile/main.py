@@ -46,7 +46,6 @@ def get_visualisation_file():
     # print(json.dumps(problem_json))
     stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
-    # print(stages)
-    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
+    json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json))
 if __name__ == "__main__":
     get_visualisation_file()

@@ -1,15 +1,15 @@
 """This module is designed to help with getting a set of coordinates for Solver"""
 #-----------------------------Authorship-----------------------------------------
-#-- Authors  : Sai
+#-- Authors  : Yi Ding
 #-- Group    : Planning Visualisation
-#-- Date     : 13/August/2018
-#-- Version  : 1.0
+#-- Date     : 16/Sep/2018
+#-- Version  : 2.0
 #--------------------------------------------------------------------------------
 #-----------------------------Reviewer-------------------------------------------
-#-- Authors  : Sharukh
+#-- Authors  : Sunmuyu Zhang
 #-- Group    : Planning Visualisation
-#-- Date     : 27/August/2018
-#-- Version  : 1.0
+#-- Date     : 16/Sep/2018
+#-- Version  : 2.0
 #--------------------------------------------------------------------------------
 import re
 import numpy as np
@@ -18,7 +18,7 @@ import numpy as np
 # Output : A set of coordinates that satisfying the requirements of Solver
 #######################################################
 
-__all__ = ['distributex','distributey','distribute_grid_around_pointx']
+__all__ = ['customf_controller','distributey','distribute_grid_around_pointx']
 
 def customf_controller(fname,obj_dic,settings,state,remove):
     if fname == "distributex":
@@ -37,17 +37,16 @@ def customf_controller(fname,obj_dic,settings,state,remove):
         return distribute_within_objects_horizontal(obj_dic, settings,state,remove)
 
 def distributex(obj_list, settings, state, remove):
-    """This funtion will return the x position of an object.used for block domain
+    """This funtion will return the x position of an object. used for block domain
     Args:
-        obj(String): objectect name
-        gstate(dictionary): a dictionary of all state information about the custom function.
-        statebtw(Integer): state between two object
-        width(Integer):width of the obj
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
         remove(Boolean): whether remove the object from the state
     Returns:
         Returns:
-            1. Interger if remove is false
-            2. Boolean if an object is removed from the state
+            1. updated attribute dictionary and state
+            2. Boolean if an object is removed from the state or unknown problem happen and state
 
     """
 
@@ -90,10 +89,12 @@ def distributex(obj_list, settings, state, remove):
 def distributey(obj_list,settings,state,remove):
     """The function return the y location of object based on the number in object name
     Args:
-        obj(String): objectect name
-        spacebtw(Integer): Space between two object
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: y postion of obj
+        updated attribute dictionary and state
 
     """
     #default function settings
@@ -117,11 +118,12 @@ def distributey(obj_list,settings,state,remove):
 def distribute_grid_around_point(obj_list, settings, state, remove):
     """The function return the x location of object based on the number in object name, Node1-2,etc.
     Args:
-        obj(String): objectect name
-        rowindex(Integer): indicate which number is for row
-        margin: space between objects
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: x postion of obj
+        updated attribute dictionary and state
 
     """
 
@@ -190,14 +192,12 @@ def draw_line(x1,y1,x2,y2,name):
 def distribute_within_objects_vertical(obj_list, settings, state, remove):
     """The function return an x/y location of obj based on the location of node
     Args:
-        obj: object table of the unsolved object
-        node: object table of the parent object
-        colcount: maximum number of objects for each column
-        axis: axis can be x or y
-        gspace(dictionary): a dictionary of all space information about the custom function.
-        padding: default 5
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: x/y postion of obj
+        updated attribute dictionary and state
 
     """
 
@@ -242,12 +242,12 @@ def distribute_within_objects_vertical(obj_list, settings, state, remove):
 def distribute_within_objects_horizontal(obj_list, settings, state, remove):
     """The function return x location of obj based on the location of parent
     Args:
-        obj: object table of the unsolved object
-        parent: object table of the parent object
-        gspace(dictionary): a dictionary of all space information about the custom function.
-        padding: default 40
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: x postion of obj
+        updated attribute dictionary and state
 
     """
 
@@ -290,12 +290,12 @@ def distribute_within_objects_horizontal(obj_list, settings, state, remove):
 def apply_smaller(obj_list, settings, state, remove):
     """The function return width of object, it remember how big the object are by integer.Used for hanoi domain
     Args:
-        obj1: object1 table of the unsolved object
-        obj2: object2 table of the parent object
-        increase_width: the difference of width between two objects
-        gspace(dictionary): a dictionary of all space information about the custom function.
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: width of obj1
+        updated attribute dictionary and state
 
     """
     #default function settings
@@ -330,13 +330,13 @@ def apply_smaller(obj_list, settings, state, remove):
         
 def align_middle(obj_list, settings, state, remove):
     """The function return updated x position of obj1 based on obj2, it will make sure the middle of two object are
-    aligned.
     Args:
-        obj1: object1 table of the unsolved object
-        obj2: object2 table of the parent object
+        obj_list(Array): Array of objects dictionary
+        settings(dictionary): a dictionary for settings
+        state(dictionary): state of the world
+        remove(Boolean): whether remove the object from the state
     Returns:
-        Integer: x position of obj1
-
+        updated attribute dictionary and state
     """
 
     if len(obj_list) !=2:
