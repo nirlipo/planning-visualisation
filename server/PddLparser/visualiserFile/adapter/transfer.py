@@ -240,9 +240,12 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
 
     space = {}
     space["distributex"] = {}
-    space["distribute_vertical"] = {}
+    space["distribute_within_objects_vertical"] = {}
     space["apply_smaller"] = {}
-    space["distribute_horizontal"] = {}
+    space["align_middle"] = {}
+    space["distribute_within_objects_horizontal"] = {}
+    space["distribute_grid_around_point"] = {}
+    space["distributey"] = {}
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)

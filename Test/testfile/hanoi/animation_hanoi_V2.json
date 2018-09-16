@@ -55,7 +55,7 @@
         "a": 1
       },
       "showName": true,
-      "x": 90,
+      "x": 100,
       "y": 0,
       "width": 10,
       "height": 200,
@@ -71,7 +71,7 @@
         "a": 1
       },
       "showName": true,
-      "x": 180,
+      "x": 200,
       "y": 0,
       "width": 10,
       "height": 200,
@@ -81,43 +81,73 @@
   },
   "predicates_rules": {
     "on": {
-      "priority":1,
+      "priority": 1,
       "rules": [
         "rule1",
         "rule2"
       ],
+      "require": {
+        "1": [
+          "x",
+          "y",
+          "height"
+        ]
+      },
       "rule1": {
-        "0": "x",
-        "1": "x",
+        "left": {
+          "0": "x"
+        },
         "value": {
-          "function": "shiftx"
+            "function": {
+              "fname": "align_middle",
+              "obj_indexs": [
+                0,
+                1
+              ],
+              "settings": {}
+            }
+
         }
       },
       "rule2": {
-        "0": "y",
-        "1": "y",
+        "left": {
+          "0": "y"
+        },
         "value": {
           "add": [
-            "1",
+            {
+              "1": "y"
+            },
             20
           ]
         }
       }
     },
-    "smaller": {
-      "priority":0,
+        "smaller": {
+      "priority": 0,
       "rules": [
         "rule1"
       ],
       "rule1": {
-        "0": "width",
-        "1": "width",
+        "left": {
+          "0": "width"
+        },
         "value": {
-          "function": "apply_smaller"
+          "function": {
+            "fname": "apply_smaller",
+            "obj_indexs": [
+              0,
+              1
+            ],
+            "settings": {
+              "increase_width": 10
+            }
+          }
         }
       }
     }
   },
+
   "imageTable": {
     "m_keys": [
       "square"
