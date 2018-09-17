@@ -39,5 +39,6 @@ def get_plan(domain_file, problem_file):
     json_data_as_bytes = json_data.encode('utf-8')
     req.add_header('Content-Length', len(json_data_as_bytes))
     response = urllib.request.urlopen(req, json_data_as_bytes)
-    plan = json.load(response)
+    str_response = response.read().decode('utf-8')
+    plan = json.loads(str_response)
     return plan
