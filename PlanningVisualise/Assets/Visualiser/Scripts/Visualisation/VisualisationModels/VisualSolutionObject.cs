@@ -43,7 +43,7 @@ namespace Visualiser
 
         public void SetCurrentStageIndex(int index)
         {
-                stageIndex = index;
+            stageIndex = index;
         }
 
         public VisualStageObject GetStageByIndex(int index)
@@ -127,7 +127,11 @@ namespace Visualiser
             }
         }
 
-
+        // Get the final stage of the animation
+        public VisualStageObject FinalStage()
+        {
+            return visualStages[visualStages.Length - 1];
+        }
 
         // Get the initial stage of the animation
         public VisualStageObject ResetStage()
@@ -135,20 +139,6 @@ namespace Visualiser
             stageIndex = -1;
             return NextStage();
         }
-        // Get current index
-        public int getCurrentStage()
-        {
-            return stageIndex;
-        }
 
-        public void setCurrentStage(int index)
-        {
-            stageIndex = index;
-        }
-
-        public int getTotalStages()
-        {
-            return visualStages.Length;
-        }
     }
 }

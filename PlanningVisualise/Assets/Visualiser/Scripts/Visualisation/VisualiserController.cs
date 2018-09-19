@@ -19,10 +19,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-using System.Collections;
-using System.Diagnostics;
 using Debug = UnityEngine.Debug;
-using UnityEngine.EventSystems;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -34,37 +31,38 @@ namespace Visualiser
      */
     public class VisualiserController : MonoBehaviour
     {
+        // Static readonly fileds
+        readonly static Color SubgoalImplementedColor = new Color(0.237139f, 0.414301f, 0.688679f);
+        readonly static Color StepButtonHighlightedColor = new Color(0.5613208f, 0.826122f, 1f);
+        readonly static Color DefaultColor = Color.white;
+        readonly static string HelpLink = "https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s";
+
         // Editor interface
         public Transform SubgoalPanel;
         public GameObject AniFrame;
         public GameObject InforScreen;
         public GameObject Speedbar;
-        public GameObject stepButtonPrefab;
-        public GameObject[] StepsButtons;
         public GameObject SubgoalProgressText;
-
+        public Transform StepPanel;
+        public ScrollRect StepScrollRect;
+        public ScrollRect SubgoalScrollRect;
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
         VisualSolutionObject visualSolution; // Contains all the information of a solution
-        Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>(); // Visible objects pool
-        List<Dropdown> subgoalDropdowns = new List<Dropdown>();
-
-        int frameCount = 0; // Indicates the progress of an animation
+        readonly Dictionary<string, GameObject> spritePool = new Dictionary<string, GameObject>(); // Visible objects pool
+        readonly List<Dropdown> subgoalDropdowns = new List<Dropdown>();
+        readonly List<Button> stepButtons = new List<Button>();
+        Button highlightingButton;
         bool playing;   // Indicates if palying animation
-
-        // dynamic interface
-
-
-        public SimpleObjectPool buttonObjectPool;
-        public Transform stepPanel;
-
+        int storedStage; // Stores the stage index before jumping to the final stage
 
         // Use this for initialization
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
+            Debug.Log(parameters);
 
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
@@ -87,21 +85,13 @@ namespace Visualiser
             }
             // -------- 
 
-
-            UnityEngine.Debug.Log(parameters);
-            Debug.Log("transferType" + visualSolution.transferType);
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
             RenderSubgoals();
-            RenderSteps(visualSolution);
+            RenderSteps();
             RenderFrame(visualStage);
-            RenderInformationFrame(visualStage);
-            stepButtonPrefab.GetComponent<Button>().interactable = false; ;
-
-
         }
 
-        public SimpleObjectPool subgoalPool = new SimpleObjectPool();
         public void RenderSubgoals()
         {
             foreach (var subgoal in visualSolution.subgoalPool)
@@ -129,9 +119,10 @@ namespace Visualiser
                     {
                         var stageText = dropdownComp.options[index].text;
                         var stage = int.Parse(stageText.Replace("Step ", string.Empty));
-                        PresentStageByIndex(stage);
                         dropdownComp.value = 0;
                         subgoalText.text = subgoal.Key;
+
+                        PresentStageByIndex(stage);
                     }
                 });
 
@@ -140,162 +131,70 @@ namespace Visualiser
                 var spText = SubgoalProgressText.GetComponent<Text>();
                 spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
             }
-            //foreach (var subgoal in visualSolution.subgoalMap)
-            //{
-            //    var stageIndex = subgoal.Key;
-            //    var subgoalName = subgoal.Value;
-            //    GameObject subgoalBtn = subgoalPool.GetObject();
-            //    subgoalBtn.transform.SetParent(SubgoalPanel, false);
-
-            //    var btnText = stageIndex + ". ";
-            //    foreach (var sn in subgoalName)
-            //    {
-            //        btnText += sn + " | ";
-            //    }
-            //    var textCompt = subgoalBtn.GetComponentInChildren<Text>();
-            //    textCompt.text = btnText;
-            //    textCompt.alignment = TextAnchor.MiddleLeft;
-            //    Button btnComp = subgoalBtn.GetComponent<Button>();
-            //    btnComp.onClick.AddListener(() =>
-            //    {
-            //        PresentStageByIndex(stageIndex);
-            //    });
-
-            //    subgoalBtn.SetActive(true);
-            //}
         }
 
-
-        public void PresentStageByIndex(int index)
+        public void RenderSteps()
         {
-            var stage = visualSolution.GetStageByIndex(index);
-            visualSolution.setCurrentStage(index);
-            TryRenderFrame(stage);
-            TryRenderInformationFrame(stage);
-        }
-
-        public void RenderSteps(VisualSolutionObject visualSolution)
-        {
-            int numberOfSteps = visualSolution.getTotalStages();
-            StepsButtons = new GameObject[numberOfSteps];
-            Debug.Log(numberOfSteps);
-            for (int i = 0; i < numberOfSteps; i++)
+            var stepButtonPrefab = Resources.Load<GameObject>("StepButton");
+            var i = 0;
+            foreach (var stage in visualSolution.visualStages)
             {
-                int tempInt = i;
+                var index = i;
 
-                // Create Step button
-                GameObject goButton = buttonObjectPool.GetObject();
-                goButton.transform.SetParent(stepPanel, false);
-                // Add Stage name as child component of button
-                goButton.SetActive(true);
-
-                var stage = visualSolution.visualStages[i].stageName;
-                goButton.GetComponentInChildren<Text>().text = i + ". " + stage;
-                StepsButtons[i] = goButton;
-                Button tempButton = goButton.GetComponent<Button>();
-
-                tempButton.onClick.AddListener(() => ButtonClicked(tempInt));
-
-
+                var stepButtonObj = Instantiate(stepButtonPrefab);
+                stepButtonObj.transform.SetParent(StepPanel, false);
+                var stepText = stepButtonObj.GetComponentInChildren<Text>();
+                stepText.text = $"{++i}. {stage.stageName}";
+                var stepButton = stepButtonObj.GetComponent<Button>();
+                stepButton.onClick.AddListener(() =>
+                {
+                    PresentStageByIndex(index);
+                });
+                stepButtons.Add(stepButton);
             }
         }
 
-
-        public void highlightButton(int index)
+        #region UI event handlers
+        // UI event handler: Presents the contents of the final stage
+        public void PresentFinalGoal()
         {
-
-            EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
-            StepsButtons[index].GetComponent<Button>().Select();
+            storedStage = visualSolution.GetCurrentStageIndex();
+            var visualStage = visualSolution.FinalStage();
+            TryRenderFrame(visualStage);
         }
 
-        void ButtonClicked(int buttonNo)
+        // UI event handler: Presents the stored stage before jumping to the final stage
+        public void PresentStoredStage()
         {
-            Debug.Log("Button clicked = " + buttonNo);
-            PresentCurrent(buttonNo);
+            PresentStageByIndex(storedStage);
         }
 
-        void setCurrentStageIndex(int i)
+        // Used by other events, presents a specific stage by index
+        public void PresentStageByIndex(int index)
         {
-            visualSolution.setCurrentStage(i);
-        }
-        int getCurrentStageIndex()
-        {
-            return visualSolution.getCurrentStage();
+            var stage = visualSolution.GetStageByIndex(index);
+            visualSolution.SetCurrentStageIndex(index);
+            TryRenderFrame(stage);
         }
 
-
-        //      #region UI event handlers
-
-
-        // UI event handler: Presents the contents of next stage
-        public void PresentLastStage()
-        {
-            int lastStageNumber = visualSolution.getTotalStages() - 1;
-            var stages = visualSolution.visualStages;
-
-            TryRenderFrame(stages[lastStageNumber]);
-            TryRenderInformationFrame(stages[lastStageNumber]);
-            highlightButton(lastStageNumber);
-
-
-
-
-
-        }
         // UI event handler: Presents the contents of next stage
         public void PresentNextStage()
         {
-
             var visualStage = visualSolution.NextStage();
             TryRenderFrame(visualStage);
-            TryRenderInformationFrame(visualStage);
-
-
-
         }
 
         // UI event handler: Presents the contents of previous stage
         public void PresentPreviousStage()
         {
-
             var visualStage = visualSolution.PreviousStage();
             TryRenderFrame(visualStage);
-            TryRenderInformationFrame(visualStage);
-
         }
-
-        // UI event handler: Presents the contents of current stage
-        public void PresentCurrent(int i)
-        {
-            setCurrentStageIndex(i);
-            Pasue();
-            var stages = visualSolution.visualStages;
-            //highlightButton(i);
-            TryRenderFrame(stages[i]);
-            TryRenderInformationFrame(stages[i]);
-
-
-        }
-
-        // UI event handler: Presents the contents of current stage
-        public void PresentCurrentSavedState()
-        {
-            PresentCurrent(getCurrentStageIndex());
-        }
-
 
         // UI event handler: Cleans up visualisation states and goes back to the first stage
         public void ResetStage()
         {
             Pasue();
-            // Reset subgoal panel
-            foreach (var subgoal in subgoalDropdowns)
-            {
-                subgoal.GetComponent<Image>().color = Color.white;
-            }
-            var spText = SubgoalProgressText.GetComponent<Text>();
-            spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
-            // Render the first stage
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
@@ -310,17 +209,27 @@ namespace Visualiser
         public void Pasue()
         {
             playing = false;
-            frameCount = 0;
         }
 
         // UI event handler: Jumps to user manual page 
-        public void btnHelp()
+        public void Help()
         {
-
-            Application.OpenURL("https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s");
+            Application.OpenURL(HelpLink);
         }
-        //  #endregion
-        bool Allstop()
+        #endregion
+
+
+        // Unity built-in method, it will be fired in every frame
+        void Update()
+        {
+            // Plays animation
+            if (playing && AreAllAnimationsFinished())
+            {
+                PresentNextStage();
+            }
+        }
+
+        bool AreAllAnimationsFinished()
         {
             foreach (GameObject spriteobject in spritePool.Values)
             {
@@ -331,60 +240,90 @@ namespace Visualiser
             }
             return true;
         }
-        // Unity built-in method, it will be fired in every frame
-        void Update()
-        {
-            // Plays animation
-            if (playing && Allstop())
-            {
-                PresentNextStage();
-            }
 
-        }
-
+        #region Stage Rendering
         // Renders a frame if it is not null
         void TryRenderFrame(VisualStageObject visualStage)
         {
             if (visualStage != null)
             {
-
                 RenderFrame(visualStage);
             }
-        }
-
-        void TryRenderInformationFrame(VisualStageObject visualStage)
-        {
-            if (visualStage != null)
-            {
-                RenderInformationFrame(visualStage);
-            }
-        }
-        //Render a frame (stage), stage information of given stage is rendered
-        void RenderInformationFrame(VisualStageObject visualStage)
-        {
-            string emptyString = "";
-            String stepInformation = visualStage.getStageInfo();
-            if (stepInformation == null || stepInformation.Equals(emptyString))
-            {
-                InforScreen.GetComponentInChildren<Text>().text = "No Step Informattion available";
-            }
-
-            else
-            {
-                InforScreen.GetComponentInChildren<Text>().text = stepInformation;
-            }
-
         }
 
         // Renders a frame (stage), all visible objects will be drawn on the screen in this process
         void RenderFrame(VisualStageObject visualStage)
         {
-            //get subgoals
+            //Get subgoal info
             var stageIndex = visualSolution.GetCurrentStageIndex();
             var subgoalNames = visualSolution.GetSubgoalNames(stageIndex);
             var subgoalObjectNames = visualSolution.GetSubgoalObjectNames(stageIndex);
-            //highlight stage object for rendering
-            highlightButton(getCurrentStageIndex());
+
+            // Render step info of current stage
+            UpdateInformationFrame(visualStage);
+            // Highlight stage object for rendering
+            UpdateStepPanelUI(stageIndex);
+            // Update subgoal UI
+            UpdateSubgoalUI(subgoalNames);
+            // Update visual sprites.
+            // Including create, update, remove visual sprites and manage subgoal status
+            UpdateVisualSprites(visualStage, subgoalObjectNames);
+        }
+
+        // Update buttons highlighting status
+        public void UpdateStepPanelUI(int index)
+        {
+            if (highlightingButton != null)
+            {
+                highlightingButton.GetComponent<Image>().color = DefaultColor;
+            }
+            highlightingButton = stepButtons[index];
+            highlightingButton.GetComponent<Image>().color = StepButtonHighlightedColor;
+
+            var position = 1 - (float)index / (stepButtons.Count - 1);
+            StepScrollRect.verticalNormalizedPosition = position;
+        }
+
+        // Update step info of the visual stage
+        void UpdateInformationFrame(VisualStageObject visualStage)
+        {
+            String stepInfo = visualStage.stageInfo;
+            var stepInfoText = InforScreen.GetComponentInChildren<Text>();
+            stepInfoText.text = string.IsNullOrEmpty(stepInfo) ?
+                                    "No Step Informattion available" :
+                                    stepInfo;
+        }
+
+        // Update subgoal panel UI
+        void UpdateSubgoalUI(string[] subgoalNames)
+        {
+            if (subgoalNames != null)
+            {
+                foreach (var subgoal in subgoalDropdowns)
+                {
+                    subgoal.GetComponent<Image>().color = subgoalNames.Contains(subgoal.name) ?
+                        SubgoalImplementedColor :
+                        DefaultColor;
+                }
+                var spText = SubgoalProgressText.GetComponent<Text>();
+                spText.text = string.Format("{0}/{1}", subgoalNames.Length, visualSolution.subgoalPool.Count);
+            }
+            else
+            {
+                foreach (var subgoal in subgoalDropdowns)
+                {
+                    subgoal.GetComponent<Image>().color = DefaultColor;
+                }
+                var spText = SubgoalProgressText.GetComponent<Text>();
+                spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
+            }
+
+            
+        }
+
+        // Update visual sprites game object and manage subgoal status
+        void UpdateVisualSprites(VisualStageObject visualStage, string[] subgoalObjectNames)
+        {
             //Render all visual sprite objects of current visual stage
             foreach (var visualSprite in visualStage.visualSprites)
             {
@@ -395,13 +334,9 @@ namespace Visualiser
                     var controller = sprite.GetComponent<SpriteController>();
                     controller.UpdateState(visualSprite);
                 }
-                /*
-                 * This part should be refactored in order to achieve better OO design
-                 * Some code placed here are for temporary experiments
-                 */
+                //Create a new sprite if it does not exist
                 else
                 {
-                    //Create a new sprite if it does not exist
                     GameObject sprite;
                     var imageKey = visualSprite.prefabImage;
                     var imageString = visualSolution.FetchImageString(imageKey);
@@ -450,24 +385,6 @@ namespace Visualiser
                 }
             }
 
-            // Update subgoal UI
-            if (subgoalNames != null)
-            {
-                foreach (var subgoal in subgoalDropdowns)
-                {
-                    if (subgoalNames.Contains(subgoal.name))
-                    {
-                        subgoal.GetComponent<Image>().color = new Color(0.237139f, 0.414301f, 0.688679f);
-                    }
-                    else
-                    {
-                        subgoal.GetComponent<Image>().color = Color.white;
-                    }
-                }
-                var spText = SubgoalProgressText.GetComponent<Text>();
-                spText.text = string.Format("{0}/{1}", subgoalNames.Length, visualSolution.subgoalPool.Count);
-            }
-
             // Set subgoals
             foreach (var sprite in spritePool)
             {
@@ -476,5 +393,6 @@ namespace Visualiser
                 controller.SetSubgoal(flag);
             }
         }
+        #endregion
     }
 }
