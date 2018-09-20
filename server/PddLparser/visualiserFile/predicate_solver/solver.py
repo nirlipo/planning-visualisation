@@ -265,6 +265,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
         predicates = stage["items"]
         sorted_predicates=priority(predicates,predicates_rules)
         space["apply_smaller"]={} #For hanoi problem, reset each stage
+        space["calculate_label"]={} #For logistics problem, reset each stage
         solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:

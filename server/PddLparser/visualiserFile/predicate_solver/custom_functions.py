@@ -35,6 +35,8 @@ def customf_controller(fname,obj_dic,settings,state,remove):
         return distributey(obj_dic, settings,state,remove)
     elif fname == "distribute_within_objects_horizontal":
         return distribute_within_objects_horizontal(obj_dic, settings,state,remove)
+    elif fname == "calculate_label":
+        return calculate_label(obj_dic, settings,state,remove)
 
 def distributex(obj_list, settings, state, remove):
     """This funtion will return the x position of an object. used for block domain
@@ -327,7 +329,21 @@ def apply_smaller(obj_list, settings, state, remove):
     else:
 
         return obj1dic,state
-        
+
+
+def calculate_label(obj_list, settings, state, remove):
+    # object name
+    obj2, obj2dic = list(obj_list[1].items())[0]
+    if obj2 not in state:
+        state[obj2] = 1
+        obj2dic["showLabel"] = True
+    else:
+        state[obj2] = state[obj2] +1
+        obj2dic["showLabel"] = True
+
+    obj2dic["label"] = state[obj2]
+    return obj2dic,state
+
 def align_middle(obj_list, settings, state, remove):
     """The function return updated x position of obj1 based on obj2, it will make sure the middle of two object are
     Args:
