@@ -176,7 +176,7 @@ def solvepredicates(predicates, objects_dic, predicates_rules, space):
         if predicate["name"] not in predicates_rules:
             continue
         if check_rule_complete(predicate, objects_dic, predicates_rules):
-            space["apply_smaller"]={} #For hanoi problem, reset each stage
+
             applypredicates(predicate, objects_dic, predicates_rules, space)
         else:
             if not predicates:  # if the last predicate can not be solved
@@ -264,6 +264,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
         sorted_predicates=priority(predicates,predicates_rules)
+        space["apply_smaller"]={} #For hanoi problem, reset each stage
         solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:

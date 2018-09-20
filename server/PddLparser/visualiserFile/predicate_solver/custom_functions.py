@@ -316,13 +316,13 @@ def apply_smaller(obj_list, settings, state, remove):
     obj1type=''.join(filter(lambda x: x.isalpha(), obj1))
     obj2type=''.join(filter(lambda x: x.isalpha(), obj2))
     
-    if obj1type==obj2type:
+    if obj1type==obj2type and obj1!=obj2:
 
         if obj1 not in state:
             state[obj1]=1
         else:
             state[obj1]=state[obj1]+1
-        obj1dic["width"]=obj1dic["width"]+state[obj1]*default_setting["increase_width"]
+        obj1dic["width"]=obj1dic["width"] +default_setting["increase_width"]
         return obj1dic,state
     else:
 
