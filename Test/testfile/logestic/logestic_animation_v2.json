@@ -53,7 +53,9 @@
       },
       "width": 50,
       "height": 50,
-      "depth": 4
+      "depth": 4,
+      "showLabel":false,
+      "label": 0
     },
     "truck": {
       "prefabImage": "truck",
@@ -68,7 +70,9 @@
       },
       "width": 60,
       "height": 100,
-      "depth": 3
+      "depth": 3,
+      "showLabel":false,
+      "label": 0
     },
     "plane": {
       "prefabImage": "plane",
@@ -83,7 +87,9 @@
       },
       "width": 60,
       "height": 100,
-      "depth": 3
+      "depth": 3,
+      "showLabel":false,
+      "label": 0
     },
     "hub": {
       "prefabImage": "square",
@@ -98,7 +104,9 @@
         "b": 0.858,
         "a": 1
       },
-      "depth": 2
+      "depth": 2,
+      "showLabel":false,
+      "label": 0
     },
     "city": {
       "prefabImage": "square",
@@ -113,7 +121,9 @@
         "b": 0.858,
         "a": 1
       },
-      "depth": 1
+      "depth": 1,
+      "showLabel":false,
+      "label": 0
     }
   },
   "predicates_rules": {
@@ -211,7 +221,8 @@
     "in": {
       "rules": [
         "rule1",
-        "rule2"
+        "rule2",
+        "rule3"
       ],
       "require": {
         "1": [
@@ -237,6 +248,20 @@
           "equal": {
             "1": "x"
           }
+        }
+      },
+      "rule3": {
+        "left": {
+          "1": "label"
+        },
+        "value": {
+                 "function": {
+              "fname": "calculate_label",
+              "obj_indexs": [
+                0,1
+              ],
+              "settings": {}
+            }
         }
       }
     }

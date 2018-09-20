@@ -246,6 +246,8 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     space["distribute_within_objects_horizontal"] = {}
     space["distribute_grid_around_point"] = {}
     space["distributey"] = {}
+    space["calculate_label"] = {}
+
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)
