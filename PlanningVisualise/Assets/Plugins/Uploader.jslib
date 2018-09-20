@@ -1,9 +1,11 @@
 var UploaderPlugin = {
-  UploaderCaptureClick: function() {
+  UploaderCaptureClick: function(extensionptr) {
+    var extension = Pointer_stringify(extensionptr);
     if (!document.getElementById('UploaderInput')) {
       var fileInput = document.createElement('input');
       fileInput.setAttribute('type', 'file');
       fileInput.setAttribute('id', 'UploaderInput');
+      fileInput.setAttribute('accept', extension);
       fileInput.style.visibility = 'hidden';
       fileInput.onclick = function (event) {
         this.value = null;
@@ -13,6 +15,8 @@ var UploaderPlugin = {
         SendMessage('Canvas', 'FileSelected', URL.createObjectURL(event.target.files[0]));
       }
       document.body.appendChild(fileInput);
+    } else{
+      document.getElementById('UploaderInput').setAttribute('accept', extension);
     }
     var OpenFileDialog = function() {
       document.getElementById('UploaderInput').click();

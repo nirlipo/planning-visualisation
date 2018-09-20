@@ -22,6 +22,7 @@ using System.Linq;
 using Debug = UnityEngine.Debug;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Runtime.InteropServices;
 
 namespace Visualiser
 {
@@ -31,6 +32,10 @@ namespace Visualiser
      */
     public class VisualiserController : MonoBehaviour
     {
+		//Download function
+		[DllImport("__Internal")]
+		private static extern void Download(string textptr,string fileTypeptr, string fileNameptr);
+
         // Static readonly fileds
         readonly static Color SubgoalImplementedColor = new Color(0.237139f, 0.414301f, 0.688679f);
         readonly static Color StepButtonHighlightedColor = new Color(0.5613208f, 0.826122f, 1f);
@@ -56,14 +61,14 @@ namespace Visualiser
         Button highlightingButton;
         bool playing;   // Indicates if palying animation
         int storedStage; // Stores the stage index before jumping to the final stage
-
+		string vf;
         // Use this for initialization
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
             Debug.Log(parameters);
-
+			vf = parameters;
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
 
@@ -240,6 +245,10 @@ namespace Visualiser
             }
             return true;
         }
+		
+		public void DownloadVF(){
+			Download (vf, "text/plain", "vf_out.txt");
+		}
 
         #region Stage Rendering
         // Renders a frame if it is not null
