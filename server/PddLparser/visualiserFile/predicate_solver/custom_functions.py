@@ -332,6 +332,16 @@ def apply_smaller(obj_list, settings, state, remove):
 
 
 def calculate_label(obj_list, settings, state, remove):
+    """The function return the label of the objects, e.g showing how many packages in the trunks
+        Args:
+            obj_list(Array): Array of objects dictionary
+            settings(dictionary): a dictionary for settings
+            state(dictionary): state of the world
+            remove(Boolean): whether remove the object from the state
+        Returns:
+            updated attribute dictionary and state
+
+        """
     # object name
     obj2, obj2dic = list(obj_list[1].items())[0]
     if obj2 not in state:

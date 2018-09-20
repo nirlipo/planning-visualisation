@@ -55,7 +55,7 @@
       "height": 50,
       "depth": 4,
       "showLabel":false,
-      "label": 0
+      "label": "0"
     },
     "truck": {
       "prefabImage": "truck",
@@ -72,7 +72,7 @@
       "height": 100,
       "depth": 3,
       "showLabel":false,
-      "label": 0
+      "label": "0"
     },
     "plane": {
       "prefabImage": "plane",
@@ -89,7 +89,7 @@
       "height": 100,
       "depth": 3,
       "showLabel":false,
-      "label": 0
+      "label": "0"
     },
     "hub": {
       "prefabImage": "square",
@@ -106,7 +106,7 @@
       },
       "depth": 2,
       "showLabel":false,
-      "label": 0
+      "label": "0"
     },
     "city": {
       "prefabImage": "square",
@@ -123,7 +123,7 @@
       },
       "depth": 1,
       "showLabel":false,
-      "label": 0
+      "label": "0"
     }
   },
   "predicates_rules": {
