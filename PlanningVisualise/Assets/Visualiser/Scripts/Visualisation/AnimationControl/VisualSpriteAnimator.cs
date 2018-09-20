@@ -60,11 +60,11 @@ namespace VisualSpriteAnimation {
             {
                 if (canvasGroup.alpha < 1)
                 {
-                    canvasGroup.alpha += Time.deltaTime;
+                   canvasGroup.alpha += Time.deltaTime;
                 }
                 else
                 {
-                    Forming = false;
+                   Forming = false;
                 }
             }
 
@@ -72,7 +72,7 @@ namespace VisualSpriteAnimation {
             {
                 if (canvasGroup.alpha > 0)
                 {
-                    canvasGroup.alpha -= Time.deltaTime;
+                   // canvasGroup.alpha -= Time.deltaTime;
                 }
                 else
                 {
@@ -92,8 +92,22 @@ namespace VisualSpriteAnimation {
             }
 
             if (!Animating && Highlighting)
+
             {
-                canvasGroup.alpha += fadeingOut ? -1f / 60f : 1f / 60f;
+
+                // Get new, adjusted color
+                var image = gameObject.GetComponent<Image>();
+                var originalColor = visualSprite.color;
+                float brightness = (float)0.5;
+
+                float red = originalColor.r*brightness;
+                float green = originalColor.g *brightness;
+                float blue = originalColor.b*brightness;
+
+                // Set adjusted colour
+                image.color = new Color(red, green, blue, 1);
+
+                //canvasGroup.alpha += fadeingOut ? -1f / 60f : 1f / 60f;
                 if (canvasGroup.alpha <= 0.3)
                 {
                     fadeingOut = false;
