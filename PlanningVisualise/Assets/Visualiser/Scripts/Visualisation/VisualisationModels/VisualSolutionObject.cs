@@ -140,5 +140,10 @@ namespace Visualiser
             return NextStage();
         }
 
+        public bool IsFinalStage()
+        {
+            return stageIndex == visualStages.Length - 1;
+        }
+
     }
 }
