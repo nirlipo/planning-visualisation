@@ -855,7 +855,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sorry we ran Into an Error. Please try again. '
+  m_Text: Sorry we ran Into an Error. Please try again. [possible append of message]
 --- !u!222 &1576617497
 CanvasRenderer:
   m_ObjectHideFlags: 0
