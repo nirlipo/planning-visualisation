@@ -25,6 +25,8 @@ namespace Visualiser
     {
         public string name;
         public string prefabImage;
+        public string label;
+        public bool showLabel;
         public Color color;
         public bool showName;
         public float minX;
@@ -37,11 +39,14 @@ namespace Visualiser
 		// checking if the given VisualSpriteObject is same as this class
         public bool ContentsEqual(VisualSpriteObject vso)
         {
-            return name == vso.name && prefabImage == vso.prefabImage
+            return              name == vso.name 
+                              && prefabImage == vso.prefabImage
                               && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
                               && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY)
                               && color == vso.color
-                              && depth == vso.depth;
+                              && depth == vso.depth
+                              && label == vso.label                                                         
+                              ;
         }
     }
 }
