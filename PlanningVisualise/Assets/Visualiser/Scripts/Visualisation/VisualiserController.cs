@@ -149,7 +149,7 @@ namespace Visualiser
                 var stepButtonObj = Instantiate(stepButtonPrefab);
                 stepButtonObj.transform.SetParent(StepPanel, false);
                 var stepText = stepButtonObj.GetComponentInChildren<Text>();
-                stepText.text = $"{++i}. {stage.stageName}";
+                stepText.text = $"{i}. {stage.stageName}";
                 var stepButton = stepButtonObj.GetComponent<Button>();
                 stepButton.onClick.AddListener(() =>
                 {
