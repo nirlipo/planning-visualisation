@@ -25,14 +25,22 @@ public class CanvasScript : MonoBehaviour
     public GameObject domainbox;
     public GameObject problembox;
     public GameObject animationbox;
+    public GameObject solverbox;
     private string type;
     private string name;
+
+
+
+
     IEnumerator LoadTexture(string url)
     {
         WWW file = new WWW(url);
         yield return file;
         string data = file.text;
         //Assigning file to corresponding variable and showing file name on UI
+
+
+
         if (type == "Domain")
         {
             ScenesCoordinator.Coordinator.setDomain(data);
@@ -64,7 +72,15 @@ public class CanvasScript : MonoBehaviour
     {
         this.name = name;
     }
-
+    //Assign customsolver 
+    public void setCustomSolver()
+    {
+        
+        string solverAddress;
+        solverAddress = solverbox.GetComponent<InputField>().text;
+        ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
+    }
+   
     //trigger open file panel
     public void OnButtonPointerDown(string type)
     {

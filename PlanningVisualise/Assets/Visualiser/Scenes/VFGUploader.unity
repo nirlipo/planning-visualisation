@@ -208,6 +208,7 @@ MonoBehaviour:
   domainbox: {fileID: 0}
   problembox: {fileID: 0}
   animationbox: {fileID: 0}
+  solverbox: {fileID: 0}
 --- !u!114 &54683846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   domainbox: {fileID: 0}
   problembox: {fileID: 0}
   animationbox: {fileID: 0}
+  solverbox: {fileID: 0}
 --- !u!114 &329191292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,7 +1125,7 @@ GameObject:
   - component: {fileID: 751468160}
   - component: {fileID: 751468159}
   m_Layer: 5
-  m_Name: InputField (3)
+  m_Name: visualisationFile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

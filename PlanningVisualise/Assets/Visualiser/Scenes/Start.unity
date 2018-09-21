@@ -311,6 +311,7 @@ MonoBehaviour:
   domainbox: {fileID: 0}
   problembox: {fileID: 0}
   animationbox: {fileID: 0}
+  solverbox: {fileID: 0}
 --- !u!1 &173115186
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +461,7 @@ MonoBehaviour:
   domainbox: {fileID: 1313313704}
   problembox: {fileID: 1703882007}
   animationbox: {fileID: 316025401}
+  solverbox: {fileID: 632382765}
 --- !u!1 &316025401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,7 +1219,7 @@ GameObject:
   - component: {fileID: 632382768}
   - component: {fileID: 632382767}
   m_Layer: 5
-  m_Name: InputField (3)
+  m_Name: customSolverDomain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1291,7 +1293,18 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 214535888}
+        m_MethodName: setCustomSolver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.InputField+SubmitEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
