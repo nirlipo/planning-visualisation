@@ -14,6 +14,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 using UnityEngine.UI;
 
@@ -53,12 +54,18 @@ public class CanvasScript : MonoBehaviour
             problembox.GetComponent<InputField>().text = name;
 
         }
-        else
+        else if (type == "Animation")
         {
             ScenesCoordinator.Coordinator.setAnimation(data);
             animationbox.GetComponent<InputField>().text = name;
 
+        }else if (type == "visualisationFile")
+        {
+        	ScenesCoordinator.Coordinator.PushParameters("Visualisation", data);
+        	SceneManager.LoadScene("Visualisation");
+
         }
+        
     }
 
     //Recieved call from Javascript code
