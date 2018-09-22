@@ -308,10 +308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3754e8f4e92e451da3a8f75e4609697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domainbox: {fileID: 0}
-  problembox: {fileID: 0}
-  animationbox: {fileID: 0}
-  solverbox: {fileID: 0}
 --- !u!1 &173115186
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,10 +454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3754e8f4e92e451da3a8f75e4609697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domainbox: {fileID: 1313313704}
-  problembox: {fileID: 1703882007}
-  animationbox: {fileID: 316025401}
-  solverbox: {fileID: 632382765}
 --- !u!1 &316025401
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +466,7 @@ GameObject:
   - component: {fileID: 316025404}
   - component: {fileID: 316025403}
   m_Layer: 5
-  m_Name: InputField (2)
+  m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2013,7 +2005,7 @@ GameObject:
   - component: {fileID: 1313313707}
   - component: {fileID: 1313313706}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: Domain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2893,7 +2885,7 @@ GameObject:
   - component: {fileID: 1703882010}
   - component: {fileID: 1703882009}
   m_Layer: 5
-  m_Name: InputField (1)
+  m_Name: Problem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

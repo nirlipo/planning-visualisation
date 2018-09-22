@@ -22,11 +22,8 @@ using UnityEngine.UI;
 public class CanvasScript : MonoBehaviour
 {
     [DllImport("__Internal")]
-    private static extern void UploaderCaptureClick();
-    public GameObject domainbox;
-    public GameObject problembox;
-    public GameObject animationbox;
-    public GameObject solverbox;
+    private static extern void UploaderCaptureClick(string extensionptr);
+    private InputField textfield;
     private string type;
     private string name;
 
@@ -38,6 +35,8 @@ public class CanvasScript : MonoBehaviour
         WWW file = new WWW(url);
         yield return file;
         string data = file.text;
+        textfield = GameObject.Find(type).GetComponent<InputField>();
+        textfield.text = name;
         //Assigning file to corresponding variable and showing file name on UI
 
 
@@ -45,19 +44,16 @@ public class CanvasScript : MonoBehaviour
         if (type == "Domain")
         {
             ScenesCoordinator.Coordinator.setDomain(data);
-            domainbox.GetComponent<InputField>().text = name;
 
         }
         else if (type == "Problem")
         {
             ScenesCoordinator.Coordinator.setProblem(data);
-            problembox.GetComponent<InputField>().text = name;
 
         }
         else if (type == "Animation")
         {
             ScenesCoordinator.Coordinator.setAnimation(data);
-            animationbox.GetComponent<InputField>().text = name;
 
         }else if (type == "visualisationFile")
         {
@@ -103,7 +99,10 @@ public class CanvasScript : MonoBehaviour
 			FileSelected ("file:///" + path);
 		}
 #else
-        UploaderCaptureClick();
+		if (type == "Animation")
+        	UploaderCaptureClick(".json");
+        else
+        	UploaderCaptureClick(".pddl");
 #endif
     }
 }

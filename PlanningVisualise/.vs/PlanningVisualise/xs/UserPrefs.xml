@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{6D2ED755-4F69-AEC7-48BD-1F44AF587416}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source Not Available">
     <Files>
       <File FileName="Assets/Visualiser/Scripts/ScenesCoordinator.cs" Line="76" Column="52" />
       <File FileName="Assets/AnimationProfile/Script/Objects.cs" Line="1" Column="1" />
@@ -14,7 +14,7 @@
       <File FileName="Assets/AnimationProfile/Script/predicates.cs" Line="1" Column="1" />
       <File FileName="Assets/AnalyzerPack/VisualizerRenderPack/PredicatesCalculatePack/PredicatesCalculateInterface.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/SpriteController.cs" Line="69" Column="21" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSolutionObject.cs" Line="140" Column="32" />
+      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSolutionObject.cs" Line="145" Column="25" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSpriteObject.cs" Line="36" Column="33" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualStageObject.cs" Line="27" Column="33" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/Enum_TransferType.cs" Line="1" Column="1" />
@@ -28,10 +28,10 @@
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/Enum_TwoPhaseDisappearType.cs" Line="1" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/TransferPack/TransferFactory.cs" Line="1" Column="1" />
       <File FileName="Assets/FileLoaderSharukh.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="312" Column="14" />
+      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="219" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/ImageDictionary.cs" Line="17" Column="1" />
       <File FileName="Assets/SerializableDictionary/SerializableDictionary.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="33" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/SubgoalPoolDictionary.cs" Line="6" Column="9" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/SubgoalMapDictionary.cs" Line="10" Column="31" />
       <File FileName="Assets/Visualiser/Scripts/circleRotator.cs" Line="1" Column="1" />
@@ -40,12 +40,17 @@
       <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/LinearTransitionAni.cs" Line="30" Column="10" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/IVisualSpriteAnimation.cs" Line="11" Column="1" />
       <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/LinearAnimtor.cs" Line="20" Column="44" />
+      <File FileName="Source Not Available" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" line="64" column="1" />
+      <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="227" column="1" />
+      <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="219" column="1" />
+      <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="98" column="1" />
+      <Breakpoint file="/Users/tomcat/Projects/swen90013-2018-pl/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="99" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

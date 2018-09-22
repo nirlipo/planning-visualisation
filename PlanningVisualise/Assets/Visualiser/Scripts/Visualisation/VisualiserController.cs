@@ -22,6 +22,7 @@ using System.Linq;
 using Debug = UnityEngine.Debug;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Runtime.InteropServices;
 
 namespace Visualiser
 {
@@ -31,8 +32,12 @@ namespace Visualiser
      */
     public class VisualiserController : MonoBehaviour
     {
+        //Download function
+        [DllImport("__Internal")]
+        private static extern void Download(string textptr, string fileTypeptr, string fileNameptr);
+
         // Static readonly fileds
-        readonly static Color SubgoalImplementedColor = new Color(0.237139f, 0.414301f, 0.688679f);
+        readonly static Color SubgoalImplementedColor = new Color(0f, 0.66666667f, 0.10980392f);
         readonly static Color StepButtonHighlightedColor = new Color(0.5613208f, 0.826122f, 1f);
         readonly static Color DefaultColor = Color.white;
         readonly static string HelpLink = "https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s";
@@ -46,6 +51,10 @@ namespace Visualiser
         public Transform StepPanel;
         public ScrollRect StepScrollRect;
         public ScrollRect SubgoalScrollRect;
+        public Image PlayButtonSprite;
+
+        Sprite PlaySprite;
+        Sprite PauseSprite;
 
         // Private fields
         ScenesCoordinator coordinator = ScenesCoordinator.Coordinator; // Manages scenes
@@ -56,14 +65,14 @@ namespace Visualiser
         Button highlightingButton;
         bool playing;   // Indicates if palying animation
         int storedStage; // Stores the stage index before jumping to the final stage
-
+        string vf;
         // Use this for initialization
         void Start()
         {
             // Reads visualisation file data
             var parameters = coordinator.FetchParameters("Visualisation") as string;
             Debug.Log(parameters);
-
+            vf = parameters;
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
 
@@ -84,6 +93,8 @@ namespace Visualiser
                 visualSolution.subgoalPool.Add(sp.m_keys[i], sp.m_values[i]);
             }
             // -------- 
+            PlaySprite = Resources.Load<Sprite>("PlaySprite");
+            PauseSprite = Resources.Load<Sprite>("PauseSprite");
 
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
@@ -122,6 +133,7 @@ namespace Visualiser
                         dropdownComp.value = 0;
                         subgoalText.text = subgoal.Key;
 
+                        Pause();
                         PresentStageByIndex(stage);
                     }
                 });
@@ -144,10 +156,11 @@ namespace Visualiser
                 var stepButtonObj = Instantiate(stepButtonPrefab);
                 stepButtonObj.transform.SetParent(StepPanel, false);
                 var stepText = stepButtonObj.GetComponentInChildren<Text>();
-                stepText.text = $"{++i}. {stage.stageName}";
+                stepText.text = $"{i++}. {stage.stageName}";
                 var stepButton = stepButtonObj.GetComponent<Button>();
                 stepButton.onClick.AddListener(() =>
                 {
+                    Pause();
                     PresentStageByIndex(index);
                 });
                 stepButtons.Add(stepButton);
@@ -194,22 +207,38 @@ namespace Visualiser
         // UI event handler: Cleans up visualisation states and goes back to the first stage
         public void ResetStage()
         {
-            Pasue();
+            Pause();
             var visualStage = visualSolution.ResetStage();
             TryRenderFrame(visualStage);
         }
 
         // UI event handler: Plays visualisation (animation)
-        public void Play()
+        public void PlayPause()
         {
-            playing = true;
+            if (playing)
+            {
+                Pause();
+            }
+            else
+            {
+                Play();
+            }
         }
 
-        // UI event handler: Pasues visualisation (animation), but all states are remained
-        public void Pasue()
+        void Play()
+        {
+            playing = true;
+            PlayButtonSprite.sprite = PauseSprite;
+        }
+
+        void Pause()
         {
             playing = false;
+            PlayButtonSprite.sprite = PlaySprite;
         }
+
+
+
 
         // UI event handler: Jumps to user manual page 
         public void Help()
@@ -225,7 +254,14 @@ namespace Visualiser
             // Plays animation
             if (playing && AreAllAnimationsFinished())
             {
-                PresentNextStage();
+                if (visualSolution.IsFinalStage())
+                {
+                    Pause();
+                }
+                else
+                {
+                    PresentNextStage();
+                }
             }
         }
 
@@ -239,6 +275,11 @@ namespace Visualiser
                 }
             }
             return true;
+        }
+
+        public void DownloadVF()
+        {
+            Download(vf, "text/plain", "vf_out.txt");
         }
 
         #region Stage Rendering
@@ -317,8 +358,6 @@ namespace Visualiser
                 var spText = SubgoalProgressText.GetComponent<Text>();
                 spText.text = string.Format("{0}/{1}", 0, visualSolution.subgoalPool.Count);
             }
-
-            
         }
 
         // Update visual sprites game object and manage subgoal status
