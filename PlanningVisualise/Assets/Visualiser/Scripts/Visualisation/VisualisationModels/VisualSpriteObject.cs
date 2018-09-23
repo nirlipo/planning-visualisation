@@ -43,7 +43,8 @@ namespace Visualiser
                               && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
                               && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY)
                               && color == vso.color
-                              && depth == vso.depth;
+                              && depth == vso.depth
+							  && label == vso.label;
         }
     }
 }

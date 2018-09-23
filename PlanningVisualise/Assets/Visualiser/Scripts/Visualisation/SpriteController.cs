@@ -69,18 +69,21 @@ namespace Visualiser
             visualSprite = vso;
             // Sets game object name
             gameObject.name = visualSprite.name;
-
+			Debug.Log(visualSprite.showLabel);
             // Sets up size, position and rotation
             UpdateRect();
             // Renders name text on the sprite
-            if (visualSprite.showName)
+			if (visualSprite.showName || visualSprite.showLabel )
             {
                 var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
                 var spriteName = Instantiate(emptyUIObject);
                 var label = spriteName.AddComponent<Text>();
                 label.font = Resources.Load<Font>("Arial");
                 label.color = Color.black;
-                label.text = visualSprite.name;
+				if (visualSprite.showName)
+                	label.text = visualSprite.name;
+				else
+					label.text = visualSprite.label;
                 label.alignment = TextAnchor.MiddleCenter;
                 label.resizeTextForBestFit = true;
                 var nameRectTransform = spriteName.GetComponent<RectTransform>();
