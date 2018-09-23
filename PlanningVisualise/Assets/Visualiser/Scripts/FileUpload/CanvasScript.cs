@@ -14,6 +14,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 using UnityEngine.UI;
 
@@ -25,6 +26,10 @@ public class CanvasScript : MonoBehaviour
     private InputField textfield;
     private string type;
     private string name;
+
+
+
+
     IEnumerator LoadTexture(string url)
     {
         WWW file = new WWW(url);
@@ -33,6 +38,9 @@ public class CanvasScript : MonoBehaviour
         textfield = GameObject.Find(type).GetComponent<InputField>();
         textfield.text = name;
         //Assigning file to corresponding variable and showing file name on UI
+
+
+
         if (type == "Domain")
         {
             ScenesCoordinator.Coordinator.setDomain(data);
@@ -43,11 +51,17 @@ public class CanvasScript : MonoBehaviour
             ScenesCoordinator.Coordinator.setProblem(data);
 
         }
-        else
+        else if (type == "Animation")
         {
             ScenesCoordinator.Coordinator.setAnimation(data);
 
+        }else if (type == "visualisationFile")
+        {
+        	ScenesCoordinator.Coordinator.PushParameters("Visualisation", data);
+        	SceneManager.LoadScene("Visualisation");
+
         }
+        
     }
 
     //Recieved call from Javascript code
@@ -61,7 +75,15 @@ public class CanvasScript : MonoBehaviour
     {
         this.name = name;
     }
-
+    //Assign customsolver 
+    public void setCustomSolver()
+    {
+        
+        string solverAddress;
+        solverAddress = solverbox.GetComponent<InputField>().text;
+        ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
+    }
+   
     //trigger open file panel
     public void OnButtonPointerDown(string type)
     {
