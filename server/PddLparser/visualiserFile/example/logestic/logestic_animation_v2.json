@@ -71,7 +71,7 @@
       "width": 60,
       "height": 100,
       "depth": 3,
-      "showLabel":false,
+      "showLabel":true,
       "label": "0"
     },
     "plane": {
@@ -88,7 +88,7 @@
       "width": 60,
       "height": 100,
       "depth": 3,
-      "showLabel":false,
+      "showLabel":true,
       "label": "0"
     },
     "hub": {

@@ -346,12 +346,10 @@ def calculate_label(obj_list, settings, state, remove):
     obj2, obj2dic = list(obj_list[1].items())[0]
     if obj2 not in state:
         state[obj2] = 1
-        obj2dic["showLabel"] = True
     else:
         state[obj2] = state[obj2] +1
-        obj2dic["showLabel"] = True
 
-    obj2dic["label"] = state[obj2]
+    obj2dic["label"] = str(state[obj2])
     return obj2dic,state
 
 def align_middle(obj_list, settings, state, remove):
