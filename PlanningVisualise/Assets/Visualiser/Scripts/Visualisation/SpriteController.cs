@@ -50,6 +50,11 @@ namespace Visualiser
                 visualSprite = vso;
                 // Updates color
                 var imgComp = gameObject.GetComponent<Image>();
+				string label;
+				if (visualSprite.showLabel) {
+					Debug.Log (vso.label);
+					gameObject.GetComponentInChildren<Text> ().text = visualSprite.label;
+				}
                 imgComp.color = visualSprite.color;
                 // Transit to new state
                 animator.UpdateVisualSprite(vso);
@@ -69,7 +74,6 @@ namespace Visualiser
             visualSprite = vso;
             // Sets game object name
             gameObject.name = visualSprite.name;
-			Debug.Log(visualSprite.showLabel);
             // Sets up size, position and rotation
             UpdateRect();
             // Renders name text on the sprite
