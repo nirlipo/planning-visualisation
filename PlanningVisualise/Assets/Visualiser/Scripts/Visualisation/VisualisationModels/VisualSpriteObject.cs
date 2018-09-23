@@ -27,6 +27,8 @@ namespace Visualiser
         public string prefabImage;
         public Color color;
         public bool showName;
+		public bool showLabel;
+		public string label;
         public float minX;
         public float maxX;
         public float minY;

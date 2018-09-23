@@ -51,7 +51,12 @@ public class ScenesCoordinator : MonoBehaviour
     {
         sceneParameters.Add(sceneName, parameters);
     }
-		
+
+	// Interface for other objects to use 
+	public void uploadVF(){
+		SceneManager.LoadScene ("Visualisation");
+	}
+
 	// Interface for other objects to use 
 	public void uploadallfile(){
 		StartCoroutine (generateVisualiser ());

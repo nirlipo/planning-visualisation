@@ -58,7 +58,6 @@ public class CanvasScript : MonoBehaviour
         }else if (type == "visualisationFile")
         {
         	ScenesCoordinator.Coordinator.PushParameters("Visualisation", data);
-        	SceneManager.LoadScene("Visualisation");
 
         }
         
@@ -80,7 +79,7 @@ public class CanvasScript : MonoBehaviour
     {
         
         string solverAddress;
-        solverAddress = solverbox.GetComponent<InputField>().text;
+        solverAddress = GameObject.Find("customSolverDomain").GetComponent<InputField>().text;
         ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
     }
    
@@ -90,19 +89,25 @@ public class CanvasScript : MonoBehaviour
         this.type = type;
 #if UNITY_EDITOR
 		string path;
-		if (type == "Animation")
+		if (type == "Animation"){
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","json");
-		else
+		}else if (type == "visualisationFile"){
+			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","txt");
+		}else {
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
+		}
 		if (!System.String.IsNullOrEmpty (path)){
 			SetFileName(path.Split('/')[path.Split('/').Length-1]);
 			FileSelected ("file:///" + path);
 		}
 #else
-		if (type == "Animation")
+		if (type == "Animation"){
         	UploaderCaptureClick(".json");
-        else
+        } else if (type == "visualisationFile"){
+        	UploaderCaptureClick(".txt");
+        } else {
         	UploaderCaptureClick(".pddl");
+        }
 #endif
     }
 }
