@@ -43,8 +43,13 @@ class LinkUploadView(APIView):
         domain_file = request.data['domain']
         problem_file = request.data['problem']
         animation_file = json.loads(request.data['animation'])
+
         # add url
-        url_link = request.data['url']
+        if "url" in request.data:
+            url_link = request.data['url']
+        else:
+            url_link = "http://solver.planning.domains/solve"
+
 
 
         predicates_list = domain_parser.get_domain_json(domain_file)

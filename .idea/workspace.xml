@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="728e8187-a309-4556-8e5a-d5c882b017ce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs" afterPath="$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/views.py" afterPath="$PROJECT_DIR$/server/PddLparser/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py" />
     </list>
     <ignored path="swen90013-2018-pl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,19 +30,17 @@
       <file leaf-file-name="custom_functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="324" column="43" lean-forward="false" selection-start-line="324" selection-start-column="43" selection-end-line="324" selection-end-column="43" />
-              <folding>
-                <element signature="e#631#640#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="5491">
+              <caret line="324" column="13" lean-forward="false" selection-start-line="324" selection-start-column="13" selection-end-line="324" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="solver.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="solver.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1041">
+            <state relative-caret-position="17">
               <caret line="153" column="16" lean-forward="false" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="16" />
               <folding />
             </state>
@@ -55,7 +50,7 @@
       <file leaf-file-name="animation_hanoi_V2.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
+            <state relative-caret-position="2414">
               <caret line="142" column="33" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="33" />
               <folding />
             </state>
@@ -65,7 +60,7 @@
       <file leaf-file-name="pfile8.pddl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/pfile8.pddl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
+            <state relative-caret-position="544">
               <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="15" />
               <folding />
             </state>
@@ -75,8 +70,28 @@
       <file leaf-file-name="ScenesCoordinator.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="70" column="45" lean-forward="false" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+            <state relative-caret-position="393">
+              <caret line="71" column="49" lean-forward="false" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/PddLparser/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="50" column="61" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plan_generator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="367">
+              <caret line="47" column="15" lean-forward="true" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -85,8 +100,18 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
+            <state relative-caret-position="413">
+              <caret line="42" column="51" lean-forward="false" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/server/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -128,12 +153,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/PddLparser/views.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/parser/plan_generator.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/generator/visualisation_generator.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/problem_parser.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/predicates_generator.py" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/domain_parser.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/serializers.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/models.py" />
@@ -154,6 +177,8 @@
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
         <option value="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py" />
+        <option value="$PROJECT_DIR$/server/PddLparser/views.py" />
       </list>
     </option>
   </component>
@@ -186,6 +211,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -197,6 +223,32 @@
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
               <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
               <item name="Docs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
+              <item name="visualiserFile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
+              <item name="visualiserFile" type="462c0819:PsiDirectoryNode" />
+              <item name="pparser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
@@ -220,7 +272,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -546,24 +597,12 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291262" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +626,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/parser/plan_generator.py" />
     <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -632,13 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-441">
-          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/PddLparser/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -650,13 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -764,43 +788,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/pfile8.pddl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
+        <state relative-caret-position="544">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="70" column="45" lean-forward="false" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="324" column="43" lean-forward="false" selection-start-line="324" selection-start-column="43" selection-end-line="324" selection-end-column="43" />
-          <folding>
-            <element signature="e#631#640#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="5491">
+          <caret line="324" column="13" lean-forward="false" selection-start-line="324" selection-start-column="13" selection-end-line="324" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
+        <state relative-caret-position="2414">
           <caret line="142" column="33" lean-forward="false" selection-start-line="142" selection-start-column="33" selection-end-line="142" selection-end-column="33" />
           <folding />
         </state>
@@ -808,8 +814,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1041">
+        <state relative-caret-position="17">
           <caret line="153" column="16" lean-forward="false" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="71" column="49" lean-forward="false" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="42" column="51" lean-forward="false" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="47" column="15" lean-forward="true" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="50" column="61" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
           <folding />
         </state>
       </provider>

@@ -32,7 +32,7 @@ import json
 # Output : A valid plan will be returned from the planning.domain website
 #######################################################
 
-def get_plan(domain_file, problem_file):
+def get_plan(domain_file, problem_file,url):
     """This function will send the domain and problem pddl to the planning.domains
     API to get the plan.
     Args:
