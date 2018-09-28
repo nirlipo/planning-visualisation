@@ -31,13 +31,16 @@ def get_visualisation_file():
     domain_file = sys.argv[1]
     problem_file = sys.argv[2]
     animation_file = sys.argv[3]
+    url_link = sys.argv[4]
 
     # read animation profile from json
     file = open(animation_file)
     content = file.read()
     animation_profile = json.loads(content)
 
-    plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), open(problem_file, 'r').read())
+    plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), 
+                                           open(problem_file, 'r').read(),
+                                           url_link)
 
     # print(json.dumps(plan))
     predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
