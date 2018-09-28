@@ -36,20 +36,24 @@ class PlainTextParser(BaseParser):
         """
         return stream.read()
     
-class FileUploadView(APIView):
+class LinkUploadView(APIView):
     parser_classes = (MultiPartParser,)
 
     def post(self, request, filename, format=None):
         domain_file = request.data['domain']
         problem_file = request.data['problem']
         animation_file = json.loads(request.data['animation'])
+        # add url
+        url_link = request.data['url']
+
 
         predicates_list = domain_parser.get_domain_json(domain_file)
-        plan = plan_generator.get_plan(domain_file, problem_file)
+        plan = plan_generator.get_plan(domain_file, problem_file, url_link)
         problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
+
         stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
         # A file called visualistaion.json will be generated in the folder if successful
         final = transfer.get_visualisation_json(stages,animation_file,plan['result']['plan'],problem_json)
+
         return Response(final)
-    
 
