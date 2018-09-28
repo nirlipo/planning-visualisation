@@ -25,5 +25,5 @@ router.register('PddLparser', views.PDDLViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    url(r'upload/(?P<filename>[^/]+)$',views.FileUploadView.as_view())
+    url(r'upload/(?P<filename>[^/]+)$',views.LinkUploadView.as_view())
     ]
