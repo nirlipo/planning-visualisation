@@ -44,8 +44,12 @@ def get_plan(domain_file, problem_file):
     data = {'domain': domain_file,
             'problem': problem_file}
 
-    url = 'http://solver.planning.domains/solve'
-    req = urllib.request.Request(url)
+    if url == '':
+        url = 'http://solver.planning.domains/solve'
+        req = urllib.request.Request(url)
+    else:
+        req = urllib.request.Request(url)
+        
     req.add_header('Content-Type', 'application/json')
     json_data = json.dumps(data)
     json_data_as_bytes = json_data.encode('utf-8')
