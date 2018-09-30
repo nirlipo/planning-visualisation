@@ -36,5 +36,6 @@ def get_domain_json(file_name):
                 PredicateList[name] = name.count("?")
     except:
         raise ValueError("Empty string found")
-
     return PredicateList
+if __name__ == "__main__":
+    get_domain_json(open("domain_blocks.pddl", 'r').read())
