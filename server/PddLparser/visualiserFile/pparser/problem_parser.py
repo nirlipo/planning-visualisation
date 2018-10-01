@@ -39,7 +39,7 @@ def get_object_list(predicates_lists,str_init):
         temp_pattern = re.compile("\(" + v)
 
         pattern_subelements = temp_pattern.findall(str_init)
-        print(pattern_subelements)
+        # print(pattern_subelements)
         if(pattern_subelements):
             number_of_objects = len(pattern_subelements[0].split()) - 1
             for val in pattern_subelements:

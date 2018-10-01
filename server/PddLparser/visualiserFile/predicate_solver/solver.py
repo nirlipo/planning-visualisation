@@ -54,18 +54,21 @@ def check_rule_complete(predicate, objects_dic, predicates_rules):
     
     pname = predicate["name"]
     predicate_rule = predicates_rules[pname]
+    objects_list_ref=predicate_rule["objects"]
     objects = predicate["objectNames"]
     if "custom_obj" in predicate_rule:
         #addtional custom object not in the real pddl file
         custom_obj=predicate_rule["custom_obj"]
         #complete object list
         object_list=objects+custom_obj
+        objects_list_ref=objects_list_ref+custom_obj
     else:
         object_list=objects
+    obj_ref_dic=dict(zip(objects_list_ref,object_list))
     if "require" in predicate_rule:
         for obj_index in predicate_rule["require"]:
             for property in predicate_rule["require"][obj_index]:
-                objectname=object_list[int(obj_index)]
+                objectname=obj_ref_dic[obj_index]
                 if objects_dic[objectname][property] is False:
                     return False
     return True
@@ -88,7 +91,7 @@ def applypredicates(predicate,
     """
     pname = predicate["name"]
     predicate_rule=predicates_rules[pname]
-
+    objects_list_ref=predicate_rule["objects"]
     #objects in the real pddl file
     objects = copy.deepcopy(predicate["objectNames"])
     if "custom_obj" in predicate_rule:
@@ -96,13 +99,15 @@ def applypredicates(predicate,
         custom_obj=predicate_rule["custom_obj"]
         #complete object list
         object_list=objects+custom_obj
+        objects_list_ref=objects_list_ref+custom_obj
     else:
         object_list=objects
 
+    obj_ref_dic = dict(zip(objects_list_ref, object_list))
     for rulename in predicate_rule["rules"]:
         if "value" in predicate_rule[rulename]:
             rule = predicate_rule[rulename]
-            left,propertyname=get_objname_property(rule["left"],object_list)
+            left,propertyname=get_objname_property(rule["left"],obj_ref_dic)
             value = predicate_rule[rulename]["value"]
             if "function" in value:
                 fproperty = value["function"]
@@ -115,7 +120,7 @@ def applypredicates(predicate,
                 state=gstate[fname]
                 obj_list=[]
                 for obj_index in obj_indexs:
-                    objname=object_list[obj_index]
+                    objname=obj_ref_dic[obj_index]
                     obj_list.append({objname:objects_dic[objname]})
                 objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
@@ -126,8 +131,7 @@ def applypredicates(predicate,
                     if "r" in right_value:#for color
                         objects_dic[left][propertyname] = right_value
                     else:
-                        right_index,right_property=list(right_value.items())[0]
-                        right_object=object_list[int(right_index)]
+                        right_object,right_property=get_objname_property(right_value,obj_ref_dic)
                         objects_dic[left][propertyname]=objects_dic[right_object][right_property]
 
             elif "add" in value:
@@ -135,7 +139,7 @@ def applypredicates(predicate,
                 for additem in value["add"]:
                     if type(additem) is dict:
 
-                        right_object,right_property = get_objname_property(additem,object_list)
+                        right_object,right_property = get_objname_property(additem,obj_ref_dic)
                         addvalue = objects_dic[right_object][right_property]
                         rightvalue += addvalue
                     else:
@@ -152,9 +156,9 @@ def applypredicates(predicate,
                 if action["function"]=="draw_line":
                     key=pname+objects[0]+objects[1]
                     objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
-def get_objname_property(dictionary,object_list):
+def get_objname_property(dictionary,obj_ref_dic):
     object_index, propertyname = list(dictionary.items())[0]
-    objname = object_list[int(object_index)]
+    objname = obj_ref_dic[object_index]
     return objname,propertyname
 
 

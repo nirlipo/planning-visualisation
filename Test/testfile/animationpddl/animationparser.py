@@ -25,7 +25,7 @@ def get_animation_profile():
     # --------------------------------------------
     # This is just an example
     animation_profile = ""
-    text_to_parse = open("logestic.pddl", 'r').read()
+    text_to_parse = open("blockanimation.pddl", 'r').read()
 
 
 
@@ -73,8 +73,10 @@ def parseVisual(text_to_parse,result):
 
         if "objects" in temp_visual_block:
             # Get the value of objects
-            temp_objects_pattern = re.compile(pattern_objects + "\s*(\([^\)]*\)|[^ ]*)")
+            temp_objects_pattern = re.compile(pattern_objects + "\s*(\([^\)]+\)|[\w-]+)") # fix -n
             objectsStr=temp_objects_pattern.search(temp_visual_block).group(1)
+            print("x")
+            print(objectsStr)
             if "(" in objectsStr:
                 objects_list=parse_objects(objectsStr)
             else:
@@ -126,9 +128,8 @@ def parsePredicate(text_to_parse,result):
         # Get the value of parameters
         temp_regex_pattern = re.compile(pattern_parameters +" "+ "\((.*?)\)")
         objectList=temp_regex_pattern.findall(temp_visual_block)[0].split()
-
         # Get the value of custom
-        temp_custom_pattern = re.compile(pattern_custom +"\s[\w\-]+")
+        temp_custom_pattern = re.compile(pattern_custom +"\s[\w\-]+") # fix This line need to be changed to adapte array
         custom=temp_custom_pattern.findall(temp_visual_block)
         if custom:
             temp_objects, temp_objects_value = custom[0].split()
@@ -138,6 +139,11 @@ def parsePredicate(text_to_parse,result):
         temp_effect_block = temp_visual_block[temp_visual_block.index(pattern_effect) + len(pattern_effect):]
         temp_effect_block = get_one_block(temp_effect_block)
         result["predicates_rules"][temp_subshape_value]=parse_rules(temp_effect_block)
+        result["predicates_rules"][temp_subshape_value]["objects"]=objectList
+        if custom:
+            result["predicates_rules"][temp_subshape_value]["custom_obj"]=temp_objects_value
+        # result["predicates_rules"]["custom"]
+
         # Get the next Predicate item
         text_to_parse = text_to_parse[text_to_parse.index(pattern_predicate) + len(pattern_predicate):]
 

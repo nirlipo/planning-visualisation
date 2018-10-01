@@ -10,7 +10,6 @@
  
 
   (:predicate on-table
- 
                  :parameters (?x)
                  :effect(
                  (assign (?x x) (function distributex (objects ?x) (settings (spacebtwn 40))))
