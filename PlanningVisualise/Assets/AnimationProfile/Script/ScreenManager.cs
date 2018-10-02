@@ -6,6 +6,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
+using System.Collections;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
+using UnityEngine.EventSystems;
 
 public class ScreenManager : MonoBehaviour
 {
