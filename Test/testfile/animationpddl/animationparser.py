@@ -48,7 +48,7 @@ def get_animation_profile():
     parseImage(copy.copy(text_to_parse), result)
 
     parsePredicate(copy.copy(text_to_parse), result)
-    # adapter.transfer(result)
+    adapter.transfer(result)
     print(json.dumps(result))
     return animation_profile
 

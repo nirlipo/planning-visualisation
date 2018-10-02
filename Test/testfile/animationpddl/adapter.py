@@ -47,8 +47,24 @@ def dictget(dict1):
     for k, v in dict1.items():
 
         if type(v) is not dict and type(v) is not list:
-            if (v.isdigit()):
+            value = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
+
+            result = value.match(v)
+            if (result):
                 dict1[k] = float(v)
+            elif (v.isdigit()):
+                dict1[k] = int(v)
+            elif (v == "TRUE"):
+                dict1[k] = v.lower()
+                print(dict1[k])
+            elif (v == "FALSE"):
+                dict1[k] = v.lower()
+                print(dict1[k])
+            elif (v == "Null"):
+                dict1[k] = "false"
+                print(dict1[k])
+
+
         else:
             if type(v) is dict:
                 dictget(v)
@@ -63,10 +79,10 @@ def transfer_Color(result):
         if result[k]["color"] != "RANDOMCOLOR":
             color = (result[k]["color"])
             c = Color(color).get_rgb()
-            rgba = {"r": str(int(c[0])),
-                    "g": str(int(c[1])),
-                    "b": str(int(c[2])),
-                    "a": str(1)
+            rgba = {"r": str(float(c[0])),
+                    "g": str(float(c[1])),
+                    "b": str(float(c[2])),
+                    "a": str(1.0)
                     }
             result[k]["color"] = rgba
     return result
