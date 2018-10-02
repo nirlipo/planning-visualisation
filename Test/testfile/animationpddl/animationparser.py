@@ -21,6 +21,7 @@ import copy
 # Output : A complete animation profile in JSON format
 #######################################################
 
+import adapter
 def get_animation_profile():
     # --------------------------------------------
     # This is just an example
@@ -47,8 +48,10 @@ def get_animation_profile():
     parseImage(copy.copy(text_to_parse), result)
 
     parsePredicate(copy.copy(text_to_parse), result)
+    # adapter.transfer(result)
     print(json.dumps(result))
     return animation_profile
+
 def parseVisual(text_to_parse,result):
     # --------------------------------------------
     # Patterns that are going to be used for Visual
