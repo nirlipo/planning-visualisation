@@ -25,7 +25,7 @@
                :effect(
                (equal (?obj1 y) (?obj2 y))
                (equal (?obj1 x) (?obj2 x))
-               (assign (?obj1 label) (function calculate_label (objects ?obj1 ?obj2)))
+               (assign (?obj2 label) (function calculate_label (objects ?obj1 ?obj2)))
                )
   )
  

@@ -128,18 +128,19 @@
   },
   "predicates_rules": {
     "city": {
+      "objects":["?city"],
       "rules": [
         "rule1"
       ],
       "rule1": {
         "left": {
-          "0": "y"
+          "?city": "y"
         },
         "value": {
             "function": {
               "fname": "distributey",
               "obj_indexs": [
-                0
+                "?city"
               ],
               "settings": {}
             }
@@ -147,35 +148,36 @@
       }
     },
     "in-city": {
+      "objects":["?obj","?city"],
       "rules": [
         "rule1",
         "rule2"
       ],
       "require": {
-        "1": [
+        "?city": [
           "x",
           "y"
         ]
       },
       "rule1": {
         "left": {
-          "0": "y"
+          "?obj": "y"
         },
         "value": {
           "equal": {
-            "1": "y"
+            "?city": "y"
           }
         }
       },
       "rule2": {
         "left": {
-          "0": "x"
+          "?obj": "x"
         },
         "value": {
-                      "function": {
+              "function": {
               "fname": "distribute_within_objects_horizontal",
               "obj_indexs": [
-                0,1
+                "?obj","?city"
               ],
               "settings": {}
             }
@@ -183,35 +185,37 @@
       }
     },
     "at": {
+      "objects":["?obj","?loc"],
       "rules": [
         "rule1",
         "rule2"
       ],
       "require": {
-        "1": [
+        "?loc": [
           "x",
           "y"
         ]
       },
       "rule1": {
         "left": {
-          "0": "y"
+          "?obj": "y"
         },
         "value": {
           "equal": {
-            "1": "y"
+            "?loc": "y"
           }
         }
       },
       "rule2": {
         "left": {
-          "0": "x"
+          "?obj": "x"
         },
         "value": {
                  "function": {
               "fname": "distribute_within_objects_horizontal",
               "obj_indexs": [
-                0,1
+                "?obj",
+                "?loc"
               ],
               "settings": {}
             }
@@ -219,46 +223,47 @@
       }
     },
     "in": {
+      "objects":["?obj1","?obj2"],
       "rules": [
         "rule1",
         "rule2",
         "rule3"
       ],
       "require": {
-        "1": [
+        "?obj2": [
           "x",
           "y"
         ]
       },
       "rule1": {
         "left": {
-          "0": "y"
+          "?obj1": "y"
         },
         "value": {
           "equal": {
-            "1": "y"
+            "?obj2": "y"
           }
         }
       },
       "rule2": {
         "left": {
-          "0": "x"
+          "?obj1": "x"
         },
         "value": {
           "equal": {
-            "1": "x"
+            "?obj2": "x"
           }
         }
       },
       "rule3": {
         "left": {
-          "1": "label"
+          "?obj2": "label"
         },
         "value": {
                  "function": {
               "fname": "calculate_label",
               "obj_indexs": [
-                0,1
+                "?obj1","?obj2"
               ],
               "settings": {}
             }
