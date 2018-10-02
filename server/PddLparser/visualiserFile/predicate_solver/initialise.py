@@ -49,7 +49,7 @@ def initialise_objects(object_list, animation_profile):
         for objproperty in animation_profile["shape"][obj_type]:
             value = animation_profile["shape"][obj_type][objproperty]
             if value is not False:
-                if value == "randomcolor":
+                if value.lower() == "randomcolor":
                     unsolved_objects[objectname][
                         objproperty] = random_color.get_random_color()
                     continue

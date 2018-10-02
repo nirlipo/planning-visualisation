@@ -26,7 +26,7 @@ def get_animation_profile():
     # --------------------------------------------
     # This is just an example
     animation_profile = ""
-    text_to_parse = open("blockanimation.pddl", 'r').read()
+    text_to_parse = open("grid.pddl", 'r').read()
 
 
 
@@ -78,15 +78,16 @@ def parseVisual(text_to_parse,result):
             # Get the value of objects
             temp_objects_pattern = re.compile(pattern_objects + "\s*(\([^\)]+\)|[\w-]+)") # fix -n
             objectsStr=temp_objects_pattern.search(temp_visual_block).group(1)
-            print("x")
-            print(objectsStr)
             if "(" in objectsStr:
                 objects_list=parse_objects(objectsStr)
             else:
                 objects_list=objectsStr
-
+            print(objects_list)
             result["objects"][temp_subelement_value][temp_subshape_value]=[]
-            result["objects"][temp_subelement_value][temp_subshape_value].append(objects_list)
+            if type(objects_list) in (tuple,list):
+                result["objects"][temp_subelement_value][temp_subshape_value].extend(objects_list)
+            else:
+                result["objects"][temp_subelement_value][temp_subshape_value].append(objects_list)
         elif(temp_subelement_value=="default"):
             result["objects"][temp_subelement_value]=temp_subshape_value
 
@@ -111,12 +112,14 @@ def parseVisual(text_to_parse,result):
         # Stop if there is no more object to parse
         if(pattern_visual not in text_to_parse):
             break;
+
     return result;
 
 def parsePredicate(text_to_parse,result):
     pattern_predicate = ":predicate"
     pattern_parameters = ":parameters"
     pattern_custom=":custom"
+    pattern_priority=":priority"
     pattern_effect = ":effect"
     while text_to_parse.find(pattern_predicate):
         # Get the value of the predicate
@@ -125,8 +128,13 @@ def parsePredicate(text_to_parse,result):
 
         temp_visual_pattern = re.compile(pattern_predicate + "\s[\w\-]+")
         temp_subshape, temp_subshape_value = temp_visual_pattern.findall(temp_visual_block)[0].split()
-        # print(temp_subshape,temp_subshape_value)
+        # print(temp_visual_pattern.findall(temp_visual_block))
         # print(temp_visual_block)
+
+        if "priority" in temp_visual_block:
+            priority_pattern=re.compile(pattern_priority + "\s*(\(\d+\)|[\d]+)")
+            priority=priority_pattern.findall(temp_visual_block)
+
 
         # Get the value of parameters
         temp_regex_pattern = re.compile(pattern_parameters +" "+ "\((.*?)\)")
@@ -143,6 +151,8 @@ def parsePredicate(text_to_parse,result):
         temp_effect_block = get_one_block(temp_effect_block)
         result["predicates_rules"][temp_subshape_value]=parse_rules(temp_effect_block)
         result["predicates_rules"][temp_subshape_value]["objects"]=objectList
+        if "priority" in temp_visual_block:
+            result["predicates_rules"][temp_subshape_value]["priority"] = priority
         if custom:
             result["predicates_rules"][temp_subshape_value]["custom_obj"]=temp_objects_value
         # result["predicates_rules"]["custom"]
