@@ -77,7 +77,7 @@
               (showname FALSE)
               (x Null)
               (y Null)
-              (color RGBA(255,255,255,1))
+              (color pink)
               (width 40)
               (height 40)
               (depth 2)

@@ -35,7 +35,6 @@ def transfer(result):
         Returns:
             Dict: correct animation profile
         """
-    transfer_Color(result["visual"])
     dictget(result)
 
     return result
@@ -55,14 +54,18 @@ def dictget(dict1):
             elif (v.isdigit()):
                 dict1[k] = int(v)
             elif (v == "TRUE"):
-                dict1[k] = v.lower()
-                print(dict1[k])
+                dict1[k] = True
+                # print(dict1[k])
             elif (v == "FALSE"):
-                dict1[k] = v.lower()
-                print(dict1[k])
+                dict1[k] = False
+                # print(dict1[k])
             elif (v == "Null"):
-                dict1[k] = "false"
-                print(dict1[k])
+                dict1[k] = False
+                # print(dict1[k])
+            elif (check_color(v)):
+                print(v)
+                dict1[k]=transfer_Color(v)
+
 
 
         else:
@@ -70,21 +73,28 @@ def dictget(dict1):
                 dictget(v)
     return dict1
 
-def transfer_Color(result):
+def transfer_Color(color):
     """
     This function transfer color name into rgba
     """
 
-    for k in result:
-        if result[k]["color"] != "RANDOMCOLOR":
-            color = (result[k]["color"])
-            c = Color(color).get_rgb()
-            rgba = {"r": str(float(c[0])),
-                    "g": str(float(c[1])),
-                    "b": str(float(c[2])),
-                    "a": str(1.0)
-                    }
-            result[k]["color"] = rgba
-    return result
+
+    c = Color(color).get_rgb()
+    rgba = {"r": round(c[0],4),
+            "g": round(c[1],4),
+            "b": round(c[2],4),
+            "a": 1.0
+            }
+
+    return rgba
 
 
+def check_color(color):
+    try:
+        # Converting 'deep sky blue' to 'deepskyblue'
+        color = color.replace(" ", "")
+        Color(color)
+        # if everything goes fine then return True
+        return True
+    except ValueError: # The color code was not found
+        return False
