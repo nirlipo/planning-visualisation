@@ -40,7 +40,24 @@ public class ScreenManager : MonoBehaviour
     // Goto user documentation link
     public void gotoDocumentation()
     {
-        Application.OpenURL("https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/browse?at=refs%2Fheads%2Ffeature-userdocs");
+
+        // get the current URL
+        var currentURL = Application.absoluteURL;
+
+        if (currentURL != "") {
+
+            // remove the unity port and trailing slash from the url
+            var uri = new Uri( currentURL );
+            var clean = uri.GetComponents( UriComponents.AbsoluteUri & ~UriComponents.Port,
+                               UriFormat.UriEscaped );
+            if (clean[clean.Length - 1]=='/') {
+                clean = clean.Remove(clean.Length - 1);
+            }
+            
+            // Add the django port and help directory to the url, and open it
+            var newURL = clean+":8000/help/";
+            Application.OpenURL(newURL);
+        }
     }
 
 }

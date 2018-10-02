@@ -1,15 +1,18 @@
 # 1. Overview 
 
-This document contains the User Guide for Planning Visualiser.
+This document contains an overview of Planning Visualiser.
 
 The Planning Visualiser is an open-source program which visualises solutions to Planning Problems. It is an executable Unity architecture in a browser.
 
-For further documentation, see
-* /Docs/Animation Profile Guide.md
+Click the `Help` link from inside the visualiser. Alternatively, view the html for the user manual at `server/UserManual.html`.
+
+
+For developer documentation, see
+* `/Docs/Animation Profile Guide.md`
 	* Contains a guide to Animation Profiles and the Animation Profile Language
-* /VFG Guide.md
+* `/VFG Guide.md`
 	* Contains a guide to the Visualisation File Generator Component
-* /Docs/Visualiser Guide.md
+* `/Docs/Visualiser Guide.md`
 	* Contains a guide to the VisualiserComponent 
 
 
@@ -62,68 +65,8 @@ Planning visualiser can generate a solution using the solver on http://planning.
 # 3. Using the system
 
 
-## 3.1 Visualise Built-in Domains
+Click the `Help` link from inside the visualiser. Alternatively, view the html for the user manual at `server/UserManual.html`.
 
-### 3.1.1 Select Files
-
-1. Select files for the Problem, Domain and Animation Profile. Files for existing domains are located in the bitbucket repository under Test/testfile.
-2. Click “√” button.
-
-### 3.1.2 Visualise Solution
-
-The visualisation page has four main parts.
-1. Steps Panel: Shows all the steps in the solution 
-2. Step Information Panel: show detailed information for each step, including actions.
-3. Animation Panel: displays the animation
-4. Control Panel: buttons to control the animation. These include changing the speed of the animation, Play/Pause, Step Forward/Backwards, Replay
-
-
-## 3.2 Visualise a new Domain
-
-This can be done, for many simple domains, with no modification to the system.
-
-To add a new domain:
-
-1. Write or obtain a Domain PDDL file for the problem domain. Many domains can be found at https://bitbucket.org/planning-researchers/classical-domains/src/208a850d2ff2a27068329ad578ad99af9ec7e5c5/classical/?at=master
-2. Write an Animation Profile which corresponds to the domain file. For documentation on the Animation Profile Language, see the file 'Animation Profile Language'
-3. Follow the steps in 3.1 to view a visualisation with the new Animation Profile.
-
-## 3.3 Video Record a Visualisation 
-
-
-A video recording of the visualisation can be created so that the final animation can be easily shared or re-reviewed independently of the system. The below recommendations are one way of recording the animation, however many other methods and tools exist to achieve this.  
-
-### 3.3.1 MacOS Users
-
-
-To video record the visualisation, have the animation you wish to record on your screen, then complete the following steps:
-1. Launch the pre-installed QuickTime Player application
-2. Select "File" and choose "New Screen Recording"
-3. To decide whether mouse clicks and sounds appear in your recording or not, click the small, white arrow and select the appropriate options from the drop-down menu. 
-4. When ready, click the red record button. 
-5. You will need to select what you want to record. To record the entire screen, click once anywhere. To record only a portion of it, click and drag a box and then click "Start Recording."
-6. When finished, navigate to the menu bar and click the stop recording button designated by the square symbol.
-7. To save your recording, click "File" and then"Save", and choose an appropriate save location and name for the recording. 
-8. View and share file as you would with any other media file. 
-
-
-* Instructions adapted from https://www.digitaltrends.com/computing/how-to-record-your-computer-screen/
-
-
-### 3.3.2 Windows Users 
-
-
-To video record the visualisation, have the animation you wish to record on your screen, then complete the following steps:
-1. Press the Windows key and the letter G at the same time to open the Game Bar dialog (this will pop up on your screen).
-2. Check the "Yes, this is a game" checkbox to load the Game Bar. This is the procedure regardless of what you are recording.
-3. Click on the Start Recording button, or press Win + Alt + R to start screen recording. 
-4. Stop the recording by clicking on the red recording button on the pop-up. 
-5. The video can be accessed via your Videos folder, inside the Captures folder.  
-
-
-
-
-* Instructions adapted from https://www.laptopmag.com/articles/how-to-video-screen-capture-windows-10
 
 # 4. Extending the system
 
