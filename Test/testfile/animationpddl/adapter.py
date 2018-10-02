@@ -43,6 +43,8 @@ def transfer(result):
 def dictget(dict1):
     """The function transfers all the digital number string into number
      """
+    # if(type(dict1) == dict):
+
     for k, v in dict1.items():
 
         if type(v) is not dict and type(v) is not list:
@@ -55,24 +57,54 @@ def dictget(dict1):
                 dict1[k] = int(v)
             elif (v == "TRUE"):
                 dict1[k] = True
-                # print(dict1[k])
+
             elif (v == "FALSE"):
                 dict1[k] = False
-                # print(dict1[k])
             elif (v == "Null"):
                 dict1[k] = False
-                # print(dict1[k])
             elif (check_color(v)):
                 print(v)
                 dict1[k]=transfer_Color(v)
 
-
-
         else:
             if type(v) is dict:
                 dictget(v)
+            elif type(v) is list:
+                # print("list us")
+                transfer_list(v)
+
+
+    # elif (type(dict1) == list):
+    #     print(list)
+    #     for a in dict1:
+    #         if type(a) is not dict and type(v) is not list:
+    #             value = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
+    #             result = value.match(a)
+    #             if (result):
+    #                 print(result)
+    #                 dict[list.index(a)] = float(a)
+
+
     return dict1
 
+def transfer_list(list):
+    for a in list:
+        if type(a) is not dict and type(a) is not list:
+            print(a)
+            value = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
+
+            result = value.match(a)
+            if (result):
+                print(result)
+                list[list.index(a)] = float(a)
+            elif (a.isdigit()):
+                list[list.index(a)] = int(a)
+        else:
+            if type(a) is dict:
+                dictget(a)
+            elif type(a) is list:
+                transfer_list(a)
+    return list
 def transfer_Color(color):
     """
     This function transfer color name into rgba
