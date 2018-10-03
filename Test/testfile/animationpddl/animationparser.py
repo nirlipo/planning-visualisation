@@ -15,7 +15,7 @@ import re
 import sys
 import json
 import copy
-
+import custom_functions
 #######################################################
 # Input File: A animation PDDF file
 # Output : A complete animation profile in JSON format
@@ -26,7 +26,7 @@ def get_animation_profile():
     # --------------------------------------------
     # This is just an example
     animation_profile = ""
-    text_to_parse = open("grid.pddl", 'r').read()
+    text_to_parse = open("logestic.pddl", 'r').read()
 
 
 
@@ -94,7 +94,7 @@ def parseVisual(text_to_parse,result):
         # Get the value of properties
         temp_property_block = temp_visual_block[temp_visual_block.index(pattern_properties) + len(pattern_properties):]
         temp_property_block = get_one_block(temp_property_block)
-        temp_properties_pattern = re.compile("\([a-zA-Z0-9_.-]*\s[a-zA-Z0-9_.-]*\)")
+        temp_properties_pattern = re.compile("\([a-zA-Z0-9_.-]*\s[#a-zA-Z0-9_.-]*\)")
         temp_properties = temp_properties_pattern.findall(temp_property_block)
         # sublist[temp_subshape_value].append({"prefabImage": temp_subshape_value})
         for x in temp_properties:
@@ -149,12 +149,14 @@ def parsePredicate(text_to_parse,result):
         # Get the value of effect
         temp_effect_block = temp_visual_block[temp_visual_block.index(pattern_effect) + len(pattern_effect):]
         temp_effect_block = get_one_block(temp_effect_block)
-        result["predicates_rules"][temp_subshape_value]=parse_rules(temp_effect_block)
+        require_dic={}
+        result["predicates_rules"][temp_subshape_value]=parse_rules(temp_effect_block,require_dic)
+        result["predicates_rules"][temp_subshape_value]["require"]=require_dic
         result["predicates_rules"][temp_subshape_value]["objects"]=objectList
         if "priority" in temp_visual_block:
-            result["predicates_rules"][temp_subshape_value]["priority"] = priority
+            result["predicates_rules"][temp_subshape_value]["priority"] = priority[0]
         if custom:
-            result["predicates_rules"][temp_subshape_value]["custom_obj"]=temp_objects_value
+            result["predicates_rules"][temp_subshape_value]["custom_obj"]=[temp_objects_value]
         # result["predicates_rules"]["custom"]
 
         # Get the next Predicate item
@@ -258,7 +260,7 @@ def parse_objects(text):
     return objects
 
 
-def parse_function(text):
+def parse_function(text,require_dic):
     template = {
         "fname": "",
         "obj_indexs": [],
@@ -275,7 +277,12 @@ def parse_function(text):
     searchObj = re.search(objects_pattern, text)
     objects = re.split(r'\s+', searchObj.group(1))
     template["obj_indexs"] = objects
-
+    require=custom_functions.customf_controller(name,None,None,None,None,True)
+    for key,value in require.items():
+        index=int(key)
+        for item in value:
+            obj_name=objects[index]
+            update_require(require_dic,obj_name,item)
     if "settings" in text:
         settings_pattern = re.compile(r'\(settings\s+(\s*\([^)]*\)\s*)+\)')
         searchSetting = re.search(settings_pattern, text)
@@ -288,7 +295,7 @@ def parse_function(text):
     return {"function": template}
 
 
-def parse_add(text):
+def parse_add(text,require_dic):
     template = {
         "add": []
     }
@@ -297,6 +304,7 @@ def parse_add(text):
         for item in reference:
             name, value = parse_objects(item)
             template["add"].append({name: value})
+            update_require(require_dic,name,value)
     digital_pattern = re.compile(r'\b\d+\b')
     digital_list = re.findall(digital_pattern, text)
     if digital_list:
@@ -305,13 +313,13 @@ def parse_add(text):
     return template
 
 
-def parse_rule(rule):
+def parse_rule(rule,require_dic):
     # print(rule)
     template = {
         "left": {},
         "value": {}
     }
-    rulePattern = re.compile(r'\((\w+)\s+(\([^)]+\))\s*(\(.*\)|\w+)\)$')
+    rulePattern = re.compile(r'\((\w+)\s+(\([^)]+\))\s*(\(.*\)|\w+)\)')
     divide_rule = re.search(rulePattern, rule)
     rule_type = divide_rule.group(1)
     left_object = divide_rule.group(2)
@@ -319,19 +327,40 @@ def parse_rule(rule):
     middle = parse_objects(left_object)
     template["left"][middle[0]] = middle[1:]
     if "function" in rule:
-        template["value"] = parse_function(right_value)
+        template["value"] = parse_function(right_value,require_dic)
     elif "(" not in right_value:
         value_pattern = re.compile(r'\(equal\s+\([^)]+\)\s*(\w+)\)')
         searchValue = re.search(value_pattern, rule)
         value = searchValue.group(1)
         template["value"]["equal"] = value
     elif "add" in right_value:
-        template["value"] = parse_add(right_value)
+        template["value"] = parse_add(right_value,require_dic)
     elif "(" in right_value:
         name, value = parse_objects(right_value)
         template["value"]["equal"] = {name: value}
+        update_require(require_dic,name,value)
     return template
-def parse_rules(text):
+
+def update_require(require_dic,name,value):
+    if name not in require_dic:
+        require_dic[name]=[]
+    require_dic[name].append(value)
+
+
+def parse_actionrule(rule,require_dic):
+    # print(rule)
+    template = {
+        "action": {}
+    }
+    rulePattern = re.compile(r'\((\w+)\s*(\(.*\))\)')
+    divide_rule = re.search(rulePattern, rule)
+    rule_type = divide_rule.group(1)
+    right_value = divide_rule.group(2)
+
+    if "function" in rule:
+        template["action"] = parse_function(right_value,require_dic)
+    return template
+def parse_rules(text,require_dic):
     template={
         "rules":[]
     }
@@ -339,7 +368,10 @@ def parse_rules(text):
     for i,rule in enumerate(rules):
         newrule="rule"+str(i+1)
         template["rules"].append(newrule)
-        template[newrule]=parse_rule(rule)
+        if "equal" in rule or "assign" in rule:
+            template[newrule]=parse_rule(rule,require_dic)
+        elif "action" in rule:
+            template[newrule] = parse_actionrule(rule,require_dic)
     return template
 
 if __name__ == "__main__":

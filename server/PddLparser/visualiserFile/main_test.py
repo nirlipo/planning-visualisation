@@ -28,9 +28,11 @@ def get_visualisation_file():
     # 	print("python main.py [dommainfile] [problemfile] [animationprofile]")
     # 	sys.exit()
 
-    domain_file = "domain_blocks.pddl"
-    problem_file = "bw06.pddl"
-    animation_file = "block_animation_profile_V3.json"
+    domain_file = "domain.pddl"
+    problem_file = "pfile8.pddl"
+    animation_file = "animation_hanoi_parsed.json"
+    # animation_file = "grid_animation_profile_v3.json"
+
     url_link = ""
 
     # read animation profile from json

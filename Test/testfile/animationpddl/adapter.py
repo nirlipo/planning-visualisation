@@ -73,7 +73,7 @@ def transfer_str(v):
     elif (v == "FALSE"):
         return False
         # print(dict1[k])
-    elif (v == "Null"):
+    elif (v.lower() == "null"):
         return False
         # print(dict1[k])
     elif (check_color(v)):

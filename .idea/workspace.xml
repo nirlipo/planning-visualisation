@@ -2,8 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="728e8187-a309-4556-8e5a-d5c882b017ce" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/custom_functions.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_parsed.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_parsed.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3working.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_parsed.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_parsed.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/domain.pddl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/pfile8.pddl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/prob02.pddl" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_V3.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/bw06.pddl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/domain_blocks.pddl" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" afterPath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
     </list>
     <ignored path="swen90013-2018-pl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -17,11 +44,11 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/swen90013-2018-pl$main.coverage" NAME="main Coverage Results" MODIFIED="1533444749021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
-    <SUITE FILE_PATH="coverage/swen90013_2018_pl$animationparser.coverage" NAME="animationparser Coverage Results" MODIFIED="1538540540281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Test/testfile/animationpddl" />
+    <SUITE FILE_PATH="coverage/swen90013_2018_pl$animationparser.coverage" NAME="animationparser Coverage Results" MODIFIED="1538562981055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Test/testfile/animationpddl" />
     <SUITE FILE_PATH="coverage/swen90013_2018_pl$adapter.coverage" NAME="adapter Coverage Results" MODIFIED="1538480876476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Test/testfile/animationpddl" />
     <SUITE FILE_PATH="coverage/swen90013_2018_pl$problem_parser.coverage" NAME="problem_parser Coverage Results" MODIFIED="1538191814905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser" />
     <SUITE FILE_PATH="coverage/swen90013_2018_pl$domain_parser.coverage" NAME="domain_parser Coverage Results" MODIFIED="1538191021455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser" />
-    <SUITE FILE_PATH="coverage/swen90013_2018_pl$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1538400579608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
+    <SUITE FILE_PATH="coverage/swen90013_2018_pl$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1538561938209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -31,43 +58,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="animationparser.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py">
+      <file leaf-file-name="blockanimation.pddl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-747">
-              <caret line="89" column="98" lean-forward="true" selection-start-line="89" selection-start-column="98" selection-end-line="89" selection-end-column="98" />
-              <folding>
-                <element signature="e#596#605#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="grid_animation_profile_v3.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="17" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="350" selection-end-column="1" />
+            <state relative-caret-position="436">
+              <caret line="70" column="39" lean-forward="false" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="domain_grid.pddl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test/testfile/grid/domain_grid.pddl">
+      <file leaf-file-name="hanoi.pddl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="323">
+              <caret line="66" column="24" lean-forward="true" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adapter.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="logestic.pddl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-640">
+              <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="solver.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="507">
+              <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adapter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="84" column="26" lean-forward="true" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
+            <state relative-caret-position="352">
+              <caret line="71" column="19" lean-forward="true" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
               <folding>
                 <element signature="e#603#612#0" expanded="true" />
               </folding>
@@ -75,11 +110,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grid.pddl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl">
+      <file leaf-file-name="animationparser.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+            <state relative-caret-position="238">
+              <caret line="96" column="69" lean-forward="false" selection-start-line="96" selection-start-column="69" selection-end-line="96" selection-end-column="69" />
+              <folding>
+                <element signature="e#596#605#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="animation_hanoi_parsed.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="607">
+              <caret line="175" column="1" lean-forward="false" selection-start-line="175" selection-start-column="1" selection-end-line="175" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logestic_animation_v2.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="311" column="4242" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
+              <folding>
+                <element signature="n#!!block;n#objects#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="domain.pddl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/domain.pddl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -96,7 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>initialise</find>
       <find>custom_functions</find>
       <find>require</find>
       <find>customObj</find>
@@ -114,14 +182,31 @@
       <find>color</find>
       <find>pattern_type</find>
       <find>print</find>
+      <find>showName</find>
+      <find>shape</find>
+      <find>visual</find>
+      <find>distribute_grid_around_point</find>
+      <find>distribute_within_objects_vertical</find>
+      <find>align_middle</find>
+      <find>distributey</find>
+      <find>distribute_within_objects_horizontal</find>
+      <find>cus</find>
+      <find>showname</find>
+      <find>priority</find>
+      <find>pattern_properties</find>
+      <find>prefabimage</find>
     </findStrings>
     <replaceStrings>
       <replace>custom_obj</replace>
       <replace>state</replace>
       <replace>settings</replace>
+      <replace>visual</replace>
+      <replace>showName</replace>
+      <replace>prefabImage</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/Test/testfile/block</dir>
+      <dir>$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -142,32 +227,40 @@
         <option value="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_upgrade.json" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi.json" />
         <option value="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi.json" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/logesticanimation.json" />
         <option value="$PROJECT_DIR$/Test/testfile/logestic/logesticanimation.json" />
         <option value="$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
         <option value="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V2.json" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/plan_generator.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/views.py" />
         <option value="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V2.json" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/domain_parser.py" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
-        <option value="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/main.py" />
         <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/problem_parser.py" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" />
-        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" />
+        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/gridold.pddl" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
+        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/grid_animation_profile_v3.json" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/grid_animation_profile_parsed.json" />
         <option value="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" />
+        <option value="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_parsed.json" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_parsed.json" />
+        <option value="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" />
+        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" />
+        <option value="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_parsed.json" />
+        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" />
+        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json" />
+        <option value="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_parsed.json" />
         <option value="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" />
         <option value="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" />
-        <option value="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" />
-        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/gridold.pddl" />
-        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" />
         <option value="$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl" />
-        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" />
-        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" />
         <option value="$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py" />
+        <option value="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" />
+        <option value="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_parsed.json" />
       </list>
     </option>
   </component>
@@ -188,7 +281,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1785" />
+    <option name="x" value="1542" />
     <option name="y" value="115" />
     <option name="width" value="2195" />
     <option name="height" value="965" />
@@ -239,25 +332,7 @@
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
               <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
-              <item name="visualiserFile" type="462c0819:PsiDirectoryNode" />
-              <item name="adapter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
-              <item name="visualiserFile" type="462c0819:PsiDirectoryNode" />
-              <item name="pparser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="PddLparser" type="462c0819:PsiDirectoryNode" />
-              <item name="visualiserFile" type="462c0819:PsiDirectoryNode" />
-              <item name="predicate_solver" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
@@ -276,20 +351,6 @@
               <item name="Test" type="462c0819:PsiDirectoryNode" />
               <item name="testfile" type="462c0819:PsiDirectoryNode" />
               <item name="animationpddl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-              <item name="testfile" type="462c0819:PsiDirectoryNode" />
-              <item name="block" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-              <item name="testfile" type="462c0819:PsiDirectoryNode" />
-              <item name="grid" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
@@ -321,17 +382,17 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
       <recent name="$PROJECT_DIR$/Test/testfile/animationpddl" />
       <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile/generator" />
-      <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
       <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile/vfg" />
       <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile/extensions" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Test/testfile/animationpddl" />
-      <recent name="$PROJECT_DIR$/Test/testfile/hanoi" />
-      <recent name="$PROJECT_DIR$/Test/testfile/grid" />
+      <recent name="$PROJECT_DIR$/Test/testfile/logestic" />
       <recent name="$PROJECT_DIR$/server/PddLparser/visualiserFile" />
+      <recent name="$PROJECT_DIR$/Test/testfile/hanoi" />
+      <recent name="$PROJECT_DIR$/server/PddLparser" />
       <recent name="$PROJECT_DIR$/Test/testfile/block" />
     </key>
   </component>
@@ -655,8 +716,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.animationparser" />
-        <item index="1" class="java.lang.String" itemvalue="Python.adapter" />
-        <item index="2" class="java.lang.String" itemvalue="Python.main_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.main_test" />
+        <item index="2" class="java.lang.String" itemvalue="Python.adapter" />
         <item index="3" class="java.lang.String" itemvalue="Python.problem_parser" />
         <item index="4" class="java.lang.String" itemvalue="Python.domain_parser" />
       </list>
@@ -679,18 +740,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1785" y="115" width="2195" height="965" extended-state="0" />
-    <editor active="true" />
+    <frame x="1542" y="115" width="2195" height="965" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2022779" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22620381" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22620381" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2022779" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3281075" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -706,7 +767,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2022779" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291262" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -762,24 +822,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/random_color.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_upgrade.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/grid_animation_profile_upgrade.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/domain.pddl" />
-    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_upgrade.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pfile8.pddl" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/domain.pddl" />
-    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/logesticanimation.json" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions_old.py" />
-    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logesticanimation.json" />
     <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile_upgrade.json" />
     <entry file="file://$PROJECT_DIR$/PlanningVisualise/Assets/Visualiser/Scripts/ScenesCoordinator.cs">
       <provider selected="true" editor-type-id="text-editor">
@@ -844,20 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="161" column="7" lean-forward="true" selection-start-line="161" selection-start-column="7" selection-end-line="161" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/predicates_generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="121" column="19" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v2.json" />
     <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/prob01.pddl">
       <provider selected="true" editor-type-id="text-editor">
@@ -889,20 +917,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_V3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/server/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
@@ -910,51 +924,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="14" lean-forward="true" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="260" column="10" lean-forward="false" selection-start-line="260" selection-start-column="10" selection-end-line="260" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/domain.pddl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="247" column="47" lean-forward="false" selection-start-line="247" selection-start-column="47" selection-end-line="247" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/gridold.pddl" />
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="232" column="20" lean-forward="false" selection-start-line="232" selection-start-column="19" selection-end-line="232" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/colour.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="327">
@@ -963,52 +933,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py">
+    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/custom_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="809">
-          <caret line="51" column="34" lean-forward="false" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        <state relative-caret-position="357">
+          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json">
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="57" column="15" lean-forward="false" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
+        <state relative-caret-position="219">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl">
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_V3.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="17" lean-forward="false" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl">
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/grid_animation_profile_v3.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        <state relative-caret-position="290">
+          <caret line="336" column="17" lean-forward="true" selection-start-line="336" selection-start-column="17" selection-end-line="336" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py">
+    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/prob01.pddl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-747">
-          <caret line="89" column="98" lean-forward="true" selection-start-line="89" selection-start-column="98" selection-end-line="89" selection-end-column="98" />
-          <folding>
-            <element signature="e#596#605#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json">
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/grid_animation_profile_parsed.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="17" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="350" selection-end-column="1" />
+        <state relative-caret-position="607">
+          <caret line="446" column="1" lean-forward="false" selection-start-line="446" selection-start-column="1" selection-end-line="446" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3working.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1023,19 +999,191 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+        <state relative-caret-position="12">
+          <caret line="124" column="30" lean-forward="false" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="404" column="1" lean-forward="false" selection-start-line="404" selection-start-column="1" selection-end-line="404" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/predicates_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1052">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="63" column="45" lean-forward="false" selection-start-line="63" selection-start-column="45" selection-end-line="63" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="43" column="40" lean-forward="true" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="189" column="5" lean-forward="true" selection-start-line="189" selection-start-column="5" selection-end-line="190" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="446" column="1" lean-forward="false" selection-start-line="446" selection-start-column="1" selection-end-line="446" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/domain_blocks.pddl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1977">
+          <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="164" column="15" lean-forward="false" selection-start-line="164" selection-start-column="15" selection-end-line="164" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="175" column="1" lean-forward="false" selection-start-line="175" selection-start-column="1" selection-end-line="175" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="311" column="4242" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!block;n#objects#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="66" column="24" lean-forward="true" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="84" column="26" lean-forward="true" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
+        <state relative-caret-position="352">
+          <caret line="71" column="19" lean-forward="true" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
           <folding>
             <element signature="e#603#612#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-640">
+          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/domain.pddl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="70" column="39" lean-forward="false" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="96" column="69" lean-forward="false" selection-start-line="96" selection-start-column="69" selection-end-line="96" selection-end-column="69" />
+          <folding>
+            <element signature="e#596#605#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_parsed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="317" column="1" lean-forward="false" selection-start-line="317" selection-start-column="1" selection-end-line="317" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

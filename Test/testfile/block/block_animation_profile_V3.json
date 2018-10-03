@@ -11,7 +11,7 @@
       ]
     }
   },
-  "shape": {
+  "visual": {
     "Block": {
       "prefabImage": "Block",
       "showName": true,
@@ -52,7 +52,10 @@
   },
   "predicates_rules": {
     "on": {
-      "objects":["?x","?y"],
+      "objects": [
+        "?x",
+        "?y"
+      ],
       "rules": [
         "rule1",
         "rule2"
@@ -66,7 +69,9 @@
       },
       "rule1": {
         "left": {
-          "?x": "x"
+          "?x": [
+            "x"
+          ]
         },
         "value": {
           "equal": {
@@ -76,7 +81,9 @@
       },
       "rule2": {
         "left": {
-          "?x": "y"
+          "?x": [
+            "y"
+          ]
         },
         "value": {
           "add": [
@@ -95,25 +102,33 @@
         "rule1",
         "rule2"
       ],
-      "objects":["?x"],
+      "objects": [
+        "?x"
+      ],
       "require": {},
       "rule1": {
         "left": {
-          "?x": "x"
+          "?x": [
+            "x"
+          ]
         },
         "value": {
           "function": {
-            "fname":"distributex",
-            "obj_indexs":["?x"],
-            "settings":{
-              "spacebtw":20
+            "fname": "distributex",
+            "obj_indexs": [
+              "?x"
+            ],
+            "settings": {
+              "spacebtw": 20
             }
           }
         }
       },
       "rule2": {
         "left": {
-          "?x": "y"
+          "?x": [
+            "y"
+          ]
         },
         "value": {
           "equal": 0
@@ -125,7 +140,9 @@
         "rule1",
         "rule2"
       ],
-      "objects":["?x"],
+      "objects": [
+        "?x"
+      ],
       "custom_obj": [
         "Claw"
       ],
@@ -137,7 +154,9 @@
       },
       "rule1": {
         "left": {
-          "?x": "y"
+          "?x": [
+            "y"
+          ]
         },
         "value": {
           "equal": {
@@ -147,7 +166,9 @@
       },
       "rule2": {
         "left": {
-          "?x": "x"
+          "?x": [
+            "x"
+          ]
         },
         "value": {
           "equal": {

@@ -46,13 +46,14 @@ def initialise_objects(object_list, animation_profile):
         else:
             obj_type = animation_profile["objects"]["default"]
         # update the value for each
-        for objproperty in animation_profile["shape"][obj_type]:
-            value = animation_profile["shape"][obj_type][objproperty]
+        for objproperty in animation_profile["visual"][obj_type]:
+            value = animation_profile["visual"][obj_type][objproperty]
             if value is not False:
-                if value.lower() == "randomcolor":
-                    unsolved_objects[objectname][
-                        objproperty] = random_color.get_random_color()
-                    continue
+                if type(value) is str:
+                    if value.lower() == "randomcolor":
+                        unsolved_objects[objectname][
+                            objproperty] = random_color.get_random_color()
+                        continue
                 unsolved_objects[objectname][objproperty] = value
             else:
                 unsolved_objects[objectname][objproperty] = False

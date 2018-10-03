@@ -125,14 +125,15 @@ def applypredicates(predicate,
                 objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]
+                print(predicate_rule)
                 if type(right_value) is not dict:
-                    objects_dic[left][propertyname] = right_value
+                    objects_dic[left][propertyname[0]] = right_value
                 else:
                     if "r" in right_value:#for color
-                        objects_dic[left][propertyname] = right_value
+                        objects_dic[left][propertyname[0]] = right_value
                     else:
                         right_object,right_property=get_objname_property(right_value,obj_ref_dic)
-                        objects_dic[left][propertyname]=objects_dic[right_object][right_property]
+                        objects_dic[left][propertyname[0]]=objects_dic[right_object][right_property]
 
             elif "add" in value:
                 rightvalue = 0
@@ -144,18 +145,25 @@ def applypredicates(predicate,
                         rightvalue += addvalue
                     else:
                         rightvalue += additem
-                objects_dic[left][propertyname] = rightvalue
+                objects_dic[left][propertyname[0]] = rightvalue
         else:
             action=predicate_rule[rulename]["action"]
             if "function" in action:
-                object1,object2=objects
-                x1=objects_dic[object1]["x"]+objects_dic[object1]["width"]/2
-                y1=objects_dic[object1]["y"]+objects_dic[object1]["height"]/2
-                x2=objects_dic[object2]["x"]+objects_dic[object2]["width"]/2
-                y2=objects_dic[object2]["y"]+objects_dic[object2]["height"]/2
-                if action["function"]=="draw_line":
-                    key=pname+objects[0]+objects[1]
-                    objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
+                fproperty = action["function"]
+                fname = fproperty["fname"]
+                obj_indexs = fproperty["obj_indexs"]
+                if "settings" in fproperty:
+                    settings=fproperty["settings"]
+                else:
+                    settings={}
+                state=gstate[fname]
+                obj_list=[]
+                for obj_index in obj_indexs:
+                    objname=obj_ref_dic[obj_index]
+                    obj_list.append({objname:objects_dic[objname]})
+
+                key,value=custom_functions.customf_controller(fname,obj_list,settings,state,False)
+                objects_dic[key]=value
 def get_objname_property(dictionary,obj_ref_dic):
     object_index, propertyname = list(dictionary.items())[0]
     objname = obj_ref_dic[object_index]
@@ -312,8 +320,8 @@ def add_fixed_objects(object_dic, animation_profile):
         animation_profile(Dictionary): the dict to store all information in animation profile.
     """
     
-    for shape in animation_profile["objects"]["custom"]:
-        objects=animation_profile["objects"]["custom"][shape]
+    for visual in animation_profile["objects"]["custom"]:
+        objects=animation_profile["objects"]["custom"][visual]
         for obj_name in objects:            
-            object_dic[obj_name] = animation_profile["shape"][shape]
+            object_dic[obj_name] = animation_profile["visual"][visual]
             object_dic[obj_name]["name"] = obj_name

@@ -60,8 +60,10 @@ def transfer(one_stage, initialobjects, panel_size,shift, padding=20):
         y_num = one_stage[obj]["y"]
         width = one_stage[obj]["width"]
         # set the panel with after we got the panel width
-        if width == "panel_size":
-            width = panel_size - 2 * padding
+        if type(width) is str:
+            if width.lower() == "panel_size":
+                width = panel_size - 2 * padding
+                one_stage[obj]["width"]=width
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
         min_x = (x_num + padding+shift) / panel_size
@@ -242,7 +244,7 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     space["distribute_grid_around_point"] = {}
     space["distributey"] = {}
     space["calculate_label"] = {}
-
+    space["draw_line"] = {}
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)
