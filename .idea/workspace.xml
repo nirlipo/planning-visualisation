@@ -2,35 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="728e8187-a309-4556-8e5a-d5c882b017ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/custom_functions.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_parsed.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_parsed.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3working.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_parsed.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_parsed.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/domain.pddl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/pfile8.pddl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/prob02.pddl" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/block_animation_profile_V3.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/bw06.pddl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/domain_blocks.pddl" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/adapter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/animationparser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/blockanimation.pddl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/grid.pddl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/hanoi.pddl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl" afterPath="$PROJECT_DIR$/Test/testfile/animationpddl/logestic.pddl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" afterPath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/adapter/transfer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/main_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/custom_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/initialise.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" afterPath="$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_parsed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_parsed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3working.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_parsed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_parsed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/domain.pddl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/pfile8.pddl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/PddLparser/visualiserFile/prob02.pddl" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/block/block_animation_profile.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json" afterPath="$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json" afterPath="$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json" afterPath="$PROJECT_DIR$/Test/testfile/logestic/logestic_animation.json" />
     </list>
     <ignored path="swen90013-2018-pl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,11 +72,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="solver.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/predicate_solver/solver.py">
+      <file leaf-file-name="grid_animation_profile.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+            <state relative-caret-position="538">
+              <caret line="404" column="1" lean-forward="false" selection-start-line="404" selection-start-column="1" selection-end-line="404" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="block_animation_profile.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="538">
+              <caret line="189" column="5" lean-forward="true" selection-start-line="189" selection-start-column="5" selection-end-line="190" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -122,21 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="animation_hanoi_parsed.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/animation_hanoi_parsed.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="175" column="1" lean-forward="false" selection-start-line="175" selection-start-column="1" selection-end-line="175" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logestic_animation_v2.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json">
+      <file leaf-file-name="logestic_animation.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="386">
-              <caret line="311" column="4242" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
+              <caret line="311" column="4242" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
               <folding>
                 <element signature="n#!!block;n#objects#0;n#!!top" expanded="false" />
               </folding>
@@ -351,6 +335,20 @@
               <item name="Test" type="462c0819:PsiDirectoryNode" />
               <item name="testfile" type="462c0819:PsiDirectoryNode" />
               <item name="animationpddl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
+              <item name="testfile" type="462c0819:PsiDirectoryNode" />
+              <item name="block" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="swen90013-2018-pl" type="462c0819:PsiDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
+              <item name="testfile" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="swen90013-2018-pl" type="b2602c69:ProjectViewProjectNode" />
@@ -1005,14 +1003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile_v3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="404" column="1" lean-forward="false" selection-start-line="404" selection-start-column="1" selection-end-line="404" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/PddLparser/visualiserFile/pparser/predicates_generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1052">
@@ -1033,14 +1023,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
           <caret line="43" column="40" lean-forward="true" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile_V3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="189" column="5" lean-forward="true" selection-start-line="189" selection-start-column="5" selection-end-line="190" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -1085,7 +1067,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi_V3.json">
+    <entry file="file://$PROJECT_DIR$/Test/testfile/hanoi/animation_hanoi.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1977">
           <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
@@ -1117,10 +1099,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation_v2.json">
+    <entry file="file://$PROJECT_DIR$/Test/testfile/logestic/logestic_animation.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
-          <caret line="311" column="4242" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
+          <caret line="311" column="4242" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
           <folding>
             <element signature="n#!!block;n#objects#0;n#!!top" expanded="false" />
           </folding>
@@ -1183,6 +1165,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="580">
           <caret line="317" column="1" lean-forward="false" selection-start-line="317" selection-start-column="1" selection-end-line="317" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/grid/grid_animation_profile.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="404" column="1" lean-forward="false" selection-start-line="404" selection-start-column="1" selection-end-line="404" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/testfile/block/block_animation_profile.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="189" column="5" lean-forward="true" selection-start-line="189" selection-start-column="5" selection-end-line="190" selection-end-column="4" />
           <folding />
         </state>
       </provider>
