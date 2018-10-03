@@ -16,9 +16,9 @@
   )
  
   (:predicate at
-               :parameters (?x ?y)
+               :parameters (?r ?x)
                :effect(
-               (equal (?x x y) (function distribute_within_objects_vertical (objects ?x ?y)(settings (spacebtw 20))))
+               (equal (?r x y) (function distribute_within_objects_vertical (objects ?r ?x)(settings (spacebtw 20))))
                )
   )
  
@@ -32,10 +32,10 @@
   )
  
   (:predicate place
-               :parameters (?x)
+               :parameters (?p)
                :effect(
-               (equal (?x x y) (function distribute_grid_around_point (objects ?x)))
-               (equal (?x depth) 10)
+               (equal (?p x y) (function distribute_grid_around_point (objects ?p)))
+               (equal (?p depth) 10)
                )
   )
  
@@ -54,11 +54,11 @@
   )
  
   (:predicate holding
-               :parameters (?x)
+               :parameters (?k)
                :custom robot
                :effect(
-               (equal (?x x) (add (robot x) 10))
-               (equal (?x y) (add (robot y) 5))
+               (equal (?k x) (add (robot x) 10))
+               (equal (?k y) (add (robot y) 5))
                )
   )
  

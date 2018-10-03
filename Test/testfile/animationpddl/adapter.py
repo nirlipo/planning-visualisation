@@ -39,39 +39,48 @@ def transfer(result):
 
     return result
 
-
-def dictget(dict1):
+def dictget(input):
     """The function transfers all the digital number string into number
      """
-    for k, v in dict1.items():
+    if type(input) is str:
+        print(input)
+        return transfer_str(input)
 
-        if type(v) is not dict and type(v) is not list:
-            value = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
-
-            result = value.match(v)
-            if (result):
-                dict1[k] = float(v)
-            elif (v.isdigit()):
-                dict1[k] = int(v)
-            elif (v == "TRUE"):
-                dict1[k] = True
-                # print(dict1[k])
-            elif (v == "FALSE"):
-                dict1[k] = False
-                # print(dict1[k])
-            elif (v == "Null"):
-                dict1[k] = False
-                # print(dict1[k])
-            elif (check_color(v)):
-                print(v)
-                dict1[k]=transfer_Color(v)
-
-
-
-        else:
+    if type(input) is dict:
+        for k, v in input.items():
             if type(v) is dict:
-                dictget(v)
-    return dict1
+                input[k]=dictget(v)
+            elif type(v) is list:
+                input[k]=dictget(v)
+            else:
+                input[k]=transfer_str(v)
+    elif type(input) is list:
+        for i,item in enumerate(input):
+            input[i]=dictget(item)
+
+    return input
+def transfer_str(v):
+    value = re.compile(r'^[-+]?[0-9]+\.[0-9]+$')
+
+    result = value.match(v)
+
+    if (result):
+        return float(v)
+    elif (v.isdigit()):
+        return int(v)
+    elif (v == "TRUE"):
+        return True
+    elif (v == "FALSE"):
+        return False
+        # print(dict1[k])
+    elif (v == "Null"):
+        return False
+        # print(dict1[k])
+    elif (check_color(v)):
+        # print(v)
+        return transfer_Color(v)
+    else:
+        return v
 
 def transfer_Color(color):
     """

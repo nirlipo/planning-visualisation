@@ -82,7 +82,7 @@ def parseVisual(text_to_parse,result):
                 objects_list=parse_objects(objectsStr)
             else:
                 objects_list=objectsStr
-            print(objects_list)
+            # print(objects_list)
             result["objects"][temp_subelement_value][temp_subshape_value]=[]
             if type(objects_list) in (tuple,list):
                 result["objects"][temp_subelement_value][temp_subshape_value].extend(objects_list)
