@@ -6,126 +6,132 @@ using UnityEngine.UI;
 using Visualiser;
 
 namespace VisualSpriteAnimation {
-    public class VisualSpriteAnimator : MonoBehaviour
-    {
-        public bool Forming { get; set; }
-        public bool Dying { get; set; }
-        public bool Animating { get; set; }
-        bool highlighting;
-        public bool Highlighting 
-        {   get 
-            {
-                return highlighting;
-            }
-            set
-            {
-                highlighting = value;
-                if (!highlighting)
-                {
-                    if (canvasGroup != null)
-                        canvasGroup.alpha = 1;
-                }
-            }
-        }
 
-        protected bool fadeingOut = true;
+	public class VisualSpriteAnimator : MonoBehaviour
+	{
+		public bool Forming { get; set; }
+		public bool Dying { get; set; }
+		public bool Animating { get; set; }
+		bool highlighting;
+		public const float subgoal_brightness = (float)0.5;
 
-        protected VisualSpriteObject visualSprite;
+		public bool Highlighting 
+		{   get 
+			{
+				return highlighting;
+			}
+			set
+			{
+				highlighting = value;
+				if (!highlighting)
+				{
+					if (canvasGroup != null)
+						canvasGroup.alpha = 1;
+				}
+			}
+		}
 
-        protected Slider aniSpeedSlider;
+		protected bool fadeingOut = true;
 
-        protected CanvasGroup canvasGroup;
+		protected VisualSpriteObject visualSprite;
 
-        public event EventHandler OnDied;
+		protected Slider aniSpeedSlider;
 
-        // Use this for initialization
-        void Start()
-        {
-            visualSprite = GetComponent<SpriteController>().GetVisualSprite();
-            canvasGroup = GetComponent<CanvasGroup>();
-            aniSpeedSlider = GameObject.Find("AniSpeedSlider").GetComponent<Slider>();
+		protected CanvasGroup canvasGroup;
 
-            Setup();
-        }
+		public event EventHandler OnDied;
 
-        protected virtual void Setup()
-        {
+		// Use this for initialization
+		void Start()
+		{
+			visualSprite = GetComponent<SpriteController>().GetVisualSprite();
+			canvasGroup = GetComponent<CanvasGroup>();
+			aniSpeedSlider = GameObject.Find("AniSpeedSlider").GetComponent<Slider>();
 
-        }
+			Setup();
+		}
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Forming)
-            {
-                if (canvasGroup.alpha < 1)
-                {
-                   canvasGroup.alpha += Time.deltaTime;
-                }
-                else
-                {
-                   Forming = false;
-                }
-            }
+		protected virtual void Setup()
+		{
 
-            if (Dying)
-            {
-                if (canvasGroup.alpha > 0)
-                {
-                   // canvasGroup.alpha -= Time.deltaTime;
-                }
-                else
-                {
-                    Dying = false;
-                    OnDied?.Invoke(this, null);
-                }
-            }
+		}
 
-            if (Animating)
-            {
-                switch(visualSprite.transferType)
-                {
-                    default:
-                        Animate();
-                        break;
-                }
-            }
+		// Update is called once per frame
+		void Update()
+		{
+			if (Forming)
+			{
+				if (canvasGroup.alpha < 1)
+				{
+					canvasGroup.alpha += Time.deltaTime;
+				}
+				else
+				{
+					Forming = false;
+				}
+			}
 
-            if (!Animating && Highlighting)
+			if (Dying)
+			{
+				if (canvasGroup.alpha > 0)
+				{
+					// canvasGroup.alpha -= Time.deltaTime;
+				}
+				else
+				{
+					Dying = false;
+					OnDied?.Invoke(this, null);
+				}
+			}
 
-            {
+			if (Animating)
+			{
+				switch(visualSprite.transferType)
+				{
+				default:
+					Animate();
+					break;
+				}
+			}
 
-                // Get new, adjusted color
-                var image = gameObject.GetComponent<Image>();
-                var originalColor = visualSprite.color;
-                float brightness = (float)0.5;
+			// Get the original object colour
+			var image = gameObject.GetComponent<Image>();
+			var originalColor = visualSprite.color;
+			float red = originalColor.r;
+			float green = originalColor.g;
+			float blue= originalColor.b;
 
-                float red = originalColor.r*brightness;
-                float green = originalColor.g *brightness;
-                float blue = originalColor.b*brightness;
+			// Darkening of objects when subgoal is complete
+			if (!Animating && Highlighting)
 
-                // Set adjusted colour
-                image.color = new Color(red, green, blue, 1);
+			{
 
-                //canvasGroup.alpha += fadeingOut ? -1f / 60f : 1f / 60f;
-                if (canvasGroup.alpha <= 0.3)
-                {
-                    fadeingOut = false;
-                }
-                else if (canvasGroup.alpha >= 1)
-                {
-                    fadeingOut = true;
-                }
-            }
-        }
+				// Get new, adjusted color
+				red *= subgoal_brightness;
+				green *= subgoal_brightness;
+				blue *= subgoal_brightness;
 
-        protected virtual void Animate()
-        {
-        }
+				if (canvasGroup.alpha <= 0.3)
+				{
+					fadeingOut = false;
+				}
+				else if (canvasGroup.alpha >= 1)
+				{
+					fadeingOut = true;
+				}
+			}
 
-        public void UpdateVisualSprite(VisualSpriteObject vso)
-        {
-            visualSprite = vso;
-        }
-    }
+			// Set image colour
+			image.color = new Color(red, green, blue, 1);
+		}
+
+		protected virtual void Animate()
+		{
+		}
+
+		public void UpdateVisualSprite(VisualSpriteObject vso)
+		{
+			visualSprite = vso;
+		}
+	}
 }
