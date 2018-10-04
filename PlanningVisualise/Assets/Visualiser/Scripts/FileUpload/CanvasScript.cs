@@ -90,7 +90,7 @@ public class CanvasScript : MonoBehaviour
 #if UNITY_EDITOR
 		string path;
 		if (type == "Animation"){
-			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","json");
+			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
 		}else if (type == "visualisationFile"){
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","txt");
 		}else {
@@ -102,7 +102,7 @@ public class CanvasScript : MonoBehaviour
 		}
 #else
 		if (type == "Animation"){
-        	UploaderCaptureClick(".json");
+        	UploaderCaptureClick(".pddl");
         } else if (type == "visualisationFile"){
         	UploaderCaptureClick(".txt");
         } else {
