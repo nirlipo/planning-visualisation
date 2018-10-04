@@ -15,6 +15,7 @@ animation profile, and it write the visualisation file to visualsation.json.
 #--------------------------------------------------------------------------------
 import sys
 import pparser.plan_generator  # Step1: get plan from planning domain api
+import pparser.animation_parser  # Step1: get plan from planning domain api
 import pparser.problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 import adapter.transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
@@ -36,7 +37,7 @@ def get_visualisation_file():
     # read animation profile from json
     file = open(animation_file)
     content = file.read()
-    animation_profile = json.loads(content)
+    animation_profile = json.loads(pparser.animation_parser(content))
 
     plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), 
                                            open(problem_file, 'r').read(),

@@ -189,33 +189,59 @@ def dedupe(items):
 
     return result
 
+# def generate_subgoal(subgoals):
+#     """This function transfers the subgoal structure into the final one
+#     """
+#
+#     subgoal_pool = []
+#     for subgoal in dedupe(subgoals):
+#         temp = {subgoal["name"]: subgoal["objects"]}
+#
+#         subgoal_pool.append(temp)
+#     print(subgoal_pool)
+#     step_list = []
+#     for subgoal in subgoals:
+#         if subgoal["stepNum"] not in step_list:
+#             step_list.append(subgoal["stepNum"])
+#
+#     subgoal_map = []
+#     for step in step_list:
+#         value = []
+#         for subgoal in subgoals:
+#             if subgoal["stepNum"] == step:
+#
+#                 value.append(subgoal["name"])
+#         temp = {step: value}
+#         subgoal_map.append(temp)
+#     subgoal_transfer = {"subgoalPool": subgoal_pool,"subgoalMap": subgoal_map}
+#     return subgoal_transfer
 def generate_subgoal(subgoals):
     """This function transfers the subgoal structure into the final one
     """
-
-    subgoal_pool = []
+    m_keys = []
+    m_values = []
     for subgoal in dedupe(subgoals):
-        temp = {subgoal["name"]: subgoal["objects"]}
+        m_keys.append(subgoal["name"])
+        m_values.append(subgoal["objects"])
+    subgoal_pool = {"m_keys": m_keys, "m_values": m_values}
 
-        subgoal_pool.append(temp)
-    print(subgoal_pool)
     step_list = []
+    values = []
     for subgoal in subgoals:
         if subgoal["stepNum"] not in step_list:
             step_list.append(subgoal["stepNum"])
 
-    subgoal_map = []
+    # print(step_list)
     for step in step_list:
         value = []
         for subgoal in subgoals:
             if subgoal["stepNum"] == step:
-
                 value.append(subgoal["name"])
-        temp = {step: value}
-        subgoal_map.append(temp)
-    subgoal_transfer = {"subgoalPool": subgoal_pool,"subgoalMap": subgoal_map}
+        values.append(value)
+    pool_map = {"m_keys": step_list,"m_values":values}
+    subgoal_transfer = {"subgoalPool": subgoal_pool,"subgoalMap": pool_map}
+    # print(pool_map)
     return subgoal_transfer
-
 
 def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic):
     """This function is the main function of this module, it will call the other functions

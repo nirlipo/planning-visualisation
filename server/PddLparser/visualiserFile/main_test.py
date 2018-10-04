@@ -15,6 +15,7 @@ animation profile, and it write the visualisation file to visualsation.json.
 #--------------------------------------------------------------------------------
 import sys
 import pparser.plan_generator  # Step1: get plan from planning domain api
+import pparser.animation_parser  # Step1: get plan from planning domain api
 import pparser.problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 import adapter.transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
@@ -28,17 +29,15 @@ def get_visualisation_file():
     # 	print("python main.py [dommainfile] [problemfile] [animationprofile]")
     # 	sys.exit()
 
-    domain_file = "domain.pddl"
-    problem_file = "pfile8.pddl"
-    animation_file = "animation_hanoi_parsed.json"
-    # animation_file = "grid_animation_profile_v3.json"
-
+    domain_file = "domain_blocks.pddl"
+    problem_file = "bw06.pddl"
+    animation_file = "blockanimation.pddl"
     url_link = ""
 
     # read animation profile from json
     file = open(animation_file)
     content = file.read()
-    animation_profile = json.loads(content)
+    animation_profile = json.loads(pparser.animation_parser.get_animation_profile(content))
 
     plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), 
                                            open(problem_file, 'r').read(),
@@ -51,6 +50,6 @@ def get_visualisation_file():
     # print(json.dumps(problem_json))
     stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
-    print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
+    json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json))
 if __name__ == "__main__":
     get_visualisation_file()
