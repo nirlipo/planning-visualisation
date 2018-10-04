@@ -43,7 +43,7 @@ def dictget(input):
     """The function transfers all the digital number string into number
      """
     if type(input) is str:
-        print(input)
+        # print(input)
         return transfer_str(input)
 
     if type(input) is dict:
