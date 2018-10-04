@@ -60,8 +60,10 @@ def transfer(one_stage, initialobjects, panel_size,shift, padding=20):
         y_num = one_stage[obj]["y"]
         width = one_stage[obj]["width"]
         # set the panel with after we got the panel width
-        if width == "panel_size":
-            width = panel_size - 2 * padding
+        if type(width) is str:
+            if width.lower() == "panel_size":
+                width = panel_size - 2 * padding
+                one_stage[obj]["width"]=width
         height = one_stage[obj]["height"]
         # transfer the position info into position needed in Unity
         min_x = (x_num + padding+shift) / panel_size
@@ -174,9 +176,7 @@ def dedupe(items):
     for item in items:
         if item["name"] not in seen:
             seen.append(item["name"])
-    # print(seen)
     for se in seen:
-        # print (se)
         numlist = []
         namelist = []
         objectlist = []
@@ -186,11 +186,35 @@ def dedupe(items):
                 namelist.append(item["stepName"])
                 objectlist = item["objects"]
         result.append({"name":se,"stepNum":numlist,"stepName": namelist,"objects":objectlist})
-        # result.append({"name":se,"stepNum":numlist,"objects":objectlist})
 
-        # print(numlist)
     return result
 
+# def generate_subgoal(subgoals):
+#     """This function transfers the subgoal structure into the final one
+#     """
+#
+#     subgoal_pool = []
+#     for subgoal in dedupe(subgoals):
+#         temp = {subgoal["name"]: subgoal["objects"]}
+#
+#         subgoal_pool.append(temp)
+#     print(subgoal_pool)
+#     step_list = []
+#     for subgoal in subgoals:
+#         if subgoal["stepNum"] not in step_list:
+#             step_list.append(subgoal["stepNum"])
+#
+#     subgoal_map = []
+#     for step in step_list:
+#         value = []
+#         for subgoal in subgoals:
+#             if subgoal["stepNum"] == step:
+#
+#                 value.append(subgoal["name"])
+#         temp = {step: value}
+#         subgoal_map.append(temp)
+#     subgoal_transfer = {"subgoalPool": subgoal_pool,"subgoalMap": subgoal_map}
+#     return subgoal_transfer
 def generate_subgoal(subgoals):
     """This function transfers the subgoal structure into the final one
     """
@@ -219,7 +243,6 @@ def generate_subgoal(subgoals):
     # print(pool_map)
     return subgoal_transfer
 
-
 def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic):
     """This function is the main function of this module, it will call the other functions
     to manipulate the visualisation file for the unity visualiser.
@@ -240,9 +263,14 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
 
     space = {}
     space["distributex"] = {}
-    space["distribute_vertical"] = {}
+    space["distribute_within_objects_vertical"] = {}
     space["apply_smaller"] = {}
-    space["distribute_horizontal"] = {}
+    space["align_middle"] = {}
+    space["distribute_within_objects_horizontal"] = {}
+    space["distribute_grid_around_point"] = {}
+    space["distributey"] = {}
+    space["calculate_label"] = {}
+    space["draw_line"] = {}
     result = solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)

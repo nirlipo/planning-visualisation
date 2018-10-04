@@ -12,6 +12,18 @@
 #-- Date     : 23/August/2018
 #-- Version  : 1.0
 #--------------------------------------------------------------------------------
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sunmuyu Zhang
+#-- Group    : Planning Visualisation
+#-- Date     : 07/Septemeber/2018
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 09/Septemeber/2018
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
 import re
 # This python file aims to finish step 3 in our solution
 #######################################################
@@ -21,9 +33,13 @@ import re
 
 def get_object_list(predicates_lists,str_init):
     init_condition = []
+
     for k, v in predicates_lists.items():
+
         temp_pattern = re.compile("\(" + v)
+
         pattern_subelements = temp_pattern.findall(str_init)
+        # print(pattern_subelements)
         if(pattern_subelements):
             number_of_objects = len(pattern_subelements[0].split()) - 1
             for val in pattern_subelements:
@@ -76,4 +92,7 @@ def get_problem_json(file_name, predicates_lists):
     result = []
     result.append(init_data_object)
     result.append(goal_data_object)
+
     return result
+if __name__ == "__main__":
+    get_problem_json(open("bw06.pddl", 'r').read(),{"on": 2, "on-table": 1, "clear": 1, "arm-free": 0, "holding": 1})

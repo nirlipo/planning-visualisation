@@ -11,13 +11,24 @@
 #-- Date     : 27/August/2018
 #-- Version  : 1.0
 #--------------------------------------------------------------------------------
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : YD
+#-- Group    : Planning Visualisation
+#-- Date     : 16/September/2018
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 17/September/2018
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
 import json
 import copy
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
 import custom_functions
-import initialise
 # import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
 #######################################################
@@ -41,37 +52,32 @@ def check_rule_complete(predicate, objects_dic, predicates_rules):
         False: if the predicate can not be solved.
     """
     
-    predicatename = predicate["name"]
-    objectnamelist = copy.deepcopy(predicate["objectNames"])
-    predicate_rule = copy.deepcopy(predicates_rules[predicatename])
-
-    if ("left" in predicates_rules[predicatename]):
-        objectnamelist.insert(0,0)
-    if("right" in predicates_rules[predicatename]):
-        objectnamelist.append(predicates_rules[predicatename]["right"])
-    for rulename in predicate_rule["rules"]:
-        rule = predicate_rule[rulename]
-        for key in rule:
-            # 0 is on the left side of equation
-            if key != "value" and key != "0" and key!="action":
-                if key=="require":
-                    for objindex in rule[key]:
-                        for att in rule[key][objindex]:
-                            objectname=objectnamelist[int(objindex)]
-                            if objects_dic[objectname][att] is False:
-                                return False              
-                else:
-                    property_check = rule[key]
-                    objectname = objectnamelist[int(key)]
-                    if objects_dic[objectname][property_check] is False:
-                        return False
+    pname = predicate["name"]
+    predicate_rule = predicates_rules[pname]
+    objects_list_ref=predicate_rule["objects"]
+    objects = predicate["objectNames"]
+    if "custom_obj" in predicate_rule:
+        #addtional custom object not in the real pddl file
+        custom_obj=predicate_rule["custom_obj"]
+        #complete object list
+        object_list=objects+custom_obj
+        objects_list_ref=objects_list_ref+custom_obj
+    else:
+        object_list=objects
+    obj_ref_dic=dict(zip(objects_list_ref,object_list))
+    if "require" in predicate_rule:
+        for obj_index in predicate_rule["require"]:
+            for property in predicate_rule["require"][obj_index]:
+                objectname=obj_ref_dic[obj_index]
+                if objects_dic[objectname][property] is False:
+                    return False
     return True
 
 
 def applypredicates(predicate,
                     objects_dic,
                     predicates_rules,
-                    space):
+                    gstate):
     """update the value of realated obj in the objects_dic by applying the animation rules.
     For example, (on-table a) will set the a's x value by using distributex function and a's
     y value to 0.
@@ -84,82 +90,84 @@ def applypredicates(predicate,
                       obj that in the space.
     """
     pname = predicate["name"]
+    predicate_rule=predicates_rules[pname]
+    objects_list_ref=predicate_rule["objects"]
+    #objects in the real pddl file
     objects = copy.deepcopy(predicate["objectNames"])
-    
-    if ("left" in predicates_rules[pname]):
-        left = predicates_rules[pname]["left"]
-        objects.insert(0,0)
+    if "custom_obj" in predicate_rule:
+        #addtional custom object not in the real pddl file
+        custom_obj=predicate_rule["custom_obj"]
+        #complete object list
+        object_list=objects+custom_obj
+        objects_list_ref=objects_list_ref+custom_obj
     else:
-        left = objects[0]
-    
-    
-    if("right" in predicates_rules[pname]):
-        objects.append(predicates_rules[pname]["right"])
-        
-    for rulename in predicates_rules[pname]["rules"]:
-        if "value" in predicates_rules[pname][rulename]:
-            propertyname = predicates_rules[pname][rulename]["0"]
-            value = predicates_rules[pname][rulename]["value"]
-            rule = predicates_rules[pname][rulename]
+        object_list=objects
+
+    obj_ref_dic = dict(zip(objects_list_ref, object_list))
+    for rulename in predicate_rule["rules"]:
+        if "value" in predicate_rule[rulename]:
+            rule = predicate_rule[rulename]
+            left,propertyname=get_objname_property(rule["left"],obj_ref_dic)
+            value = predicate_rule[rulename]["value"]
             if "function" in value:
-                if value["function"] == "distributex":
-                    objects_dic[left][propertyname] = custom_functions.distributex(
-                        left, space, 20, 80, False)
-                elif value["function"] == "distribute_grid_around_pointx":
-                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointx(
-                        left, 0,100)
-                elif value["function"] == "distribute_grid_around_pointy":
-                    objects_dic[left][propertyname] = custom_functions.distribute_grid_around_pointy(
-                        left, 1,100)
-                elif value["function"] == "distribute_vertical":
-                    node=objects[1]
-                    objects_dic[left][propertyname]= custom_functions.distribute_vertical(objects_dic[left],objects_dic[node],4,propertyname,space)
-                elif value["function"] == "apply_smaller":
-                    obj2=objects[1]
-                    objects_dic[left][propertyname]= custom_functions.apply_smaller(objects_dic[left],objects_dic[obj2],10,space)
-                elif value["function"] == "shiftx":
-                    obj2=objects[1]
-                    objects_dic[left][propertyname]= custom_functions.shiftx(objects_dic[left],objects_dic[obj2])
-                elif value["function"] == "distributey":
-                    objects_dic[left][propertyname]= custom_functions.distributey(objects_dic[left],50)      
-                elif value["function"] == "distribute_horizontal":
-                    obj2=objects[1]
-                    objects_dic[left][propertyname]= custom_functions.distribute_horizontal(objects_dic[left],objects_dic[obj2],space) 
+                fproperty = value["function"]
+                fname = fproperty["fname"]
+                obj_indexs=fproperty["obj_indexs"]
+                if "settings" in fproperty:
+                    settings=fproperty["settings"]
+                else:
+                    settings={}
+                state=gstate[fname]
+                obj_list=[]
+                for obj_index in obj_indexs:
+                    objname=obj_ref_dic[obj_index]
+                    obj_list.append({objname:objects_dic[objname]})
+                objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]
-                if type(right_value) is not dict:#for color dic
-                    if right_value in rule:
-                        right_proterpy = rule[right_value]
-                        right_object = objects[int(right_value)]
-                        objects_dic[left][propertyname] = objects_dic[
-                            right_object][right_proterpy]
-                    else:
-                        objects_dic[left][propertyname] = right_value
+                print(predicate_rule)
+                if type(right_value) is not dict:
+                    objects_dic[left][propertyname[0]] = right_value
                 else:
-                    objects_dic[left][propertyname] = right_value
+                    if "r" in right_value:#for color
+                        objects_dic[left][propertyname[0]] = right_value
+                    else:
+                        right_object,right_property=get_objname_property(right_value,obj_ref_dic)
+                        objects_dic[left][propertyname[0]]=objects_dic[right_object][right_property]
 
             elif "add" in value:
                 rightvalue = 0
                 for additem in value["add"]:
-                    if additem in rule:
-                        right_property = rule[additem]
-                        right_object = objects[int(additem)]
+                    if type(additem) is dict:
+
+                        right_object,right_property = get_objname_property(additem,obj_ref_dic)
                         addvalue = objects_dic[right_object][right_property]
                         rightvalue += addvalue
                     else:
                         rightvalue += additem
-                objects_dic[left][propertyname] = rightvalue
+                objects_dic[left][propertyname[0]] = rightvalue
         else:
-            action=predicates_rules[pname][rulename]["action"]
+            action=predicate_rule[rulename]["action"]
             if "function" in action:
-                object1,object2=objects
-                x1=objects_dic[object1]["x"]+objects_dic[object1]["width"]/2
-                y1=objects_dic[object1]["y"]+objects_dic[object1]["height"]/2
-                x2=objects_dic[object2]["x"]+objects_dic[object2]["width"]/2
-                y2=objects_dic[object2]["y"]+objects_dic[object2]["height"]/2
-                if action["function"]=="draw_line":
-                    key=pname+objects[0]+objects[1]
-                    objects_dic[key]=custom_functions.draw_line(x1,y1,x2,y2,key)
+                fproperty = action["function"]
+                fname = fproperty["fname"]
+                obj_indexs = fproperty["obj_indexs"]
+                if "settings" in fproperty:
+                    settings=fproperty["settings"]
+                else:
+                    settings={}
+                state=gstate[fname]
+                obj_list=[]
+                for obj_index in obj_indexs:
+                    objname=obj_ref_dic[obj_index]
+                    obj_list.append({objname:objects_dic[objname]})
+
+                key,value=custom_functions.customf_controller(fname,obj_list,settings,state,False)
+                objects_dic[key]=value
+def get_objname_property(dictionary,obj_ref_dic):
+    object_index, propertyname = list(dictionary.items())[0]
+    objname = obj_ref_dic[object_index]
+    return objname,propertyname
 
 
 def solvepredicates(predicates, objects_dic, predicates_rules, space):
@@ -180,7 +188,7 @@ def solvepredicates(predicates, objects_dic, predicates_rules, space):
         if predicate["name"] not in predicates_rules:
             continue
         if check_rule_complete(predicate, objects_dic, predicates_rules):
-            space["apply_smaller"]={} #For hanoi problem, reset each stage
+
             applypredicates(predicate, objects_dic, predicates_rules, space)
         else:
             if not predicates:  # if the last predicate can not be solved
@@ -224,11 +232,7 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
     result = {}
     result["visualStages"] = []
     result["subgoals"] = []
-    sublist = []
-    index = 1
-
     stepNum = []
-
     stepindex = 1;
     # define subgoals dict
     subgoals = {"subgoals": []}
@@ -272,6 +276,8 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
         sorted_predicates=priority(predicates,predicates_rules)
+        space["apply_smaller"]={} #For hanoi problem, reset each stage
+        space["calculate_label"]={} #For logistics problem, reset each stage
         solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:
@@ -314,8 +320,8 @@ def add_fixed_objects(object_dic, animation_profile):
         animation_profile(Dictionary): the dict to store all information in animation profile.
     """
     
-    for shape in animation_profile["objects"]["custom"]:
-        objects=animation_profile["objects"]["custom"][shape]
+    for visual in animation_profile["objects"]["custom"]:
+        objects=animation_profile["objects"]["custom"][visual]
         for obj_name in objects:            
-            object_dic[obj_name] = animation_profile["shape"][shape]
+            object_dic[obj_name] = animation_profile["visual"][visual]
             object_dic[obj_name]["name"] = obj_name

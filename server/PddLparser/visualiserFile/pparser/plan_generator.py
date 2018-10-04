@@ -11,6 +11,18 @@
 #-- Date     : 23/August/2018
 #-- Version  : 1.0
 #--------------------------------------------------------------------------------
+#-----------------------------Authorship-----------------------------------------
+#-- Authors  : Sai
+#-- Group    : Planning Visualisation
+#-- Date     : 17/Septemeber/2018
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
+#-----------------------------Reviewer-------------------------------------------
+#-- Authors  : 
+#-- Group    : Planning Visualisation
+#-- Date     : 
+#-- Version  : 2.0
+#--------------------------------------------------------------------------------
 import urllib.request
 import json
 
@@ -20,7 +32,7 @@ import json
 # Output : A valid plan will be returned from the planning.domain website
 #######################################################
 
-def get_plan(domain_file, problem_file):
+def get_plan(domain_file, problem_file,url):
     """This function will send the domain and problem pddl to the planning.domains
     API to get the plan.
     Args:
@@ -32,12 +44,17 @@ def get_plan(domain_file, problem_file):
     data = {'domain': domain_file,
             'problem': problem_file}
 
-    url = 'http://solver.planning.domains/solve'
-    req = urllib.request.Request(url)
+    if url == '':
+        url = 'http://solver.planning.domains/solve'
+        req = urllib.request.Request(url)
+    else:
+        req = urllib.request.Request(url)
+        
     req.add_header('Content-Type', 'application/json')
     json_data = json.dumps(data)
     json_data_as_bytes = json_data.encode('utf-8')
     req.add_header('Content-Length', len(json_data_as_bytes))
     response = urllib.request.urlopen(req, json_data_as_bytes)
-    plan = json.load(response)
+    str_response = response.read().decode('utf-8')
+    plan = json.loads(str_response)
     return plan

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -11,7 +11,7 @@ public class buildscript{
 			"Assets/Visualiser/Scenes/Visualisation.unity",
 			"Assets/Visualiser/Scenes/NetworkError.unity"
 		};
-		string path = "build/";
+		string path = "buildweb/";
 		BuildPipeline.BuildPlayer (scene, path, BuildTarget.WebGL, BuildOptions.None);
 	}
 }

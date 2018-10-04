@@ -14,7 +14,7 @@
     },
     "custom": {}
   },
-  "shape": {
+  "visual": {
     "Disk": {
       "prefabImage": "square",
       "color": {
@@ -55,7 +55,7 @@
         "a": 1
       },
       "showName": true,
-      "x": 90,
+      "x": 100,
       "y": 0,
       "width": 10,
       "height": 200,
@@ -71,7 +71,7 @@
         "a": 1
       },
       "showName": true,
-      "x": 180,
+      "x": 200,
       "y": 0,
       "width": 10,
       "height": 200,
@@ -81,39 +81,76 @@
   },
   "predicates_rules": {
     "on": {
-      "priority":1,
+      "objects": [
+        "?x",
+        "?y"
+      ],
+      "priority": 1,
       "rules": [
         "rule1",
         "rule2"
       ],
+      "require": {
+        "?x":["width"],
+        "?y": [
+          "x",
+          "y",
+          "width"
+        ]
+      },
       "rule1": {
-        "0": "x",
-        "1": "x",
+        "left": {
+          "?x": ["x"]
+        },
         "value": {
-          "function": "shiftx"
+          "function": {
+            "fname": "align_middle",
+            "obj_indexs": [
+              "?x",
+              "?y"
+            ],
+            "settings": {}
+          }
         }
       },
       "rule2": {
-        "0": "y",
-        "1": "y",
+        "left": {
+          "?x": ["y"]
+        },
         "value": {
           "add": [
-            "1",
+            {
+              "?y": "y"
+            },
             20
           ]
         }
       }
     },
     "smaller": {
-      "priority":0,
+      "objects": [
+        "?x",
+        "?y"
+      ],
+      "priority": 0,
       "rules": [
         "rule1"
       ],
       "rule1": {
-        "0": "width",
-        "1": "width",
+        "left": {
+          "?x": ["width"]
+        },
         "value": {
-          "function": "apply_smaller"
+          "function": {
+            "fname": "apply_smaller",
+            "obj_indexs": [
+              "?x",
+              "?y"
+            ],
+            "settings": {
+              "increase_width": 6
+            }
+          }
         }
       }
     }
