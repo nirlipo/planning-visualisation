@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
     def test_integration_api_result(self):
         domain_file = open("../../input/domain_grid.pddl", 'r').read()
         problem_file = open("../../input/gw01.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         result = False
         if "ok" in plan["status"]:
             result = True

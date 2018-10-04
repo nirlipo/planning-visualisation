@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         domain_file = open("../../input/domain_grid.pddl", 'r').read()
         problem_file = open("../../input/gw01.pddl", 'r').read()
         predicates_list = dom_par.get_domain_json(domain_file)
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         problem_json = step2.get_problem_json(problem_file, predicates_list)
 
         self.assertTrue(problem_json)

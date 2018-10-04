@@ -27,7 +27,7 @@ class MyTestCase(unittest.TestCase):
         problem_file = open("../../input/gw01.pddl", 'r').read()
         predicates_list = dom_par.get_domain_json(domain_file)
 
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file,predicates_list)
         self.assertTrue(stages)
@@ -41,7 +41,7 @@ class MyTestCase(unittest.TestCase):
         problem_file = open("../../input/gw01.pddl", 'r').read()
         predicates_list = dom_par.get_domain_json(domain_file)
 
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         problem_json = step2.get_problem_json(problem_file, predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file, predicates_list)
         result = len(stages["stages"]) - 1 # minus initial stage
@@ -59,7 +59,7 @@ class MyTestCase(unittest.TestCase):
         problem_file = open("../../input/gw01.pddl", 'r').read()
         predicates_list = dom_par.get_domain_json(domain_file)
 
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         problem_json = step2.get_problem_json(problem_file, predicates_list)
         stages = step3.get_stages(plan, problem_json, problem_file, predicates_list)
         result = True

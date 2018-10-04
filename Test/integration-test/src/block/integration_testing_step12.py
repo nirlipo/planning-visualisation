@@ -12,7 +12,7 @@ class test_integration_step12(unittest.TestCase):
     def test_integration_input_domain_step_12(self):
         domain_file = open("../../input/domain_blocks.pddl", 'r').read()
         problem_file = open("../../input/bw08.pddl", 'r').read()
-        step1.get_plan(domain_file, problem_file)
+        step1.get_plan(domain_file, problem_file, "")
         with open("../../input/bw08.pddl", "r") as f1:
             problemTest = f1.read()
             self.assertTrue(problemTest)
@@ -21,7 +21,7 @@ class test_integration_step12(unittest.TestCase):
     def test_integration_init_stage_step_12(self):
         domain_file = open("../../input/domain_blocks.pddl", 'r').read()
         problem_file = open("../../input/bw08.pddl", 'r').read()
-        step1.get_plan(domain_file, problem_file)
+        step1.get_plan(domain_file, problem_file, "")
         predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         text = ''.join(str(e) for e in problem_json)
@@ -32,7 +32,7 @@ class test_integration_step12(unittest.TestCase):
     def test_integration_goal_stage_step_12(self):
         domain_file = open("../../input/domain_blocks.pddl", 'r').read()
         problem_file = open("../../input/bw08.pddl", 'r').read()
-        step1.get_plan(domain_file, problem_file)
+        step1.get_plan(domain_file, problem_file, "")
         predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         text = ''.join(str(e) for e in problem_json)
@@ -43,7 +43,7 @@ class test_integration_step12(unittest.TestCase):
     def test_integration_init_stage_content_step_12_t1(self):
         domain_file = open("../../input/domain_blocks.pddl", 'r').read()
         problem_file = open("../../input/bw08.pddl", 'r').read()
-        step1.get_plan(domain_file, problem_file)
+        step1.get_plan(domain_file, problem_file, "")
         predicates_list = dom_par.get_domain_json(open("../../input/domain_blocks.pddl", 'r').read())
         problem_json = step2.get_problem_json(problem_file,predicates_list)
         pattern = re.compile(r'\w\s\w')

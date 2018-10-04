@@ -20,7 +20,11 @@ class integration_testing_step1(unittest.TestCase):
 
     # Test if the returning value from the API is not empty
     def test_integration_api_result(self):
-        self.assertTrue(step1.get_plan("../../input/domain_blocks.pddl", "../../input/bw08.pddl"))
+        with open("../../input/domain_blocks.pddl", "r") as f1:
+            domaintext = f1.read()
+        with open("../../input/bw08.pddl", "r") as f2:
+            problemtext = f2.read()
+        self.assertTrue(step1.get_plan(domaintext, problemtext, ""))
 
 if __name__ == "__main__":
     unittest.main()

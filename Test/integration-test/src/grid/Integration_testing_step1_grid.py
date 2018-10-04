@@ -11,7 +11,7 @@ class integration_testing_step1(unittest.TestCase):
     def test_correct_inputs(self):
         domain_file = open("../../input/domain_grid.pddl", 'r').read()
         problem_file = open("../../input/gw01.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         if "status" in plan:
             st = plan["status"]
         print(st)
@@ -22,7 +22,7 @@ class integration_testing_step1(unittest.TestCase):
     def test_empty_problem_file(self):
         domain_file = open("../../input/domain_grid.pddl", 'r').read()
         problem_file = open("../../input/empty.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         if "status" in plan:
             st = plan["status"]
         self.assertTrue(st == "error")
@@ -32,7 +32,7 @@ class integration_testing_step1(unittest.TestCase):
     def test_empty_domain_file(self):
         domain_file = open("../../input/empty.pddl", 'r').read()
         problem_file = open("../../input/gw01.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         if "status" in plan:
             st = plan["status"]
         self.assertTrue(st == "error")
@@ -42,7 +42,7 @@ class integration_testing_step1(unittest.TestCase):
     def test_wrong_domain_file(self):
         domain_file = open("../../input/domain_grid_wrong.pddl", 'r').read()
         problem_file = open("../../input/gw01.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         if "status" in plan:
             st = plan["status"]
         self.assertTrue(st == "error")
@@ -52,7 +52,7 @@ class integration_testing_step1(unittest.TestCase):
     def test_wrong_problem_file(self):
         domain_file = open("../../input/domain_grid.pddl", 'r').read()
         problem_file = open("../../input/gw01_wrong.pddl", 'r').read()
-        plan = step1.get_plan(domain_file, problem_file)
+        plan = step1.get_plan(domain_file, problem_file, "")
         if "status" in plan:
             st = plan["status"]
         self.assertTrue(st == "error")

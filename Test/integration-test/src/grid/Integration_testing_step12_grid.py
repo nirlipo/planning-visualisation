@@ -16,7 +16,7 @@ class integration_testing_step12(unittest.TestCase):
         problem_file = open("../../input/gw01.pddl", 'r').read()
         # md value of the domain file before calling the function
         f1 = domain_file
-        step1.get_plan(domain_file, problem_file)
+        step1.get_plan(domain_file, problem_file, "")
         step2.get_domain_json(domain_file)
         # md value of the domain file after calling the function
         f2 = domain_file
