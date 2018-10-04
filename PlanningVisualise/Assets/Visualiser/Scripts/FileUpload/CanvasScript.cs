@@ -22,10 +22,10 @@ using UnityEngine.UI;
 public class CanvasScript : MonoBehaviour
 {
     [DllImport("__Internal")]
-    private static extern void UploaderCaptureClick(string extensionptr);
-    private InputField textfield;
-    private string type;
-    private string name;
+    static extern void UploaderCaptureClick(string extensionptr);
+    InputField textfield;
+    string type;
+    string name;
 
 
 
@@ -35,11 +35,9 @@ public class CanvasScript : MonoBehaviour
         WWW file = new WWW(url);
         yield return file;
         string data = file.text;
-        textfield = GameObject.Find(type).GetComponent<InputField>();
+        textfield = GameObject.Find(type + "Text").GetComponent<InputField>();
         textfield.text = name;
         //Assigning file to corresponding variable and showing file name on UI
-
-
 
         if (type == "Domain")
         {
@@ -79,7 +77,7 @@ public class CanvasScript : MonoBehaviour
     {
         
         string solverAddress;
-        solverAddress = GameObject.Find("customSolverDomain").GetComponent<InputField>().text;
+        solverAddress = GameObject.Find("CustomSolverInput").GetComponent<InputField>().text;
         ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
     }
    
