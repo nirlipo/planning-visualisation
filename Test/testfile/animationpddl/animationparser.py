@@ -177,10 +177,17 @@ def parseImage(text_to_parse,result):
         name,value=imagePare.split()
         result["imageTable"]["m_keys"].append(name)
         result["imageTable"]["m_values"].append(value)
-    #
-    # temp_subshape, temp_subshape_value = temp_visual_pattern.findall(temp_visual_block)[0].split()
-    #
-    # sublist = {}
+
+#delete key and value
+# def parseImage(text_to_parse,result):
+#     pattern_image = ":image"
+#     temp_image_block = text_to_parse[text_to_parse.index(pattern_image):]
+#     temp_image_block = get_one_block(temp_image_block)
+#     patternPare = re.compile(r'\((.*?)\)')
+#     imagePareList=patternPare.findall(temp_image_block)
+#     for imagePare in imagePareList:
+#         name,value=imagePare.split()
+#         result["imageTable"][name]=value
 
 def removebacket(input):
     output = ""
