@@ -17,19 +17,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class circleRotator : MonoBehaviour {
+public class CircleRotator : MonoBehaviour
+{
 
+    RectTransform rectComponent;
+    readonly float rotateSpeed = 400f;
 
-
-    private RectTransform rectComponent;
-    private float rotateSpeed = 400f;
-
-    private void Start()
+    void Start()
     {
         rectComponent = GetComponent<RectTransform>();
     }
 
-    private void Update()
+    void Update()
     {
         rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
     }
