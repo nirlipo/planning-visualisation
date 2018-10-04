@@ -4,7 +4,7 @@
                  :parameters (?x ?y)
                  :effect(
                  (equal (?x x) (?y x))
-                 (equal (?x y) (add (?y y) (?y height)))
+                 (equal (?x y) (add (?y y) (?y height) 2))
                  )
   )
  
@@ -23,7 +23,7 @@
                  :custom claw
                  :effect (
                  (equal (?x x) (claw x))
-                 (equal (?x y) (claw y))
+                 (equal (?x y) (add (claw y) -60))
                  )
  
   )
@@ -46,11 +46,12 @@
               :properties(
                 (prefabImage img-claw)
                 (showName FALSE)
-                (x 230)
-                (y 500)
+                (x 300)
+                (y 880)
                 (color BLACK)
                 (width 80)
                 (height 40)
+                (depth 1)
                )
   )
   (:visual board

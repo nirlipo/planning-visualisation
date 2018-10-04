@@ -55,23 +55,29 @@ public class ScreenManager : MonoBehaviour
     public void gotoDocumentation()
     {
 
+		var newURL = "https://immense-bastion-42146.herokuapp.com/help/";
+		Application.OpenURL (newURL);
+
         // get the current URL
-        var currentURL = Application.absoluteURL;
+        /*var currentURL = Application.absoluteURL;
 
-        if (currentURL != "") {
+		if (currentURL != "") {
 
-            // remove the unity port and trailing slash from the url
-            var uri = new Uri( currentURL );
-            var clean = uri.GetComponents( UriComponents.AbsoluteUri & ~UriComponents.Port,
-                               UriFormat.UriEscaped );
-            if (clean[clean.Length - 1]=='/') {
-                clean = clean.Remove(clean.Length - 1);
-            }
+			// remove the unity port and trailing slash from the url
+			var uri = new Uri (currentURL);
+			var clean = uri.GetComponents (UriComponents.AbsoluteUri & ~UriComponents.Port,
+				                     UriFormat.UriEscaped);
+			if (clean [clean.Length - 1] == '/') {
+				clean = clean.Remove (clean.Length - 1);
+			}
             
-            // Add the django port and help directory to the url, and open it
-            var newURL = clean+":8000/help/";
-            Application.OpenURL(newURL);
-        }
+			// Add the django port and help directory to the url, and open it
+			var newURL = clean + ":8000/help/";
+			Application.OpenURL (newURL);
+		} else {
+			var newURL = "https://immense-bastion-42146.herokuapp.com/help/";
+			Application.OpenURL (newURL);
+		}*/
     }
 
 }

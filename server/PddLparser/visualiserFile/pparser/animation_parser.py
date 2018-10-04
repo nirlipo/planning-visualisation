@@ -314,11 +314,11 @@ def parse_add(text,require_dic):
             name, value = parse_objects(item)
             template["add"].append({name: value})
             update_require(require_dic,name,value)
-    digital_pattern = re.compile(r'\b\d+\b')
+    digital_pattern = re.compile(r'[-\d]+')
     digital_list = re.findall(digital_pattern, text)
     if digital_list:
         for item in digital_list:
-            template["add"].append(item)
+            template["add"].append(int(item))
     return template
 
 
@@ -328,7 +328,7 @@ def parse_rule(rule,require_dic):
         "left": {},
         "value": {}
     }
-    rulePattern = re.compile(r'\((\w+)\s+(\([^)]+\))\s*(\(.*\)|\w+)\)')
+    rulePattern = re.compile(r'\((\w+)\s+(\([^)]+\))\s*(\(.*\)|[\d\w#-]+)\)')
     divide_rule = re.search(rulePattern, rule)
     rule_type = divide_rule.group(1)
     left_object = divide_rule.group(2)
@@ -338,7 +338,7 @@ def parse_rule(rule,require_dic):
     if "function" in rule:
         template["value"] = parse_function(right_value,require_dic)
     elif "(" not in right_value:
-        value_pattern = re.compile(r'\(equal\s+\([^)]+\)\s*(\w+)\)')
+        value_pattern = re.compile(r'\(equal\s+\([^)]+\)\s*([\d\w#-]+)\)')
         searchValue = re.search(value_pattern, rule)
         value = searchValue.group(1)
         template["value"]["equal"] = value
