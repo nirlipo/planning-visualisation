@@ -39,7 +39,8 @@ namespace Visualiser
 		// checking if the given VisualSpriteObject is same as this class
         public bool ContentsEqual(VisualSpriteObject vso)
         {
-            return name == vso.name && prefabImage == vso.prefabImage
+            return              name == vso.name 
+                              && prefabImage == vso.prefabImage
                               && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
                               && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY)
                               && color == vso.color
