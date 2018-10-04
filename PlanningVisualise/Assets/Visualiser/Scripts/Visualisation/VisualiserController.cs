@@ -40,7 +40,6 @@ namespace Visualiser
         readonly static Color SubgoalImplementedColor = new Color(0f, 0.66666667f, 0.10980392f);
         readonly static Color StepButtonHighlightedColor = new Color(0.5613208f, 0.826122f, 1f);
         readonly static Color DefaultColor = Color.white;
-        readonly static string HelpLink = "https://www.youtube.com/watch?v=8oVxPHSoRKA&t=3m22s";
 
         // Editor interface
         public Transform SubgoalPanel;
@@ -243,7 +242,23 @@ namespace Visualiser
         // UI event handler: Jumps to user manual page 
         public void Help()
         {
-            Application.OpenURL(HelpLink);
+            // get the current URL
+        var currentURL = Application.absoluteURL;
+
+        if (currentURL != "") {
+
+            // remove the unity port and trailing slash from the url
+            var uri = new Uri( currentURL );
+            var clean = uri.GetComponents( UriComponents.AbsoluteUri & ~UriComponents.Port,
+                               UriFormat.UriEscaped );
+            if (clean[clean.Length - 1]=='/') {
+                clean = clean.Remove(clean.Length - 1);
+            }
+            
+            // Add the django port and help directory to the url, and open it
+            var newURL = clean+":8000/help/";
+            Application.OpenURL(newURL);
+        }
         }
         #endregion
 
