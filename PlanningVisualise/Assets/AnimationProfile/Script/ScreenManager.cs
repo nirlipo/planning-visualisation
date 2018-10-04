@@ -21,6 +21,14 @@ public class ScreenManager : MonoBehaviour
 		Destroy (GameObject.Find ("Coordinator"));
         SceneManager.LoadScene("Start");
     }
+
+	// Load the visualiser File uploading scene 
+	public void loadVFGUploadScene()
+	{
+		Destroy (GameObject.Find ("Coordinator"));
+		SceneManager.LoadScene("VFGUploader");
+	}
+
     // Load the visualiser solution uploading scene 
     public void loadVisualiseSolutionScene()
     {

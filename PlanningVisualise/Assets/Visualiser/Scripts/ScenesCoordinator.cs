@@ -26,6 +26,7 @@ public class ScenesCoordinator : MonoBehaviour
 {
     public static ScenesCoordinator Coordinator;
     Dictionary<string, object> sceneParameters;
+    private string customSolverDomain;
 	private string domaintxt;
 	private string problemtxt;
 	private string animationprofile;
@@ -50,7 +51,12 @@ public class ScenesCoordinator : MonoBehaviour
     {
         sceneParameters.Add(sceneName, parameters);
     }
-		
+
+	// Interface for other objects to use 
+	public void uploadVF(){
+		SceneManager.LoadScene ("Visualisation");
+	}
+
 	// Interface for other objects to use 
 	public void uploadallfile(){
 		StartCoroutine (generateVisualiser ());
@@ -63,11 +69,12 @@ public class ScenesCoordinator : MonoBehaviour
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 		formData.Add( new MultipartFormDataSection("domain",domaintxt ));
 		formData.Add( new MultipartFormDataSection("problem",problemtxt ));
-		formData.Add( new MultipartFormDataSection("animation",animationprofile ));;
-		//serialize form fields into byte[] => requires a bounday to put in between fields
-		byte[] formSections = UnityWebRequest.SerializeFormSections(formData, boundary);
+		formData.Add( new MultipartFormDataSection("animation",animationprofile ));
+        formData.Add(new MultipartFormDataSection("url", customSolverDomain));
+        //serialize form fields into byte[] => requires a bounday to put in between fields
+        byte[] formSections = UnityWebRequest.SerializeFormSections(formData, boundary);
         UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8000/upload/pddl", formData);
-//		UnityWebRequest www = UnityWebRequest.Post("https://immense-bastion-42146.herokuapp.com/upload/pddl", formData);
+		//UnityWebRequest www = UnityWebRequest.Post("https://immense-bastion-42146.herokuapp.com/upload/pddl", formData);
 		www.uploadHandler =  new UploadHandlerRaw(formSections);
 		www.SetRequestHeader("Content-Type", "multipart/form-data; boundary="+ Encoding.UTF8.GetString(boundary));
 		yield return www.SendWebRequest();
@@ -95,4 +102,10 @@ public class ScenesCoordinator : MonoBehaviour
 	public void setAnimation(string animation){
 		this.animationprofile = animation;
 	}
+    // Get custom solver address and store it
+    public void setCustomSolver(string customSolver)
+    {
+        this.customSolverDomain = customSolver;
+    }
+ 
 }

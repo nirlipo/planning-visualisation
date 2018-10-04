@@ -24,6 +24,8 @@ EditorBuildSettings:
     path: Assets/Visualiser/Scenes/NetworkError.unity
     guid: b204b4f5c4152ec44ba7b97f3ee6dc33
   - enabled: 1
-    path: Assets/Visualiser/Scenes/StartSolution.unity
-    guid: 555092a8fd5c9b945a65d572224f4692
-  m_configObjects: {}
+    path: Assets/Visualiser/Scenes/VFGUploader.unity
+    guid: 18490e265f276224e91bcacf5df0bd67
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
