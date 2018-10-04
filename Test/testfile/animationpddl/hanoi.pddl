@@ -4,7 +4,7 @@
                :parameters (?x ?y)
                :priority 1
                :effect (
-               (equal (?x x) (function align_middle (objects ?x ?y)))
+               (assign (?x x) (function align_middle (objects ?x ?y)))
                (equal (?x y) (add (?y y) 20))
   )
   )
@@ -12,7 +12,7 @@
                :parameters (?x ?y)
                :priority 0
                :effect(
-               (equal (?x width) (function apply_smaller (objects ?x ?y) (settings (increase_width 6))))
+               (assign (?x width) (function apply_smaller (objects ?x ?y) (settings (increase_width 6))))
                )
   )
  
@@ -25,7 +25,7 @@
               (showName TRUE)
               (x 0)
               (y 0)
-              (color BLACK)
+              (color #A32A2A)
               (width 10)
               (height 200)
               (depth 0)
@@ -40,7 +40,7 @@
               (showName TRUE)
               (x 100)
               (y 0)
-              (color BLACK)
+              (color #A32A2A)
               (width 10)
               (height 200)
               (depth 0)
@@ -55,7 +55,7 @@
               (showName TRUE)
               (x 200)
               (y 0)
-              (color BLACK)
+              (color #A32A2A)
               (width 10)
               (height 200)
               (depth 0)
@@ -69,7 +69,7 @@
               (showName TRUE)
               (x Null)
               (y Null)
-              (color BLUE)
+              (color #0000FF)
               (width 20)
               (height 20)
               (depth 1)
