@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     url(r'upload/(?P<filename>[^/]+)$',views.LinkUploadView.as_view())
+    path('help/', views.UserGuide.as_view()),
     ]
