@@ -43,27 +43,32 @@ class LinkUploadView(APIView):
     parser_classes = (MultiPartParser,)
 
     def post(self, request, filename, format=None):
-        domain_file = request.data['domain']
-        problem_file = request.data['problem']
-        animation_file = request.data['animation']
+        try:
+            domain_file = request.data['domain']
+            problem_file = request.data['problem']
+            animation_file = request.data['animation']
 
-        # add url
-        if "url" in request.data:
-            url_link = request.data['url']
-        else:
-            url_link = "http://solver.planning.domains/solve"
+            # add url
+            if "url" in request.data:
+                url_link = request.data['url']
+            else:
+                url_link = "http://solver.planning.domains/solve"
 
-        animation_profile = json.loads(animation_parser.get_animation_profile(animation_file))
-        print(animation_profile["predicates_rules"])
-        print ("!!!!!!",type(animation_profile))
-        print(animation_profile)
-        predicates_list = domain_parser.get_domain_json(domain_file)
-        plan = plan_generator.get_plan(domain_file, problem_file, url_link)
-        problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
+            animation_profile = json.loads(animation_parser.get_animation_profile(animation_file))
+            print(animation_profile["predicates_rules"])
+            print ("!!!!!!",type(animation_profile))
+            print(animation_profile)
+            predicates_list = domain_parser.get_domain_json(domain_file)
+            plan = plan_generator.get_plan(domain_file, problem_file, url_link)
+            problem_json = problem_parser.get_problem_json(problem_file,predicates_list)
 
-        stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
-        # A file called visualistaion.json will be generated in the folder if successful
-        final = transfer.get_visualisation_json(stages,animation_profile,plan['result']['plan'],problem_json)
+            stages = predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
+            # A file called visualistaion.json will be generated in the folder if successful
+            final = transfer.get_visualisation_json(stages,animation_profile,plan['result']['plan'],problem_json)
+        except Exception as e:
+            message = repr(e)
+            final = {"visualStages": [], "subgoalPool": {}, "subgoalMap": {}, "transferType": 0, "imageTable": {},
+                     "message": str(message)}
 
         return Response(final)
 
