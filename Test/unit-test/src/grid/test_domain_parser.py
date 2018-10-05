@@ -1,6 +1,6 @@
 import unittest
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/')
+sys.path.append('../../../../server/app/vfg/')
 import pparser.domain_parser as step1
 import re
 

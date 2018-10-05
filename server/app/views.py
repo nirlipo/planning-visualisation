@@ -1,8 +1,8 @@
 from django.shortcuts import render
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/pparser"))
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/adapter"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/parser"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/adapter"))
 import plan_generator  # Step1: get plan from planning domain api
 import problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
 import predicates_generator  # Step3: manipulate the predicate for each step/stage
@@ -13,8 +13,8 @@ import json
 import io
 import re
 # Create your views here.
-from PddLparser.models import PDDL
-from PddLparser.serializers import PDDLSerializer
+from app.models import PDDL
+from app.serializers import PDDLSerializer
 
 from rest_framework import viewsets
 from rest_framework.parsers import BaseParser, MultiPartParser
@@ -29,7 +29,7 @@ class PDDLViewSet(viewsets.ModelViewSet):
     
 class PlainTextParser(BaseParser):
     """
-    Plain text pparser.
+    Plain text parser.
     """
     media_type = 'text/plain'
 

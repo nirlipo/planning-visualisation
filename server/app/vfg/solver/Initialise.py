@@ -14,8 +14,8 @@
 
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
-import random_color
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"solver"))
+import extension.Random_color
 
 # This component is used to initialise the environment and objects for Predicate Solver
 # This is the preprocess for Predicate Solver
@@ -52,7 +52,7 @@ def initialise_objects(object_list, animation_profile):
                 if type(value) is str:
                     if value.lower() == "randomcolor":
                         unsolved_objects[objectname][
-                            objproperty] = random_color.get_random_color()
+                            objproperty] = extension.Random_color.get_random_color()
                         continue
                 unsolved_objects[objectname][objproperty] = value
             else:

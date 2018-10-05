@@ -20,7 +20,7 @@ from rest_framework.routers import DefaultRouter
 from PddLparser import views
 
 router = DefaultRouter()
-router.register('PddLparser', views.PDDLViewSet)
+router.register('app', views.PDDLViewSet)
 ##router.register('upload',views.FileUploadView.as_view())
 urlpatterns = [
     path('admin/', admin.site.urls),

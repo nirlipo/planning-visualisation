@@ -14,12 +14,12 @@ animation profile, and it write the visualisation file to visualsation.json.
 #-- Version  : 1.0
 #--------------------------------------------------------------------------------
 import sys
-import pparser.plan_generator  # Step1: get plan from planning domain api
-import pparser.animation_parser  # Step1: get plan from planning domain api
-import pparser.problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
-import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
-import adapter.transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
-import pparser.domain_parser  # Step3: extract all the available predicates from problem.pddl
+import parser.Plan_generator  # Step1: get plan from planning domain api
+import parser.Animation_parser  # Step1: get plan from planning domain api
+import parser.Problem_parser  # Step2: parse problem pddl, to get the inital and goal stage
+import parser.Predicates_generator  # Step3: manipulate the predicate for each step/stage
+import adapter.visualiser_adapter.Transfer # Step4. use the animation profile and stages from step3 to get the visualisation file
+import parser.Domain_parser # Step3: extract all the available predicates from problem.pddl
 import json
 
 def get_visualisation_file():
@@ -37,22 +37,22 @@ def get_visualisation_file():
         # read animation profile from json
         file = open(animation_file)
         content = file.read()
-        animation_profile = json.loads(pparser.animation_parser.get_animation_profile(content))
-        # print(pparser.animation_parser.compare_String("Asdd","asdd"))
-        # print(pparser.animation_parser.get_animation_profile(content))
+        animation_profile = json.loads(parser.Animation_parser.get_animation_profile(content))
+        # print(parser.animation_parser.compare_String("Asdd","asdd"))
+        # print(parser.animation_parser.get_animation_profile(content))
 
-        plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(),
+        plan = parser.Plan_generator.get_plan(open(domain_file, 'r').read(),
                                                open(problem_file, 'r').read(),
                                                url_link)
 
         # print(json.dumps(plan))
-        predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
+        predicates_list = parser.Domain_parser.get_domain_json(open(domain_file, 'r').read())
         # print(json.dumps(predicates_list))
-        problem_json = pparser.problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
+        problem_json = parser.Problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
         # print(json.dumps(problem_json))
-        stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
+        stages = parser.Predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
-        print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
+        print(json.dumps(adapter.visualiser_adapter.Transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
     except Exception as e:
         message = repr(e)
         final = {"visualStages": [],"subgoalPool":{},"subgoalMap":{},"transferType":0,"imageTable": {}, "message": str(message)}

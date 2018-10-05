@@ -27,8 +27,8 @@ import json
 import copy
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"predicate_solver"))
-import custom_functions
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"solver"))
+import extension.Custom_functions
 # import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
 #######################################################
@@ -122,7 +122,7 @@ def applypredicates(predicate,
                 for obj_index in obj_indexs:
                     objname=obj_ref_dic[obj_index]
                     obj_list.append({objname:objects_dic[objname]})
-                objects_dic[left],gstate[fname] = custom_functions.customf_controller(fname,obj_list,settings,state,False)
+                objects_dic[left],gstate[fname] = extension.Custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]
                 print(predicate_rule)
@@ -162,7 +162,7 @@ def applypredicates(predicate,
                     objname=obj_ref_dic[obj_index]
                     obj_list.append({objname:objects_dic[objname]})
 
-                key,value=custom_functions.customf_controller(fname,obj_list,settings,state,False)
+                key,value=extension.Custom_functions.customf_controller(fname,obj_list,settings,state,False)
                 objects_dic[key]=value
 def get_objname_property(dictionary,obj_ref_dic):
     object_index, propertyname = list(dictionary.items())[0]
