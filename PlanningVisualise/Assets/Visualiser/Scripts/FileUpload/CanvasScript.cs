@@ -92,7 +92,7 @@ public class CanvasScript : MonoBehaviour
 		if (type == "Animation"){
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
 		}else if (type == "visualisationFile"){
-			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","txt");
+			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","vfg");
 		}else {
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
 		}
@@ -104,7 +104,7 @@ public class CanvasScript : MonoBehaviour
 		if (type == "Animation"){
         	UploaderCaptureClick(".pddl");
         } else if (type == "visualisationFile"){
-        	UploaderCaptureClick(".txt");
+        	UploaderCaptureClick(".vfg");
         } else {
         	UploaderCaptureClick(".pddl");
         }

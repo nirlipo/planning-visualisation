@@ -17,7 +17,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using VisualSpriteAnimation;
-
+using UnityEngine.SceneManagement;
 namespace Visualiser
 {
     /*
@@ -126,10 +126,14 @@ namespace Visualiser
 
         // Unity built-in method, it is fired when the script starts running
         void Start()
-        {
+        {	
+		try {
             var canvas = gameObject.GetComponent<Canvas>();
             canvas.sortingOrder = visualSprite.depth + 1;
             canvas.overrideSorting = true;
+		} catch (Exception e){
+			SceneManager.LoadScene("NetworkError");
+			}
         }
 
         // Unity built-in method, it is fired in every frame

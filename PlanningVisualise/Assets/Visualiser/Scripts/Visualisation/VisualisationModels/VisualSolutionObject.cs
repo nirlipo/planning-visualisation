@@ -33,6 +33,7 @@ namespace Visualiser
         public Dictionary<int, string[]> subgoalMap = new Dictionary<int, string[]>();
         public Dictionary<string, string[]> subgoalPool = new Dictionary<string, string[]>();
         public int numberOfStages;
+		public string message;
 
         int stageIndex = -1;
 

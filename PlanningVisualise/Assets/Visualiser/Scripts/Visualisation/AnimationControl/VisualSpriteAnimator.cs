@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Visualiser;
+using UnityEngine.SceneManagement;
 
 namespace VisualSpriteAnimation {
 
@@ -59,6 +60,7 @@ namespace VisualSpriteAnimation {
 		// Update is called once per frame
 		void Update()
 		{
+			try {
 			if (Forming)
 			{
 				if (canvasGroup.alpha < 1)
@@ -123,6 +125,9 @@ namespace VisualSpriteAnimation {
 
 			// Set image colour
 			image.color = new Color(red, green, blue, 1);
+			}catch (Exception e){
+				SceneManager.LoadScene("NetworkError");
+			}
 		}
 
 		protected virtual void Animate()
