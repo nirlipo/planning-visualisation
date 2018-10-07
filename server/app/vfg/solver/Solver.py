@@ -29,7 +29,11 @@ import os
 import sys
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../' +"extension"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/solver"))
+
 import Custom_functions
+import Initialise
+
 # import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
 #######################################################
@@ -326,3 +330,35 @@ def add_fixed_objects(object_dic, animation_profile):
         for obj_name in objects:            
             object_dic[obj_name] = animation_profile["visual"][visual]
             object_dic[obj_name]["name"] = obj_name
+
+def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic):
+    """This function is the main function of this module, it will call the other functions
+    to manipulate the visualisation file for the unity visualiser.
+
+    Args:
+        predicates(Dictionary): an dictionary contains the 1.objects name and the 2.predicates for
+                                each stages.
+        animation_profile(Dictionary): the dict to store all information in animation profile.
+
+    """
+
+    object_list = copy.deepcopy(predicates["objects"])
+    stages = copy.deepcopy(predicates["stages"])
+    # subgoals = copy.deepcopy(predicates["subgoals"])
+    predicates_rules = animation_profile["predicates_rules"]
+    objects_dic = Initialise.initialise_objects(object_list, animation_profile)
+    add_fixed_objects(objects_dic, animation_profile)
+
+    space = {}
+    space["distributex"] = {}
+    space["distribute_within_objects_vertical"] = {}
+    space["apply_smaller"] = {}
+    space["align_middle"] = {}
+    space["distribute_within_objects_horizontal"] = {}
+    space["distribute_grid_around_point"] = {}
+    space["distributey"] = {}
+    space["calculate_label"] = {}
+    space["draw_line"] = {}
+    result = solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
+    # print(result["subgoals"])
+    return result

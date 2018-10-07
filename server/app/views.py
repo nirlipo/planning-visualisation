@@ -11,6 +11,8 @@ import Predicates_generator  # Step3: manipulate the predicate for each step/sta
 import Transfer  # Step4. use the animation profile and stages from step3 to get the visualisation file
 import Animation_parser
 import Domain_parser
+import Solver
+import Initialise
 import json
 import io
 import re
@@ -66,8 +68,11 @@ class LinkUploadView(APIView):
         problem_json = Problem_parser.get_problem_json(problem_file,predicates_list)
 
         stages = Predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
+        objects_dic = Initialise.initialise_objects(stages["objects"], animation_profile)
+
+        result = Solver.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)
         # A file called visualistaion.json will be generated in the folder if successful
-        final = Transfer.get_visualisation_json(stages,animation_profile,plan['result']['plan'],problem_json)
+        final = Transfer.generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,plan['result']['plan'])
         # except Exception as e:
         #     message = repr(e)
         #     final = {"visualStages": [], "subgoalPool": {}, "subgoalMap": {}, "transferType": 0, "imageTable": {},
