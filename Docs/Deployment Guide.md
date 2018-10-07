@@ -1,10 +1,4 @@
-Project: Planning Visualisation
-Authors: Gang Chen
-Version: 0.2
-
-
-
-**Software Build and Deployment Document****Version Control**
+**Software Build and Deployment Document**
 | Version        | Author           | Date  | Comment|
 | ------------- |:-------------:| -----:|-----:|
 |0.1     | Gang Chen | 18/09/2018 |Deployment process for Ubuntu server. Ubuntu is one major OS that unimelb uses. |
@@ -16,24 +10,16 @@ Version: 0.2
 
 This document describes how to build and deploy the Planning Visualisation standalone software.
 
-  
-Planning Visualisation is to be made a part of the planning.domain system and is a solution that focuses on delivering the visualisation and manipulation of Planning Domain Definition Language (PDDL).
-
-
-All the information that is essential to the build and deployment process is unfolded: how to build and verify the various deliverables, library dependencies, how to install and run the software, and the system requirements. In addition to that, we collected some other useful information related to the build process such as a description of the project repository and the design of the build command.
-
 **Document Overview**
 
-The rest of this document is organised in the following sections:
-
-1.  Project Repository: Contains useful information on how the repository is organised and how to download it from our Bitbucket server.
-
+This document is organised in the following sections:
+0. Requirements: Requirements for deployment
+1.  Project Repository: Contains  information on how the repository is organised.
 2.  Pre-deployment Process: Details how to build the software from the source code and how to build the other project artefacts. Additional information on the various steps of the build process is also provided as well as a list of all required libraries.
-
 3.  Deployment: How to install and run the software, and the system requirements.
-
-
 4.  Post-deployment: Details how to display the final product.  
+
+**0. Requirements**
 
 **Build Agent Requirement**
 
@@ -50,7 +36,7 @@ Your build agent will need to meeting the following minimum requirements. GPU is
 
 **Deployment Server Requirement**
 
-Our current deployment server is a Linux OS family member - Ubuntu. This section covers the minimum hardware requirements for these deployment servers.
+The deployment server used in developnet is a Linux OS family member - Ubuntu. This section covers the minimum hardware requirements for these deployment servers.
 
   
 **Ubuntu Desktop Edition**
@@ -117,7 +103,11 @@ sudo apt install libcanberrra-gtk\*
 
 The build process is designed to be cross-platform and self-contained. What all this means is that you can run the various build tasks on any machine where a validated Unity is available, without having to worry about resolving other library dependencies.
 
-The following command is to run and compile the Unity part of the project. Unity can operate from the command line, so you'll need to be a little familiar with your operating system shell in order to use it. In this section, we will illustrate the idea with Ubuntu build agent. However, the idea can apply to any OS system.
+The Unity project can either be built from the Unity command line, or from the Unity GUI.
+
+**2.2.1 Building from command line**
+
+To build from the command line, enter the following command. We illustrate the idea with Ubuntu build agent. However, the idea can apply to any OS.
 
 
 Move to the **_/PlanningVisualise_**  directory in the repository that you’ve just checked out from Section 1 and from there type, at the command prompt:
@@ -141,7 +131,8 @@ Should you wish to update the User Interface of this application, you need to in
 ```
 ../swen90013-2018-pl/PlanningVisualise/Assets/Editor/buildscript.cs
 ```
-  
+
+
 
 With having the command executed, a folder called “buildweb” should appear under the **_/PlanningVisualise_**  directory and this will be the final animation contents for the deployment process in Section 3.**2.1 Install Python3 Dependencies**
 
@@ -156,6 +147,20 @@ Addition libraries include:
 sudo apt-get install python-pip 
 sudo pip install numpy scipy**3\.
 ```
+
+  **2.2.1 Building from Unity GUI**
+  
+  * Open Unity
+  * Click File -> Build Settings
+  * Choose 'WebGL'
+  * Make sure all the selected scenes are those under the 'Visualisation' folder
+  * Click 'Player Settings'
+  * Click 'Publishing Settings'
+  * Enter 512 for 'WebGL Memory Size'
+  * Tick 'WebAssembly'
+  * Click 'Build'
+
+
 
 **Ubuntu Deployment Process**
 
@@ -273,7 +278,7 @@ This declares a single process type, web, and the command needed to run it. The 
 
 When deploying the Django server with Heroku, you will also need to make sure to redirect the traffic for your local server to Heroku within Unity, this can be done by simply enabling and changing the settings in **_ScenesCoordinator.cs:_**
 
-![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/vfg/build_screenshot.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/deployment/build_screenshot.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
 
 As shown above in the picture, the current setting is pointing to local machine. Enabling the line below will redirect the data stream to your Heroku server. You should replace “[https://immense-bastion-42146.herokuapp.com/upload/pddl](https://immense-bastion-42146.herokuapp.com/upload/pddl)” with your Heroku application.
 
