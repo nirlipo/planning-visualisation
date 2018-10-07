@@ -278,7 +278,7 @@ This declares a single process type, web, and the command needed to run it. The 
 
 When deploying the Django server with Heroku, you will also need to make sure to redirect the traffic for your local server to Heroku within Unity, this can be done by simply enabling and changing the settings in **_ScenesCoordinator.cs:_**
 
-![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/deployment/build_screenshot.png?at=770fa03adeb19f41dc64bf3a4415897e93cab069)
+![](https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/raw/Docs/images/deployment/build_screenshot.png?at=refs%2Fheads%2Ffeature-update-help)
 
 As shown above in the picture, the current setting is pointing to local machine. Enabling the line below will redirect the data stream to your Heroku server. You should replace “[https://immense-bastion-42146.herokuapp.com/upload/pddl](https://immense-bastion-42146.herokuapp.com/upload/pddl)” with your Heroku application.
 
