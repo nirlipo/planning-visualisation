@@ -20,27 +20,30 @@ import numpy as np
 
 __all__ = ['customf_controller','distributey','distribute_grid_around_pointx']
 
-def customf_controller(fname,obj_dic,settings,state,remove,require=False):
+def customf_controller(fname,obj_dic,settings,state,remove,get_meta=False):
     if fname == "distributex":
-        return distributex(obj_dic, settings,state,remove,require)
+        return distributex(obj_dic, settings,state,remove,get_meta)
     elif fname == "distribute_grid_around_point":
-        return distribute_grid_around_point(obj_dic, settings,state,remove,require)
+        return distribute_grid_around_point(obj_dic, settings,state,remove,get_meta)
     elif fname == "distribute_within_objects_vertical":
-        return distribute_within_objects_vertical(obj_dic, settings,state,remove,require)
+        return distribute_within_objects_vertical(obj_dic, settings,state,remove,get_meta)
     elif fname == "apply_smaller":
-        return apply_smaller(obj_dic, settings,state,remove,require)
+        return apply_smaller(obj_dic, settings,state,remove,get_meta)
     elif fname == "align_middle":
-        return align_middle(obj_dic, settings,state,remove,require)
+        return align_middle(obj_dic, settings,state,remove,get_meta)
     elif fname == "distributey":
-        return distributey(obj_dic, settings,state,remove,require)
+        return distributey(obj_dic, settings,state,remove,get_meta)
     elif fname == "distribute_within_objects_horizontal":
-        return distribute_within_objects_horizontal(obj_dic, settings,state,remove,require)
+        return distribute_within_objects_horizontal(obj_dic, settings,state,remove,get_meta)
     elif fname == "calculate_label":
-        return calculate_label(obj_dic, settings,state,remove,require)
+        return calculate_label(obj_dic, settings,state,remove,get_meta)
     elif fname =="draw_line":
-        return draw_line(obj_dic, settings, state, remove,require)
-
-def distributex(obj_list, settings, state, remove,require):
+        return draw_line(obj_dic, settings, state, remove,get_meta)
+def get_all_funtion_name():
+    function_name=["distributex","distribute_grid_around_point","distribute_within_objects_vertical","apply_smaller",
+                   "align_middle","distributey","distribute_within_objects_horizontal","calculate_label","draw_line"]
+    return function_name
+def distributex(obj_list, settings, state, remove,get_meta):
     """This funtion will return the x position of an object. used for block domain
     Args:
         obj_list(Array): Array of objects dictionary
@@ -55,10 +58,12 @@ def distributex(obj_list, settings, state, remove,require):
     """
 
     #intialise the state to an integer array
-    if require:
-        require_dic={
-        }
-        return require_dic
+    if get_meta:
+        meta = {}
+        meta["reset"] = False
+        meta["require"] = {}
+        return meta
+
     if not state:
         state=[0]
     #default function settings
@@ -94,7 +99,7 @@ def distributex(obj_list, settings, state, remove,require):
             return True
     return False
 
-def distributey(obj_list,settings,state,remove,require):
+def distributey(obj_list,settings,state,remove,get_meta):
     """The function return the y location of object based on the number in object name
     Args:
         obj_list(Array): Array of objects dictionary
@@ -108,11 +113,12 @@ def distributey(obj_list,settings,state,remove,require):
     #default function settings
 
     #intialise the state to an integer array
-    if require:
-        require_dic={
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={}
+        return meta
 
-        }
-        return require_dic
 
     default_setting={
         "spacebtw":20,
@@ -131,7 +137,7 @@ def distributey(obj_list,settings,state,remove,require):
     return objdic,state
 
 
-def distribute_grid_around_point(obj_list, settings, state, remove,require):
+def distribute_grid_around_point(obj_list, settings, state, remove,get_meta):
     """The function return the x location of object based on the number in object name, Node1-2,etc.
     Args:
         obj_list(Array): Array of objects dictionary
@@ -142,12 +148,11 @@ def distribute_grid_around_point(obj_list, settings, state, remove,require):
         updated attribute dictionary and state
 
     """
-
-    if require:
-        require_dic={
-
-        }
-        return require_dic
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={}
+        return meta
 
     #default function settings
     default_setting={
@@ -169,19 +174,21 @@ def distribute_grid_around_point(obj_list, settings, state, remove,require):
     return objdic, state
 
 
-def draw_line(obj_list, settings, state, remove,require):
+def draw_line(obj_list, settings, state, remove,get_meta):
     """The function return an line object with initial location and rotation angle
     Args:
     Returns:
         Integer: y postion of obj
 
     """
-    if require:
-        require_dic = {
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={
             "0":["x","y","width","height"],
             "1": ["x", "y", "width", "height"],
         }
-        return require_dic
+        return meta
     if len(obj_list) !=2:
         return False
     #object name
@@ -225,7 +232,7 @@ def draw_line(obj_list, settings, state, remove,require):
     line["depth"]=0
     return name,line
 
-def distribute_within_objects_vertical(obj_list, settings, state, remove,require):
+def distribute_within_objects_vertical(obj_list, settings, state, remove,get_meta):
     """The function return an x/y location of obj based on the location of node
     Args:
         obj_list(Array): Array of objects dictionary
@@ -236,13 +243,15 @@ def distribute_within_objects_vertical(obj_list, settings, state, remove,require
         updated attribute dictionary and state
 
     """
-
-    if require:
-        require_dic = {
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={
             "0":["width","height"],
             "1": ["x", "y"],
         }
-        return require_dic
+        return meta
+
     #default function settings
     default_setting={
         "padding":5,
@@ -281,7 +290,7 @@ def distribute_within_objects_vertical(obj_list, settings, state, remove,require
                 objdic["y"]= parentdic["y"] + (num % row_count) * objdic["height"] + padding
                 return objdic, state
 
-def distribute_within_objects_horizontal(obj_list, settings, state, remove,require):
+def distribute_within_objects_horizontal(obj_list, settings, state, remove,get_meta):
     """The function return x location of obj based on the location of parent
     Args:
         obj_list(Array): Array of objects dictionary
@@ -292,12 +301,15 @@ def distribute_within_objects_horizontal(obj_list, settings, state, remove,requi
         updated attribute dictionary and state
 
     """
-    if require:
-        require_dic = {
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={
             "0":["width"],
             "1": ["x"],
         }
-        return require_dic
+        return meta
+
     #default function settings
     default_setting={
         "padding":40,
@@ -334,7 +346,7 @@ def distribute_within_objects_horizontal(obj_list, settings, state, remove,requi
                 objdic["x"] = parentdic["x"]+num*(objdic["width"]+padding)
                 return objdic,state
 
-def apply_smaller(obj_list, settings, state, remove,require):
+def apply_smaller(obj_list, settings, state, remove,get_meta):
     """The function return width of object, it remember how big the object are by integer.Used for hanoi domain
     Args:
         obj_list(Array): Array of objects dictionary
@@ -345,12 +357,14 @@ def apply_smaller(obj_list, settings, state, remove,require):
         updated attribute dictionary and state
 
     """
-
-    if require:
-        require_dic = {
+    if get_meta:
+        meta={}
+        meta["reset"]=True
+        meta["require"]={
             "0":["width"]
         }
-        return require_dic
+        return meta
+
 
     #default function settings
     default_setting={
@@ -383,7 +397,7 @@ def apply_smaller(obj_list, settings, state, remove,require):
         return obj1dic,state
 
 
-def calculate_label(obj_list, settings, state, remove,require):
+def calculate_label(obj_list, settings, state, remove,get_meta):
     """The function return the label of the objects, e.g showing how many packages in the trunks
         Args:
             obj_list(Array): Array of objects dictionary
@@ -395,10 +409,15 @@ def calculate_label(obj_list, settings, state, remove,require):
 
         """
     # object name
-    if require:
-        require_dic = {
+
+
+    if get_meta:
+        meta={}
+        meta["reset"]=True
+        meta["require"]={
         }
-        return require_dic
+        return meta
+
     obj2, obj2dic = list(obj_list[1].items())[0]
     if obj2 not in state:
         state[obj2] = 1
@@ -408,7 +427,7 @@ def calculate_label(obj_list, settings, state, remove,require):
     obj2dic["label"] = str(state[obj2])
     return obj2dic,state
 
-def align_middle(obj_list, settings, state, remove,require):
+def align_middle(obj_list, settings, state, remove,get_meta):
     """The function return updated x position of obj1 based on obj2, it will make sure the middle of two object are
     Args:
         obj_list(Array): Array of objects dictionary
@@ -418,12 +437,14 @@ def align_middle(obj_list, settings, state, remove,require):
     Returns:
         updated attribute dictionary and state
     """
-    if require:
-        require_dic = {
+    if get_meta:
+        meta={}
+        meta["reset"]=False
+        meta["require"]={
             "0":["width"],
             "1": ["x", "width"],
         }
-        return require_dic
+        return meta
 
     if len(obj_list) !=2:
         return False

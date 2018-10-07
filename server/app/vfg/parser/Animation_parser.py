@@ -286,7 +286,7 @@ def parse_function(text,require_dic):
     searchObj = re.search(objects_pattern, text)
     objects = re.split(r'\s+', searchObj.group(1))
     template["obj_indexs"] = objects
-    require=Custom_functions.customf_controller(name,None,None,None,None,True)
+    require=Custom_functions.customf_controller(name,None,None,None,None,True)["require"]
     for key,value in require.items():
         index=int(key)
         for item in value:

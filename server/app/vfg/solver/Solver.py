@@ -281,8 +281,11 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
         object_dic_copy = copy.deepcopy(objects_dic)
         predicates = stage["items"]
         sorted_predicates=priority(predicates,predicates_rules)
-        space["apply_smaller"]={} #For hanoi problem, reset each stage
-        space["calculate_label"]={} #For logistics problem, reset each stage
+
+        # For hanoi problem, reset each stage
+        # For logistics problem, reset each stage
+        for fname in space["reset_function"]:
+            space[fname]={}
         solvepredicates(sorted_predicates, object_dic_copy, predicates_rules, space)
         stage_dic["visualSprites"] = object_dic_copy
         if "stageName" not in stage:
@@ -347,18 +350,8 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     # subgoals = copy.deepcopy(predicates["subgoals"])
     predicates_rules = animation_profile["predicates_rules"]
     objects_dic = Initialise.initialise_objects(object_list, animation_profile)
+    space = Initialise.initialise_custom_functions()
     add_fixed_objects(objects_dic, animation_profile)
-
-    space = {}
-    space["distributex"] = {}
-    space["distribute_within_objects_vertical"] = {}
-    space["apply_smaller"] = {}
-    space["align_middle"] = {}
-    space["distribute_within_objects_horizontal"] = {}
-    space["distribute_grid_around_point"] = {}
-    space["distributey"] = {}
-    space["calculate_label"] = {}
-    space["draw_line"] = {}
     result = solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return result

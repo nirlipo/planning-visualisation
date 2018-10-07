@@ -16,7 +16,7 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"solver"))
 import Random_color
-
+import Custom_functions
 # This component is used to initialise the environment and objects for Predicate Solver
 # This is the preprocess for Predicate Solver
 #######################################################
@@ -59,3 +59,14 @@ def initialise_objects(object_list, animation_profile):
                 unsolved_objects[objectname][objproperty] = False
         unsolved_objects[objectname]["name"] = objectname
     return unsolved_objects
+
+def initialise_custom_functions():
+    fname=Custom_functions.get_all_funtion_name()
+    space = {}
+    space["reset_function"]=[]
+    for name in fname:
+        space[name]={}
+        meta=Custom_functions.customf_controller(name,None,None,None,None,get_meta=True)
+        if meta["reset"]==True:
+            space["reset_function"].append(name)
+    return space
