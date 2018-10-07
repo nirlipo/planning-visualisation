@@ -17,8 +17,8 @@ import json
 import copy
 from colour import Color
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/predicate_solver"))
-import predicate_solver.custom_functions as custom_functions
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+import custom_functions
 #######################################################
 # Input File: A animation PDDF file
 # Output : A complete animation profile in JSON format
@@ -66,19 +66,19 @@ def parseVisual(text_to_parse,result):
         temp_visual_block = text_to_parse[text_to_parse.index(pattern_visual):]
         temp_visual_block = get_one_block(temp_visual_block)
 
-        temp_visual_pattern = re.compile(pattern_visual + "\s[\w\-]+")
+        temp_visual_pattern = re.compile("(?i)"+pattern_visual + "\s[\w\-]+", re.IGNORECASE)
         temp_subshape, temp_subshape_value = temp_visual_pattern.findall(temp_visual_block)[0].split()
 
         sublist = {}
 
         # Get the value of type
-        temp_regex_pattern = re.compile(pattern_type + "\s[\w\-]+")
+        temp_regex_pattern = re.compile(pattern_type + "\s[\w\-]+",re.IGNORECASE)
         temp_subelement, temp_subelement_value = temp_regex_pattern.search(temp_visual_block)[0].split()
         # print(temp_subelement, temp_subelement_value)
 
         if "objects" in temp_visual_block:
             # Get the value of objects
-            temp_objects_pattern = re.compile(pattern_objects + "\s*(\([^\)]+\)|[\w-]+)") # fix -n
+            temp_objects_pattern = re.compile(pattern_objects + "\s*(\([^\)]+\)|[\w-]+)",re.IGNORECASE) # fix -n
             objectsStr=temp_objects_pattern.search(temp_visual_block).group(1)
             if "(" in objectsStr:
                 objects_list=parse_objects(objectsStr)
@@ -113,9 +113,9 @@ def parseVisual(text_to_parse,result):
 
         # Stop if there is no more object to parse
         if(pattern_visual not in text_to_parse):
-            break
+            break;
 
-    return result
+    return result;
 
 def parsePredicate(text_to_parse,result):
     pattern_predicate = ":predicate"
@@ -125,24 +125,25 @@ def parsePredicate(text_to_parse,result):
     pattern_effect = ":effect"
     while text_to_parse.find(pattern_predicate):
         # Get the value of the predicate
+
         temp_visual_block = text_to_parse[text_to_parse.index(pattern_predicate):]
         temp_visual_block = get_one_block(temp_visual_block)
 
-        temp_visual_pattern = re.compile(pattern_predicate + "\s[\w\-]+")
+        temp_visual_pattern = re.compile(pattern_predicate + "\s[\w\-]+",re.IGNORECASE)
         temp_subshape, temp_subshape_value = temp_visual_pattern.findall(temp_visual_block)[0].split()
         # print(temp_visual_pattern.findall(temp_visual_block))
         # print(temp_visual_block)
 
         if "priority" in temp_visual_block:
-            priority_pattern=re.compile(pattern_priority + "\s*(\(\d+\)|[\d]+)")
+            priority_pattern=re.compile(pattern_priority + "\s*(\(\d+\)|[\d]+)",re.IGNORECASE)
             priority=priority_pattern.findall(temp_visual_block)
 
 
         # Get the value of parameters
-        temp_regex_pattern = re.compile(pattern_parameters +" "+ "\((.*?)\)")
+        temp_regex_pattern = re.compile(pattern_parameters +" "+ "\((.*?)\)",re.IGNORECASE)
         objectList=temp_regex_pattern.findall(temp_visual_block)[0].split()
         # Get the value of custom
-        temp_custom_pattern = re.compile(pattern_custom +"\s[\w\-]+") # fix This line need to be changed to adapte array
+        temp_custom_pattern = re.compile(pattern_custom +"\s[\w\-]+",re.IGNORECASE) # fix This line need to be changed to adapte array
         custom=temp_custom_pattern.findall(temp_visual_block)
         if custom:
             temp_objects, temp_objects_value = custom[0].split()
@@ -166,7 +167,7 @@ def parsePredicate(text_to_parse,result):
 
         # Stop if there is no more object to parse
         if(pattern_predicate not in text_to_parse):
-            break
+            break;
 
 
 def parseImage(text_to_parse,result):
@@ -180,6 +181,16 @@ def parseImage(text_to_parse,result):
         result["imageTable"]["m_keys"].append(name)
         result["imageTable"]["m_values"].append(value)
 
+#delete key and value
+# def parseImage(text_to_parse,result):
+#     pattern_image = ":image"
+#     temp_image_block = text_to_parse[text_to_parse.index(pattern_image):]
+#     temp_image_block = get_one_block(temp_image_block)
+#     patternPare = re.compile(r'\((.*?)\)')
+#     imagePareList=patternPare.findall(temp_image_block)
+#     for imagePare in imagePareList:
+#         name,value=imagePare.split()
+#         result["imageTable"][name]=value
 
 def removebacket(input):
     output = ""
@@ -197,7 +208,7 @@ def removebacket(input):
             if forward_bracket >= 0:
                 output += input[n]
             else:
-                return False
+                return False;
 
     return output[1:length-1]
 
@@ -219,7 +230,7 @@ def get_one_block(input):
         if forward_bracket >= 0:
             output += input[n]
         else:
-            break
+            break;
     return output
 
 
@@ -417,12 +428,12 @@ def transfer_str(v):
         return float(v)
     elif (v.isdigit()):
         return int(v)
-    elif (v == "TRUE"):
+    elif (compare_String(v,"TRUE")):
         return True
-    elif (v == "FALSE"):
+    elif (compare_String(v,"FALSE")):
         return False
         # print(dict1[k])
-    elif (v.lower() == "null"):
+    elif (compare_String(v,"Null")):
         return False
         # print(dict1[k])
     elif (check_color(v)):
@@ -430,6 +441,12 @@ def transfer_str(v):
         return transfer_Color(v)
     else:
         return v
+
+def compare_String(str_v, str_compare):
+    if type(str_v) is str:
+        if str_v.lower() == str_compare.lower():
+            return True
+    return False
 
 def transfer_Color(color):
     """

@@ -28,28 +28,34 @@ def get_visualisation_file():
     # 	print("some file is missing, please follow the command below to run the program")
     # 	print("python main.py [dommainfile] [problemfile] [animationprofile]")
     # 	sys.exit()
+    try:
+        domain_file = "example/block/domain_blocks.pddl"
+        problem_file = "example/block/bw01.pddl"
+        animation_file = "example/block/blockanimation.pddl"
+        url_link = "http://solver.planning.domains/solve"
 
-    domain_file = sys.argv[1]
-    problem_file = sys.argv[2]
-    animation_file = sys.argv[3]
-    url_link = sys.argv[4]
+        # read animation profile from json
+        file = open(animation_file)
+        content = file.read()
+        animation_profile = json.loads(pparser.animation_parser.get_animation_profile(content))
+        # print(pparser.animation_parser.compare_String("Asdd","asdd"))
+        # print(pparser.animation_parser.get_animation_profile(content))
 
-    # read animation profile from json
-    file = open(animation_file)
-    content = file.read()
-    animation_profile = json.loads(pparser.animation_parser(content))
+        plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(),
+                                               open(problem_file, 'r').read(),
+                                               url_link)
 
-    plan = pparser.plan_generator.get_plan(open(domain_file, 'r').read(), 
-                                           open(problem_file, 'r').read(),
-                                           url_link)
+        # print(json.dumps(plan))
+        predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
+        # print(json.dumps(predicates_list))
+        problem_json = pparser.problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
+        # print(json.dumps(problem_json))
+        stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
 
-    # print(json.dumps(plan))
-    predicates_list = pparser.domain_parser.get_domain_json(open(domain_file, 'r').read())
-    # print(json.dumps(predicates_list))
-    problem_json = pparser.problem_parser.get_problem_json(open(problem_file, 'r').read(), predicates_list)
-    # print(json.dumps(problem_json))
-    stages = pparser.predicates_generator.get_stages(plan, problem_json, open(problem_file, 'r').read(), predicates_list)
-
-    json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json))
+        print(json.dumps(adapter.transfer.get_visualisation_json(stages, animation_profile,plan['result']['plan'],problem_json)))
+    except Exception as e:
+        message = repr(e)
+        final = {"visualStages": [],"subgoalPool":{},"subgoalMap":{},"transferType":0,"imageTable": {}, "message": str(message)}
+        print(final)
 if __name__ == "__main__":
     get_visualisation_file()

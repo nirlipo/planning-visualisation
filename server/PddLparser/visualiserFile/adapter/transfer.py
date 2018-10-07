@@ -156,6 +156,7 @@ def generate_visualisation_file(result, object_list,animation_profile,actionlist
     final["subgoalMap"] = generate_subgoal(result["subgoals"])["subgoalMap"]
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
+    final["message"] = ""
     # print(generate_subgoal(result["subgoals"]))
     return final
 
