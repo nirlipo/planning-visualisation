@@ -18,7 +18,7 @@ import copy
 from colour import Color
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"visualiserFile/predicate_solver"))
-import custom_functions
+import predicate_solver.custom_functions as custom_functions
 #######################################################
 # Input File: A animation PDDF file
 # Output : A complete animation profile in JSON format
@@ -113,9 +113,9 @@ def parseVisual(text_to_parse,result):
 
         # Stop if there is no more object to parse
         if(pattern_visual not in text_to_parse):
-            break;
+            break
 
-    return result;
+    return result
 
 def parsePredicate(text_to_parse,result):
     pattern_predicate = ":predicate"
@@ -166,7 +166,7 @@ def parsePredicate(text_to_parse,result):
 
         # Stop if there is no more object to parse
         if(pattern_predicate not in text_to_parse):
-            break;
+            break
 
 
 def parseImage(text_to_parse,result):
@@ -180,16 +180,6 @@ def parseImage(text_to_parse,result):
         result["imageTable"]["m_keys"].append(name)
         result["imageTable"]["m_values"].append(value)
 
-#delete key and value
-# def parseImage(text_to_parse,result):
-#     pattern_image = ":image"
-#     temp_image_block = text_to_parse[text_to_parse.index(pattern_image):]
-#     temp_image_block = get_one_block(temp_image_block)
-#     patternPare = re.compile(r'\((.*?)\)')
-#     imagePareList=patternPare.findall(temp_image_block)
-#     for imagePare in imagePareList:
-#         name,value=imagePare.split()
-#         result["imageTable"][name]=value
 
 def removebacket(input):
     output = ""
@@ -207,7 +197,7 @@ def removebacket(input):
             if forward_bracket >= 0:
                 output += input[n]
             else:
-                return False;
+                return False
 
     return output[1:length-1]
 
@@ -229,7 +219,7 @@ def get_one_block(input):
         if forward_bracket >= 0:
             output += input[n]
         else:
-            break;
+            break
     return output
 
 
