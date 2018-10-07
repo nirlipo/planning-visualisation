@@ -15,17 +15,15 @@ import re
 import sys
 import json
 import copy
-from colour import Color
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-import extension.Custom_functions
-import adapter.ap_adapter.Adapter
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../' +"adapter/ap_adapter"))
+import Custom_functions
+import Adapter
 #######################################################
 # Input File: A animation PDDF file
 # Output : A complete animation profile in JSON format
 #######################################################
 
-import adapter as adapter
 def get_animation_profile(animation_pddl):
     # --------------------------------------------
     # This is just an example
@@ -52,7 +50,7 @@ def get_animation_profile(animation_pddl):
 
     parsePredicate(copy.copy(text_to_parse), result)
 
-    adapter.ap_adapter.Adapter.transfer(result)
+    Adapter.transfer(result)
     return json.dumps(result)
 
 def parseVisual(text_to_parse,result):
@@ -288,7 +286,7 @@ def parse_function(text,require_dic):
     searchObj = re.search(objects_pattern, text)
     objects = re.split(r'\s+', searchObj.group(1))
     template["obj_indexs"] = objects
-    require=extension.Custom_functions.customf_controller(name,None,None,None,None,True)
+    require=Custom_functions.customf_controller(name,None,None,None,None,True)
     for key,value in require.items():
         index=int(key)
         for item in value:

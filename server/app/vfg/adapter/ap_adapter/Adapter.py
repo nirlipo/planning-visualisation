@@ -26,7 +26,6 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from colour import Color
-import parser.Animation_parser
 
 def transfer(result):
     """The function return the animation file in correct format

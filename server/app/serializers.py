@@ -11,7 +11,7 @@
 #-- Version  : 1.0
 #--------------------------------------------------------------------------------
 from rest_framework import serializers
-from PddLparser.models import PDDL
+from app.models import PDDL
 
 
 class PDDLSerializer(serializers.ModelSerializer):

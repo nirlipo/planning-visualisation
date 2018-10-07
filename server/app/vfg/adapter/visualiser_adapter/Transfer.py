@@ -14,9 +14,9 @@
 import copy
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/../" +"solver"))
-import solver.Initialise
-import solver.Solver
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/solver"))
+import Solver
+import Initialise
 import json
 
 # This python file aims to finish step 4 in our solution
@@ -259,8 +259,8 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     stages = copy.deepcopy(predicates["stages"])
     # subgoals = copy.deepcopy(predicates["subgoals"])
     predicates_rules = animation_profile["predicates_rules"]
-    objects_dic = solver.Initialise.initialise_objects(object_list, animation_profile)
-    solver.Solver.add_fixed_objects(objects_dic, animation_profile)
+    objects_dic = Initialise.initialise_objects(object_list, animation_profile)
+    Solver.add_fixed_objects(objects_dic, animation_profile)
 
     space = {}
     space["distributex"] = {}
@@ -272,6 +272,6 @@ def get_visualisation_json(predicates, animation_profile,actionlist,problem_dic)
     space["distributey"] = {}
     space["calculate_label"] = {}
     space["draw_line"] = {}
-    result = solver.Solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
+    result = Solver.solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,problem_dic)
     # print(result["subgoals"])
     return generate_visualisation_file(result, list(objects_dic.keys()),animation_profile,actionlist)

@@ -26,7 +26,7 @@
 import re
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+# sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import Problem_parser
 
 # This python file aims to finish step 3 in our solution
