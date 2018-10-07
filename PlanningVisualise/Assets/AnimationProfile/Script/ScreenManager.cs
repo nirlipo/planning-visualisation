@@ -1,5 +1,14 @@
-﻿/* SceneManager manage the all the scene transaction and destroying non-DetroyOnLoad gameobject
- * when resetting*/
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: Manage the all the scene transaction and destroying non-DetroyOnLoad gameobject
+ * when resetting
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
 
 using System.Collections;
 using System.Collections.Generic;
