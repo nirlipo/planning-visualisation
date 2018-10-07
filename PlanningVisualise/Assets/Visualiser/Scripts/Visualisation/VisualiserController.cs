@@ -242,23 +242,8 @@ namespace Visualiser
         // UI event handler: Jumps to user manual page 
         public void Help()
         {
-            // get the current URL
-        var currentURL = Application.absoluteURL;
-
-        if (currentURL != "") {
-
-            // remove the unity port and trailing slash from the url
-            var uri = new Uri( currentURL );
-            var clean = uri.GetComponents( UriComponents.AbsoluteUri & ~UriComponents.Port,
-                               UriFormat.UriEscaped );
-            if (clean[clean.Length - 1]=='/') {
-                clean = clean.Remove(clean.Length - 1);
-            }
-            
-            // Add the django port and help directory to the url, and open it
-            var newURL = clean+":8000/help/";
-            Application.OpenURL(newURL);
-        }
+            var newURL = "https://planning-visualisation-solver.herokuapp.com/help/";
+            Application.OpenURL (newURL);
         }
         #endregion
 
