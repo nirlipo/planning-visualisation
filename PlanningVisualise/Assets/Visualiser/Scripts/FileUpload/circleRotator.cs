@@ -17,7 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleRotator : MonoBehaviour
+public class circleRotator : MonoBehaviour
 {
 
     RectTransform rectComponent;

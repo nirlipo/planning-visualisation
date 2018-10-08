@@ -243,8 +243,18 @@ namespace Visualiser
             PlayButtonSprite.sprite = PlaySprite;
         }
 
-
-
+	public void disableallstepbtn(GameObject steps){
+			Button[] btnsteps = steps.GetComponentsInChildren<Button> ();
+			foreach (var step in btnsteps) {
+				step.interactable = false;
+			}
+	}
+	public void enableallstepbtn(GameObject steps){
+		Button[] btnsteps = steps.GetComponentsInChildren<Button> ();
+		foreach (var step in btnsteps) {
+			step.interactable = true;
+		}
+	}
 
         // UI event handler: Jumps to user manual page 
         public void Help()
