@@ -15,6 +15,8 @@ using System;
 
 
 [Serializable]
+
+// Empty constructor
 public class ImageDictionary : SerializableDictionary<string, string>
 {
     public ImageDictionary()

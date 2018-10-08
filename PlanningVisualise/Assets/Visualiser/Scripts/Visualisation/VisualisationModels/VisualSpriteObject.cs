@@ -37,6 +37,7 @@ namespace Visualiser
         public int depth;
         public int transferType;
 		// checking if the given VisualSpriteObject is same as this class
+        // mapper class and make sure the object is valid
         public bool ContentsEqual(VisualSpriteObject vso)
         {
             return              name == vso.name 

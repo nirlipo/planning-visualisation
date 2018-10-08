@@ -52,6 +52,8 @@ namespace Visualiser
         public ScrollRect SubgoalScrollRect;
         public Image PlayButtonSprite;
 
+
+        // Sprite objects
         Sprite PlaySprite;
         Sprite PauseSprite;
 
@@ -65,7 +67,9 @@ namespace Visualiser
         bool playing;   // Indicates if palying animation
         int storedStage; // Stores the stage index before jumping to the final stage
         string vf;
-        // Use this for initialization
+        
+        
+        // Intialization function 
         void Start()
         {
             // Reads visualisation file data
@@ -75,7 +79,7 @@ namespace Visualiser
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
 
-            // ------- json parsing work around
+            // JSON parsing start
             var jo = JsonConvert.DeserializeObject<Dictionary<string, object>>(parameters);
             var smjo = JObject.FromObject(jo["subgoalMap"]);
             var spjo = JObject.FromObject(jo["subgoalPool"]);
@@ -91,17 +95,27 @@ namespace Visualiser
             {
                 visualSolution.subgoalPool.Add(sp.m_keys[i], sp.m_values[i]);
             }
-            // -------- 
+            // JSON parsing end
+
+            // Intialize sprite objects
             PlaySprite = Resources.Load<Sprite>("PlaySprite");
             PauseSprite = Resources.Load<Sprite>("PauseSprite");
 
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
+
+            // Generate subgoals
             RenderSubgoals();
+
+            // Generate steps
             RenderSteps();
+
+            // Render animation
             RenderFrame(visualStage);
         }
 
+
+        // This function is used to render subgoals from the solutionobject
         public void RenderSubgoals()
         {
             foreach (var subgoal in visualSolution.subgoalPool)
@@ -144,6 +158,7 @@ namespace Visualiser
             }
         }
 
+        //  This function is used to render steps from the solutionobject
         public void RenderSteps()
         {
             var stepButtonPrefab = Resources.Load<GameObject>("StepButton");
@@ -265,6 +280,7 @@ namespace Visualiser
             }
         }
 
+        // Check fucntion to make sure the animation rendering is successful
         bool AreAllAnimationsFinished()
         {
             foreach (GameObject spriteobject in spritePool.Values)
@@ -277,6 +293,7 @@ namespace Visualiser
             return true;
         }
 
+        // Download fucntion call for vfg file
         public void DownloadVF()
         {
             Download(vf, "text/plain", "vf_out.txt");

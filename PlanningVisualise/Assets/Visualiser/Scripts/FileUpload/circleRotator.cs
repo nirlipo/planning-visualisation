@@ -21,13 +21,16 @@ public class CircleRotator : MonoBehaviour
 {
 
     RectTransform rectComponent;
+    //Adjust rotating speed here
     readonly float rotateSpeed = 400f;
 
+    // Intialization for gameobject
     void Start()
     {
         rectComponent = GetComponent<RectTransform>();
     }
 
+    // Logic to rotate circle over time
     void Update()
     {
         rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);

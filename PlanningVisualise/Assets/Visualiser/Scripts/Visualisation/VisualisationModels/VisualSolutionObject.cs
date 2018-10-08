@@ -36,16 +36,19 @@ namespace Visualiser
 
         int stageIndex = -1;
 
+        // function to get current stageIndex
         public int GetCurrentStageIndex()
         {
             return stageIndex;
         }
 
+        // function to set current stage index
         public void SetCurrentStageIndex(int index)
         {
             stageIndex = index;
         }
 
+        // get current visual stage object for current index
         public VisualStageObject GetStageByIndex(int index)
         {
             if (index >= 0 && index < visualStages.Length)
@@ -55,11 +58,13 @@ namespace Visualiser
             return null;
         }
 
+        // get list of subgoal names for given index position
         public string[] GetSubgoalNames(int index)
         {
             return subgoalMap.ContainsKey(index) ? subgoalMap[index] : null;
         }
 
+        // get set of object name for subgoals
         public string[] GetSubgoalObjectNames(int index)
         {
             HashSet<string> objectNames = new HashSet<string>();
@@ -140,6 +145,7 @@ namespace Visualiser
             return NextStage();
         }
 
+        // function to check the current index is final stage
         public bool IsFinalStage()
         {
             return stageIndex == visualStages.Length - 1;

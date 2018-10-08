@@ -29,7 +29,7 @@ public class CanvasScript : MonoBehaviour
 
 
 
-
+    // The input file models are strictly checked using IEnumerator
     IEnumerator LoadTexture(string url)
     {
         WWW file = new WWW(url);
