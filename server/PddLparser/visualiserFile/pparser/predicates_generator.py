@@ -97,8 +97,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
     # Getting the list of actions from results returned from planning.domain api
     try:
         actionlist = plan['result']['plan']
-        #print(actionlist)
-    except KeyError:
+    except (Exception,KeyError,ValueError):
         sys.exit("No plan has been returned")
     cleanactionlist = remove_unused_char(actionlist)
 
