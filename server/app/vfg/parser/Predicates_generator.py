@@ -56,26 +56,25 @@ def remove_unused_char(action_list):
     return clean_action_list
 
 
-#######################################################
-# This function is designed to return the action name of the current step
-def get_action_name(current_step):
-    """The function is to remove all the useless characters from api file.
-        Args:
-            current_step: an array of the current step.
-        Returns:
-            action_name: a cleaned action name.
-    """
-    # find the predicate name
-
-    action = current_step[current_step.index("action")
-                                      + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
-    # print(action)
-    # find all the parameters followed by that object
-    objects = current_step[current_step.index("parameters")
-                                      + len("parameters"):current_step.index(":precondition")].rstrip()
-    action_name = action + " " + objects
-    print(current_step)
-    return action_name
+# #######################################################
+# # This function is designed to return the action name of the current step
+# def get_action_name(current_step):
+#     """The function is to remove all the useless characters from api file.
+#         Args:
+#             current_step: an array of the current step.
+#         Returns:
+#             action_name: a cleaned action name.
+#     """
+#     # find the predicate name
+#
+#     action = current_step[current_step.index("action")
+#                                       + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
+#     # print(action)
+#     # find all the parameters followed by that object
+#     objects = current_step[current_step.index("parameters")
+#                                       + len("parameters"):current_step.index(":precondition")].rstrip()
+#     action_name = action + " " + objects
+#     return action_name
 
 
 #######################################################

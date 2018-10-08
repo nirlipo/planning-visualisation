@@ -47,7 +47,6 @@ def get_visualisation_file():
     plan = parser.Plan_generator.get_plan(open(domain_file, 'r').read(),
                                            open(problem_file, 'r').read(),
                                            url_link)
-    print(json.dumps(plan))
     # print(json.dumps(plan))
     predicates_list = parser.Domain_parser.get_domain_json(open(domain_file, 'r').read())
     # print(json.dumps(predicates_list))
