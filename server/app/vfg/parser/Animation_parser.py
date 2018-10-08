@@ -387,11 +387,6 @@ def parse_rules(text,require_dic):
             template[newrule] = parse_actionrule(rule,require_dic)
     return template
 
-
-
-
-
-
 if __name__ == "__main__":
     file = open("blockanimation.pddl")
     content = file.read()

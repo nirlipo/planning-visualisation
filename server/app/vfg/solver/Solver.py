@@ -33,6 +33,7 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/solver"))
 
 import Custom_functions
 import Initialise
+import Subgoal
 
 # import pparser.predicates_generator  # Step3: manipulate the predicate for each step/stage
 
@@ -130,7 +131,6 @@ def applypredicates(predicate,
                 objects_dic[left],gstate[fname] = Custom_functions.customf_controller(fname,obj_list,settings,state,False)
             elif "equal" in value:
                 right_value = value["equal"]
-                print(predicate_rule)
                 if type(right_value) is not dict:
                     objects_dic[left][propertyname[0]] = right_value
                 else:
@@ -236,45 +236,6 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
     """
     result = {}
     result["visualStages"] = []
-    result["subgoals"] = []
-    stepNum = []
-    stepindex = 1;
-    # define subgoals dict
-    subgoals = {"subgoals": []}
-    finalstage = problem_dic[1]['goal'].copy()
-    action_name_list = []
-    for counter in range(0, len(actionlist)):
-        action_name = get_action_name(actionlist[counter]['action'])
-        action_name_list.append(action_name)
-
-        # predicate in each step
-    for a in stages:
-            # predicate in final step
-
-        if a["stageName"] != "Initial Stage":
-
-            for item in a["items"]:
-                if item in finalstage:
-                    # print(item)
-                    str = "(" + item["name"] + " "
-                    for name in item["objectNames"]:
-                        str = str + name + " "
-
-                    str += ")"
-                    objectlist = item["objectNames"]
-                    stepNum.append(stepindex)
-                    stepNames = action_name_list[stepindex-1]
-                    # print(stepNames)
-                    # sub = {"name": str, "stepNum": stepindex, "stepName": action_name, "objects": objectlist}
-                    sub = {"name": str, "stepNum": stepindex, "stepName": stepNames,  "objects": objectlist}
-
-                    subgoals["subgoals"].append(sub)
-            stepindex = stepindex + 1
-
-
-
-    # print(subgoals)
-    # print(dedupe(subgoals["subgoals"]))
     for stage in stages:
 
         stage_dic = {}
@@ -299,27 +260,11 @@ def solve_all_stages(stages, objects_dic, predicates_rules, space,actionlist,pro
 
         result["visualStages"].append(stage_dic)
 
-    result["subgoals"] = subgoals["subgoals"]
+    result["subgoals"] = Subgoal.get_subgoal(stages,problem_dic[1]['goal'].copy(),actionlist.copy())
 
     return result
 
-#######################################################
-# This function is designed to return the action name of the current step
-def get_action_name(current_step):
-    """The function is to remove all the useless characters from api file.
-        Args:
-            current_step: an array of the current step.
-        Returns:
-            action_name: a cleaned action name.
-    """
-    # find the predicate name
-    action = current_step[current_step.index("action")
-                                      + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
-    # find all the parameters followed by that object
-    objects = current_step[current_step.index("parameters")
-                                      + len("parameters"):current_step.index(":precondition")].rstrip()
-    action_name = action + " " + objects
-    return action_name
+
 
 def add_fixed_objects(object_dic, animation_profile):
     """This function will added the custom object to the obj_dic
