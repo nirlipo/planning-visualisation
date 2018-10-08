@@ -23,6 +23,10 @@ public class CanvasScript : MonoBehaviour
 {
     [DllImport("__Internal")]
     static extern void UploaderCaptureClick(string extensionptr);
+
+	[DllImport("__Internal")]
+    private static extern void PasteHereWindow(string gettext);
+    
     InputField textfield;
     string type;
     string name;
@@ -80,7 +84,13 @@ public class CanvasScript : MonoBehaviour
         solverAddress = GameObject.Find("CustomSolverInput").GetComponent<InputField>().text;
         ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
     }
-   
+
+	//Paste text from pop up prompt window
+	public void GetPastedText(string newpastedtext)
+    {
+        GameObject.Find("CustomSolverInput").GetComponent<InputField>().text = newpastedtext;
+    }
+    
     //trigger open file panel
     public void OnButtonPointerDown(string type)
     {
