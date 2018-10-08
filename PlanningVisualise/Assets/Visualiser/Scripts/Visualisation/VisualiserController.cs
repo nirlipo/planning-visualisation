@@ -72,11 +72,14 @@ namespace Visualiser
             // Reads visualisation file data
 		try{
             var parameters = coordinator.FetchParameters("Visualisation") as string;
-            Debug.Log(parameters);
             vf = parameters;
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
-			Debug.Log(visualSolution.message);
+			if (visualSolution.message != ""){
+				coordinator.PushParameters("NetworkError",visualSolution.message);
+				SceneManager.LoadScene("NetworkError");
+				return;
+			}
             // ------- json parsing work around
             var jo = JsonConvert.DeserializeObject<Dictionary<string, object>>(parameters);
             var smjo = JObject.FromObject(jo["subgoalMap"]);
@@ -104,7 +107,6 @@ namespace Visualiser
 	            RenderSteps();
 	            RenderFrame(visualStage);
 			}catch (Exception e){
-				Debug.Log (e);
 				//SceneManager.LoadScene("NetworkError");
 			}
         }

@@ -25,7 +25,7 @@ public class CanvasScript : MonoBehaviour
     static extern void UploaderCaptureClick(string extensionptr);
 
 	[DllImport("__Internal")]
-    private static extern void PasteHereWindow(string gettext);
+    private static extern void PasteHereWindow();
     
     InputField textfield;
     string type;
@@ -85,6 +85,13 @@ public class CanvasScript : MonoBehaviour
         ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
     }
 
+	public void onPastedbutton()
+	{
+#if UNITY_EDITOR
+#else
+	PasteHereWindow()
+#endif
+    }
 	//Paste text from pop up prompt window
 	public void GetPastedText(string newpastedtext)
     {
