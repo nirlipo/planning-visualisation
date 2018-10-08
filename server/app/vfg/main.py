@@ -47,7 +47,7 @@ def get_visualisation_file():
     plan = parser.Plan_generator.get_plan(open(domain_file, 'r').read(),
                                            open(problem_file, 'r').read(),
                                            url_link)
-
+    print(json.dumps(plan))
     # print(json.dumps(plan))
     predicates_list = parser.Domain_parser.get_domain_json(open(domain_file, 'r').read())
     # print(json.dumps(predicates_list))
@@ -60,6 +60,7 @@ def get_visualisation_file():
     objects_dic = Initialise.initialise_objects(stages["objects"], animation_profile)
     final = Transfer.generate_visualisation_file(result, list(objects_dic.keys()), animation_profile,
                                                  plan['result']['plan'])
+    print(json.dumps(final))
     # except Exception as e:
     #     message = repr(e)
     #     final = {"visualStages": [],"subgoalPool":{},"subgoalMap":{},"transferType":0,"imageTable": {}, "message": str(message)}

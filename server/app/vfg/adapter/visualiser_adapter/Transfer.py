@@ -15,6 +15,7 @@ import copy
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../../' +"solver"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import Solver
 import Initialise
 import json
@@ -158,8 +159,8 @@ def generate_visualisation_file(result, object_list,animation_profile,actionlist
     final["transferType"]=1
     final["imageTable"]=animation_profile["imageTable"]
     final["message"] = ""
-    print("result is ::;")
-    print(final)
+    # print("result is ::;")
+    # print(final)
     # print(generate_subgoal(result["subgoals"]))
     return final
 

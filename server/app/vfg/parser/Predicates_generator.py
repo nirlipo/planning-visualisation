@@ -66,12 +66,15 @@ def get_action_name(current_step):
             action_name: a cleaned action name.
     """
     # find the predicate name
+
     action = current_step[current_step.index("action")
                                       + len("action"):current_step.index(":parameters")].rstrip().replace(" ","")
+    # print(action)
     # find all the parameters followed by that object
     objects = current_step[current_step.index("parameters")
                                       + len("parameters"):current_step.index(":precondition")].rstrip()
     action_name = action + " " + objects
+    print(current_step)
     return action_name
 
 
@@ -135,8 +138,8 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
 
         # 2.
         # Get the action name of this step from the plan
-        action_name = get_action_name(actionlist[counter]['action'])
-        #print(action_name)
+        action_name = actionlist[counter]['name']
+        # print(action_name)
 
 
         # 4.
