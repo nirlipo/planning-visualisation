@@ -53,6 +53,12 @@ Predicate Blocks contain:
 * The name of the Predicate, for example ```holding```.
 * The parameters of the Predicate. Parameters are objects to which the Predicate applies. For example, ```holding(?x)``` means that the predicate on-table is true for the object ?x.
 * The effect of the Predicate. This is a logical statement concerning object properties which holds true when the predicate holds true. For example, ```(equal (?x x y) (claw x y))``` means that the object ```?x``` is at the object ```claw```.
+* (Optionally) A Priority:
+    *   Specifies a priority in which predicates are solved
+    *   Example:
+    *   ```:priority 0```
+    *   Higher priority predicates are applied first
+    *   This is required to ensure a limited number of domains (eg Towers of Hanoi) can be solved. Typically it is required when multiple predicates affect the same variables.
 
 
 ### 2.1.2 Shapes
@@ -116,18 +122,14 @@ AP supports a number of 'types':
 * Integer
 * Boolean - ```true``` or ```false```
 * Function - Allocates a property based on some function, for example, ```distribute_horizontal```
-* Colour - either a colour constant (see below), the random_colour function (see section 2.5), or an rgb value specified, for example, by (rgb 232 232 323)
+* Color - either a colour constant, eg ```BLACK```, (see below), the ```RANDOMCOLOR``` function (see section 2.5), or an rgb value, for example ```#FAA2B5```
 * Constant - A number of pre-defined constants exist. These should by convention be written in CAPITALS.
-	* Colours: BLACK, RED, BLUE, GREEN, YELLOW
-	* Integer Constants: PANEL_SIZE
-	* ```NULL``` - A ```NULL``` value means the user is not specifying the property. ```NULL``` properties are typically be set by Predicate rules.
-
+  * Colours: BLACK, RED, BLUE, GREEN, YELLOW
+  * Integer Constants: PANEL_SIZE
+  * ```NULL``` - A ```NULL``` value means the user is not specifying the property. ```NULL``` properties are typically be set by Predicate rules.
 
 
 A list of the types to which each property can be assigned is in section 2.4.
-
-
-
 
 
 
@@ -139,10 +141,12 @@ A number of Object Properties can be assigned for each Shape.
 * showname (Boolean): whether to display the shape's name on screen
 * x (Integer): x position of the shape on screen
 * y (Integer): y position of the shape on screen
-* colour (Colour): Colour of the shape
+* colour (Colour): Colour of the shape. Can be a constant (eg ```BLACK```), an RGB value (eg ```#FAA2B5```), or the custom value ```RANDOMCOLOR``` which picks a random RGB value.
 * width (Integer): Width of the object on screen
 * height: Height of the object on screen
 * base64image: A Base64 string representing the shape's image. Base64 images can be generated at https://www.base64decode.org/
+* depth: Depth of the object on screen. Higher depth objects are drawn behind lower depths.
+* label: Optional attribute specifying a string label to be drawn on the object.
 
 
 
@@ -156,26 +160,54 @@ Functions have two uses:
 List of functions:
 
 
-Distribution:
+**Distribution**
 Distribution functions 'distribute' objects in a certain manner. They are used to lay objects out on the screen. All objects for which the same parameters of 'distribute' are called will be included in the distribution. Distribution works such that objects will be placed in a certain area without overlapping. Between animation frames, objects will not move (unless their positions are reset).
 
-* distribute_horizontal
-	* This function distributes objects along a horizontal plane. 
-* distribute_vertical
-	* This function distributes objects along a vertical plane. 
-* distribute_grid
-	* This function distributes objects within a grid-like structure 
-* distribute_within_object
-	* This function distributes objects within the bounds of another object. For example, cars can be distributed within a city.
+* **distributex**
+  * This function distributes objects along a horizontal plane. 
+  * Parameter ```spacebtwn``` governs the space between objects
+  * Example of use:
+  * ``` (assign (?x x) (function distributex (objects ?x) (settings (spacebtwn 40)))) ```
+* **distributey**
+  * This function distributes objects along a vertical plane. 
+  * Parameter ```spacebtwn``` governs the space between objects
+  * Example of use:
+  * ```               (assign (?city y) (function distributey (objects ?city)))```
+* **distribute_grid_around_point**
+  * This function distributes objects within a grid-like structure 
+  *  Parameter ```spacebtwn``` governs the space between objects
+  * Example of use:
+  * ```  (assign (?p x y) (function distribute_grid_around_point (objects ?p)))```
+* **distribute_within_objects_vertical**
+  * This function distributes objects vertically within the bounds of another object. For example, cars can be distributed within a city.
+  *   Parameter ```spacebtwn``` governs the space between objects
+  * Example of use:
+  * ```(assign (?r x y) (function distribute_within_objects_vertical (objects ?r ?x)(settings (spacebtw 20))))```
+* **distribute_within_objects_horizontal**
+  * This function distributes objects horizontally within the bounds of another object. For example, cars can be distributed within a city.
+  * Example of use:
+  * ``` (assign (?obj x) (function distribute_within_objects_horizontal (objects ?obj ?loc)))```
 
 
-Other:
-* draw_line
-	* Draws a line between two objects
-* check_smaller
-	* Specifies that one object is smaller than another. Useful in domains such as the Towers of Hanoi
-* random_colour
-	* Specifies that an object has a random colour.
+**Other Functions**
+* **calculate_label**
+    * ```calculate_label (objects ?obj1 ?obj2))``` displays a numeric label for obj1, based on the number of obj2 objects with this function applied to them. For example, if there are 3 instances of calculate label for ```(a b) (a c) (a d)```, then object ```a``` will have a label of "3". Useful for displaying how many objects are inside another object
+    * Example of use:
+    * ```                (assign (?obj2 label) (function calculate_label (objects ?obj1 ?obj2)))```
+* **align_middle**
+    * ```align_middle (objects ?x ?y)``` aligns objects x to the middle of  object y
+    * Example of use:
+    * ``` (assign (?x x) (function align_middle (objects ?x ?y)))```
+* **apply_smaller**
+    * apply_smaller (objects ?x ?y) sets ?y to be displayed smaller than ?x. 
+    * the parameter ```increase_width``` specifies the extend to which an object is wider
+    * Example of us:
+    * ``` (assign (?x width) (function apply_smaller (objects ?x ?y) (settings (increase_width 6))))```
+
+* **draw_line**
+  * Draws a line between two objects
+  * Example of use:
+  * ```(action (function draw_line (objects ?x ?y)))```
 
 
 # 3 Worked Example
@@ -194,14 +226,14 @@ The animation profile is as follows (comments  added with a # symbol):
 ```
 (define (animation blocksworld)
 
-	# the 'on' predicate takes two parameters (objects) ?x and ?y
+  # the 'on' predicate takes two parameters (objects) ?x and ?y
   (:predicate on
                  :parameters (?x ?y)
                  :effect( 
 
 
-				# the effect of the `on` predicate is that ?x's x value is equal to ?y's x value, and that ?x's y value is equal to ?y's ?y value plus its height.
-				# that is, object ?x is on top of object ?y
+        # the effect of the `on` predicate is that ?x's x value is equal to ?y's x value, and that ?x's y value is equal to ?y's ?y value plus its height.
+        # that is, object ?x is on top of object ?y
                  (equal (?x x y) (?y x (sum y height)) 
                  )
   )
@@ -212,8 +244,8 @@ The animation profile is as follows (comments  added with a # symbol):
                  :effect(
 
 
-				# the predicate on-table specifies that the object should be distributed horizontally, with a y value of 0
-				# and a margin of 5
+        # the predicate on-table specifies that the object should be distributed horizontally, with a y value of 0
+        # and a margin of 5
                  (equal (?x x y) (function distribute_horizontal (margin 5)(y 0))
                  )
 
@@ -228,35 +260,35 @@ The animation profile is as follows (comments  added with a # symbol):
 
 
 
-	# Below are the list of shapes
+  # Below are the list of shapes
 
 
   (:shape block
-				#block shape is the default shape type. All domain objects have this type by default
-			  :type default
+        #block shape is the default shape type. All domain objects have this type by default
+        :type default
 
 
-				# all 'shape' objects have the following properties
+        # all 'shape' objects have the following properties
               :properties(
                 (showname false)
                 (x false)
                 (y false)
 
 
-				# randomcolor assigns a random color to the object
+        # randomcolor assigns a random color to the object
                 (color (function randomcolor))
                 (width 80)
                 (height 80)
 
 
-				# this is a base64 string representing the image of the object
+        # this is a base64 string representing the image of the object
                 (base64image iVBORw0KGg...oAA)
               )
   )
 
   (:shape claw
-				#custom object types do not appear in the domain
-				#they are mainly cosmetic. This object represents the claw (the claw does not move)
+        #custom object types do not appear in the domain
+        #they are mainly cosmetic. This object represents the claw (the claw does not move)
               :type custom
               :properties(
                 (showname false)
@@ -284,16 +316,20 @@ The animation profile is as follows (comments  added with a # symbol):
 )
 ```
 
+**Other examples**
+
+Three more APs are included in the repository under ```Test/testfile/AnimationPDDL/```
+
 # 4 Extending the Language
 
 
 ## 4.1 Extension Areas
 
-There are two primary methods of extending the AP language:	
+There are two primary methods of extending the AP language: 
 1. Object properties (section 2.4)
-	* This is for simple ways of extending the appearance of objects, eg adding rotation or the font of 'showname'
+  * This is for simple ways of extending the appearance of objects, eg adding rotation or the font of 'showname'
 2. Adding functions (section 2.5)
-	* This is for more complex ways of describing object behaviours and interactions, eg adding new object layout options
+  * This is for more complex ways of describing object behaviours and interactions, eg adding new object layout options
 
 
 ## 4.2 Extension Steps

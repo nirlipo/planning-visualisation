@@ -53,6 +53,8 @@ namespace Visualiser
         public ScrollRect SubgoalScrollRect;
         public Image PlayButtonSprite;
 
+
+        // Sprite objects
         Sprite PlaySprite;
         Sprite PauseSprite;
 
@@ -66,7 +68,9 @@ namespace Visualiser
         bool playing;   // Indicates if palying animation
         int storedStage; // Stores the stage index before jumping to the final stage
         string vf;
-        // Use this for initialization
+        
+        
+        // Intialization function 
         void Start()
         {
             // Reads visualisation file data
@@ -96,7 +100,9 @@ namespace Visualiser
             {
                 visualSolution.subgoalPool.Add(sp.m_keys[i], sp.m_values[i]);
             }
-            // -------- 
+            // JSON parsing end
+
+            // Intialize sprite objects
             PlaySprite = Resources.Load<Sprite>("PlaySprite");
             PauseSprite = Resources.Load<Sprite>("PauseSprite");
 
@@ -111,6 +117,8 @@ namespace Visualiser
 			}
         }
 
+
+        // This function is used to render subgoals from the solutionobject
         public void RenderSubgoals()
         {
             foreach (var subgoal in visualSolution.subgoalPool)
@@ -153,6 +161,7 @@ namespace Visualiser
             }
         }
 
+        //  This function is used to render steps from the solutionobject
         public void RenderSteps()
         {
             var stepButtonPrefab = Resources.Load<GameObject>("StepButton");
@@ -261,23 +270,8 @@ namespace Visualiser
         // UI event handler: Jumps to user manual page 
         public void Help()
         {
-            // get the current URL
-        var currentURL = Application.absoluteURL;
-
-        if (currentURL != "") {
-
-            // remove the unity port and trailing slash from the url
-            var uri = new Uri( currentURL );
-            var clean = uri.GetComponents( UriComponents.AbsoluteUri & ~UriComponents.Port,
-                               UriFormat.UriEscaped );
-            if (clean[clean.Length - 1]=='/') {
-                clean = clean.Remove(clean.Length - 1);
-            }
-            
-            // Add the django port and help directory to the url, and open it
-            var newURL = clean+":8000/help/";
-            Application.OpenURL(newURL);
-        }
+            var newURL = "https://planning-visualisation-solver.herokuapp.com/help/";
+            Application.OpenURL (newURL);
         }
         #endregion
 
@@ -299,6 +293,7 @@ namespace Visualiser
             }
         }
 
+        // Check fucntion to make sure the animation rendering is successful
         bool AreAllAnimationsFinished()
         {
             foreach (GameObject spriteobject in spritePool.Values)
@@ -311,6 +306,7 @@ namespace Visualiser
             return true;
         }
 
+        // Download fucntion call for vfg file
         public void DownloadVF()
         {
             Download(vf, "text/plain", "vf_out.vfg");

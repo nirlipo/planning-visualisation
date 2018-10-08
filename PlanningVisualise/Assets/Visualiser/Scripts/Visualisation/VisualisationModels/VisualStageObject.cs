@@ -18,7 +18,9 @@ using System;
 
 namespace Visualiser
 {
-    /* This class contains all the VisualSpriteObjects at this stage object */
+    /* This class contains all the VisualSpriteObjects at this stage object 
+     * datastructure for visual stage object
+     */
     [Serializable]
     public class VisualStageObject
     {

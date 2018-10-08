@@ -1,10 +1,23 @@
-﻿using System;
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: Governs animatin of objects, including subgoal darkening
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
+
+ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Visualiser;
 using UnityEngine.SceneManagement;
+
+
 
 namespace VisualSpriteAnimation {
 
@@ -16,6 +29,7 @@ namespace VisualSpriteAnimation {
 		bool highlighting;
 		public const float subgoal_brightness = (float)0.5;
 
+		// returns whether the object is highlighting
 		public bool Highlighting 
 		{   get 
 			{
