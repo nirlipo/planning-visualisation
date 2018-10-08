@@ -21,7 +21,7 @@ Install Unity (See README.md)
 ## 2.2 Usage
 
 
-Press 'play' to view the animation. Other control buttons exist (pause, reset, step).
+See the User Manual, which is accessible from within the application, or with the file `User Manual.html`.
 
 
 ## 2.3 Development
@@ -85,7 +85,6 @@ Output: a visualisation of the visualisation file
 |   |   \---Visualisation
 |   |       +---AnimationControl
 |   |       +---TransferPack
-|   |       |   \---TransferItemPack
 |   |       \---VisualisationModels
 |   \---Sprites
 \---WebGLTemplates
