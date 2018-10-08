@@ -1,5 +1,13 @@
 (define (animation blocksworld)
+
+; Defines the Animation profile for BlocksWorld
+; See worked example in AP Guide.md for more comments.
+; Available at https://bitbucket.org/planning-researchers/classical-domains/src/208a850d2ff2a27068329ad578ad99af9ec7e5c5/classical/?at=master
+; 08/10/2018
+; Written for Project Planning Visualisation
+; By Yi Ding
  
+ ; Specifies one object is on top of the other
   (:predicate on
                  :parameters (?x ?y)
                  :effect(
@@ -9,6 +17,7 @@
   )
  
 
+; Specifies an object is on the table
   (:predicate on-table
                  :parameters (?x)
                  :effect(
@@ -16,7 +25,8 @@
                  (equal (?x y) 0)
                  )
    )
- 
+
+ ; Specifies an object is being held by the vlaw
   (:predicate holding
  
                  :parameters (?x)
@@ -27,6 +37,7 @@
                  )
  
   )
+  ; Visual Object for the Block (default object)
   (:visual block
               :type default
               :properties(
@@ -40,6 +51,7 @@
               )
   )
  
+ ; Custom object representing the claw
   (:visual claw
               :type custom
               :objects claw
@@ -54,6 +66,8 @@
                 (depth 1)
                )
   )
+
+  ; Custom object representing the board (ie rectangle on which blocks are placed)
   (:visual board
               :type custom
               :objects board
