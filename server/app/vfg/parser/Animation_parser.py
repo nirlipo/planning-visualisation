@@ -28,8 +28,8 @@ import Adapter
 def get_animation_profile(animation_pddl):
     # --------------------------------------------
     # This is just an example
-    text_to_parse = animation_pddl.lower()
-
+    text_to_parse = animation_pddl
+    # text_to_parse = animation_pddl.lower()
 
 
     # --------------------------------------------
