@@ -23,6 +23,7 @@ using Debug = UnityEngine.Debug;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
+using UnityEngine.SceneManagement;
 
 namespace Visualiser
 {
@@ -69,12 +70,16 @@ namespace Visualiser
         void Start()
         {
             // Reads visualisation file data
+		try{
             var parameters = coordinator.FetchParameters("Visualisation") as string;
-            Debug.Log(parameters);
             vf = parameters;
             // Creates a visual solution
             visualSolution = JsonUtility.FromJson<VisualSolutionObject>(parameters);
-
+			if (visualSolution.message != ""){
+				coordinator.PushParameters("NetworkError",visualSolution.message);
+				SceneManager.LoadScene("NetworkError");
+				return;
+			}
             // ------- json parsing work around
             var jo = JsonConvert.DeserializeObject<Dictionary<string, object>>(parameters);
             var smjo = JObject.FromObject(jo["subgoalMap"]);
@@ -97,9 +102,13 @@ namespace Visualiser
 
             // Renders the first frame of the visualisation
             var visualStage = visualSolution.NextStage();
-            RenderSubgoals();
-            RenderSteps();
-            RenderFrame(visualStage);
+			
+	            RenderSubgoals();
+	            RenderSteps();
+	            RenderFrame(visualStage);
+			}catch (Exception e){
+				//SceneManager.LoadScene("NetworkError");
+			}
         }
 
         public void RenderSubgoals()
@@ -236,8 +245,18 @@ namespace Visualiser
             PlayButtonSprite.sprite = PlaySprite;
         }
 
-
-
+	public void disableallstepbtn(GameObject steps){
+			Button[] btnsteps = steps.GetComponentsInChildren<Button> ();
+			foreach (var step in btnsteps) {
+				step.interactable = false;
+			}
+	}
+	public void enableallstepbtn(GameObject steps){
+		Button[] btnsteps = steps.GetComponentsInChildren<Button> ();
+		foreach (var step in btnsteps) {
+			step.interactable = true;
+		}
+	}
 
         // UI event handler: Jumps to user manual page 
         public void Help()
@@ -294,7 +313,7 @@ namespace Visualiser
 
         public void DownloadVF()
         {
-            Download(vf, "text/plain", "vf_out.txt");
+            Download(vf, "text/plain", "vf_out.vfg");
         }
 
         #region Stage Rendering
