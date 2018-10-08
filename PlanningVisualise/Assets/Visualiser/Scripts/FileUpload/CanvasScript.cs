@@ -23,6 +23,10 @@ public class CanvasScript : MonoBehaviour
 {
     [DllImport("__Internal")]
     static extern void UploaderCaptureClick(string extensionptr);
+
+	[DllImport("__Internal")]
+    private static extern void PasteHereWindow();
+    
     InputField textfield;
     string type;
     string name;
@@ -80,7 +84,20 @@ public class CanvasScript : MonoBehaviour
         solverAddress = GameObject.Find("CustomSolverInput").GetComponent<InputField>().text;
         ScenesCoordinator.Coordinator.setCustomSolver(solverAddress);
     }
-   
+
+	public void onPastedbutton()
+	{
+#if UNITY_EDITOR
+#else
+	PasteHereWindow()
+#endif
+    }
+	//Paste text from pop up prompt window
+	public void GetPastedText(string newpastedtext)
+    {
+        GameObject.Find("CustomSolverInput").GetComponent<InputField>().text = newpastedtext;
+    }
+    
     //trigger open file panel
     public void OnButtonPointerDown(string type)
     {
@@ -90,7 +107,7 @@ public class CanvasScript : MonoBehaviour
 		if (type == "Animation"){
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
 		}else if (type == "visualisationFile"){
-			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","txt");
+			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","vfg");
 		}else {
 			path = UnityEditor.EditorUtility.OpenFilePanel("Open image","","pddl");
 		}
@@ -102,7 +119,7 @@ public class CanvasScript : MonoBehaviour
 		if (type == "Animation"){
         	UploaderCaptureClick(".pddl");
         } else if (type == "visualisationFile"){
-        	UploaderCaptureClick(".txt");
+        	UploaderCaptureClick(".vfg");
         } else {
         	UploaderCaptureClick(".pddl");
         }

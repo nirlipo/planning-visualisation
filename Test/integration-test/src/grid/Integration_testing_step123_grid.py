@@ -4,7 +4,7 @@ import unittest
 import json
 import re
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/')
+sys.path.append('../../../../server/app/vfg/')
 import pparser.plan_generator as step1
 import pparser.problem_parser as step2
 import pparser.predicates_generator as step3
