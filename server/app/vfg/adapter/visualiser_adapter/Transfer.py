@@ -14,7 +14,7 @@
 import copy
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' +"vfg/solver"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../../' +"solver"))
 import Solver
 import Initialise
 import json

@@ -17,6 +17,7 @@ import json
 import copy
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../' +"adapter/ap_adapter"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../' +"extension"))
 import Custom_functions
 import Adapter
 #######################################################
@@ -44,15 +45,18 @@ def get_animation_profile(animation_pddl):
               "visual": {},
               "imageTable": {"m_keys": [],
                              "m_values": []}}
-    parseVisual(copy.copy(text_to_parse),result)
-
-    parseImage(copy.copy(text_to_parse), result)
-
-    parsePredicate(copy.copy(text_to_parse), result)
-
+    parse(copy.copy(text_to_parse),result)
     Adapter.transfer(result)
     return json.dumps(result)
-
+def parse(text,result):
+    text_blocks=get_bracket(text,2)
+    for text_block in text_blocks:
+        if "visual" in text_block:
+            parseVisual(text_block,result)
+        elif "predicate" in text_block:
+            parsePredicate(text_block, result)
+        elif "image" in text_block:
+            parseImage(text_block, result)
 def parseVisual(text_to_parse,result):
     # --------------------------------------------
     # Patterns that are going to be used for Visual
@@ -389,4 +393,6 @@ def parse_rules(text,require_dic):
 
 
 if __name__ == "__main__":
-    get_animation_profile()
+    file = open("blockanimation.pddl")
+    content = file.read()
+    get_animation_profile(content)
