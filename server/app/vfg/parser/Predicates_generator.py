@@ -101,7 +101,7 @@ def get_stages(plan, problem_dic, problem_file, predicates_list):
         actionlist = plan['result']['plan']
         #print(actionlist)
     except KeyError:
-        sys.exit("No plan has been returned")
+        raise Exception("No plan has been returned")
     cleanactionlist = remove_unused_char(actionlist)
 
     # Adding initial stage
