@@ -60,13 +60,9 @@ class LinkUploadView(APIView):
                 url_link = "http://solver.planning.domains/solve"
 
             animation_profile = json.loads(Animation_parser.get_animation_profile(animation_file))
-            print(animation_profile["predicates_rules"])
-            print ("!!!!!!",type(animation_profile))
-            print(animation_profile)
             predicates_list = Domain_parser.get_domain_json(domain_file)
             plan = Plan_generator.get_plan(domain_file, problem_file, url_link)
             problem_json = Problem_parser.get_problem_json(problem_file,predicates_list)
-
             stages = Predicates_generator.get_stages(plan, problem_json, problem_file,predicates_list)
             objects_dic = Initialise.initialise_objects(stages["objects"], animation_profile)
 

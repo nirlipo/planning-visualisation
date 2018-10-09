@@ -19,11 +19,11 @@ def get_subgoal(stages,final_goal,actionlist):
     # define subgoals dict
     subgoals = []
     finalstage = final_goal
+
     action_name_list = []
     for counter in range(0, len(actionlist)):
         action_name = get_action_name(actionlist[counter]['action'])
         action_name_list.append(action_name)
-
         # predicate in each step
     for a in stages:
         # predicate in final step
@@ -46,6 +46,20 @@ def get_subgoal(stages,final_goal,actionlist):
 
                     subgoals.append(sub)
             stepindex = stepindex + 1
+        else:
+            for item in a["items"]:
+                if item in finalstage:
+                    str = "(" + item["name"] + " "
+                    for name in item["objectNames"]:
+                        str = str + name + " "
+
+                    str += ")"
+                    objectlist = item["objectNames"]
+                    stepNames = "Initial Stage"
+                    sub = {"name": str, "stepNum": 0, "stepName": stepNames, "objects": objectlist}
+
+                    subgoals.append(sub)
+
     return subgoals
 
 #######################################################
