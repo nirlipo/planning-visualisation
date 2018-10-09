@@ -1,5 +1,14 @@
 (define (animation grid)
 
+; Defines the Animation profile for Grid
+; See AP Guide.md for information on the language.
+; Available at https://bitbucket.org/planning-researchers/classical-domains/src/208a850d2ff2a27068329ad578ad99af9ec7e5c5/classical/?at=master
+; 08/10/2018
+; Written for Project Planning Visualisation
+; By Yi Ding
+
+; Specifies that two objects are connected
+; We just draw a line between them
    (:predicate conn
                :parameters (?x ?y)
                :effect(
@@ -7,6 +16,8 @@
                )
   )
 
+; Specifies that a key has a certain shape
+; We just set the key name to the name of a prefabImage
   (:predicate key-shape
                :parameters (?k ?s)
                :effect(
@@ -14,6 +25,8 @@
                )
   )
  
+ ; Specifies that a lock has a certain shape
+ ; Again we just set the lock name to the name of a prefabImage
   (:predicate lock-shape
                :parameters (?x ?s)
                :effect(
@@ -21,6 +34,9 @@
                )
   )
  
+ ; Specifies that an object is at another object
+ ; Used for placing objects at nodes
+ ; We use teh distribute function to achieve this
   (:predicate at
                :parameters (?r ?x)
                :effect(
@@ -28,6 +44,8 @@
                )
   )
 
+; Specifies that the robot is at a position
+; We place the robot's x and y coordinates at this point
   (:predicate at-robot
                :parameters (?x)
                :custom robot
@@ -37,6 +55,11 @@
                )
   )
 
+; Specifies that an object is a place (node)
+; Here we just distribute the objects in a grid formation on screen
+; This distribute function automatically aligns objects on-screen based on any
+; numbers detected in the objects' name. Hence we require that nodes are named according
+; to the convention node0-0, node2-1, etc, or similar.
   (:predicate place
                :parameters (?p)
                :effect(
@@ -44,7 +67,7 @@
                )
   )
 
-
+; Specifies that a lock is locked. We just change its colour to pink
   (:predicate locked
                :parameters (?x)
                :effect(
@@ -52,6 +75,7 @@
                )
   )
 
+; Specifies that an object is being held by the key. We just place it near the robot
   (:predicate holding
                :parameters (?k)
                :custom robot
@@ -61,6 +85,8 @@
                )
   )
 
+; Specifies that a lock is open (unlocked)
+; We just make it green
   (:predicate open
                :parameters (?x)
                :effect(
@@ -68,6 +94,8 @@
                )
   )
 
+; Custom object representing the robot
+; Moves around according to at-robot predicate
   (:visual robot
             :type custom
             :objects robot
@@ -83,6 +111,7 @@
             )
   )
 
+; Predefined circle object (node)
   (:visual circle
             :type predefine
             :objects circle
@@ -92,6 +121,7 @@
             )
   )
 
+; Predefined square object (node)
   (:visual square
             :type predefine
             :objects square
@@ -101,6 +131,7 @@
           )
   )
 
+; Predefined triangle object (node)
   (:visual triangle
             :type predefine
             :objects triangle
@@ -110,6 +141,7 @@
           )
   )
 
+; Predefined diamond object (node)
   (:visual diamond
             :type predefine
             :objects diamond
@@ -119,6 +151,8 @@
           )
   )
 
+; Predefined key object
+; By default is a circle, but this can be modified by key-shape predicate
   (:visual key
             :type predefine
             :objects (key0 key1 key2 key3 key4 key5 key6 key7 key8 key9 key10 key11)
@@ -133,6 +167,8 @@
               (depth 3)
           )
   )
+
+; Default node type. Circle shape by default.
   (:visual node
             :type default
             :properties(

@@ -1,5 +1,14 @@
-﻿/* SceneManager manage the all the scene transaction and destroying non-DetroyOnLoad gameobject
- * when resetting*/
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ * 
+ * Purpose: Manage the all the scene transaction and destroying non-DetroyOnLoad gameobject
+ * when resetting
+ * Authors: Tom, Collin, Hugo and Sharukh
+ * Date: 14/08/2018
+ * 
+ * /
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  */
 
 using System.Collections;
 using System.Collections.Generic;
@@ -55,29 +64,9 @@ public class ScreenManager : MonoBehaviour
     public void gotoDocumentation()
     {
 
-		var newURL = "https://immense-bastion-42146.herokuapp.com/help/";
+		var newURL = "https://planning-visualisation-solver.herokuapp.com/help/";
 		Application.OpenURL (newURL);
 
-        // get the current URL
-        /*var currentURL = Application.absoluteURL;
-
-		if (currentURL != "") {
-
-			// remove the unity port and trailing slash from the url
-			var uri = new Uri (currentURL);
-			var clean = uri.GetComponents (UriComponents.AbsoluteUri & ~UriComponents.Port,
-				                     UriFormat.UriEscaped);
-			if (clean [clean.Length - 1] == '/') {
-				clean = clean.Remove (clean.Length - 1);
-			}
-            
-			// Add the django port and help directory to the url, and open it
-			var newURL = clean + ":8000/help/";
-			Application.OpenURL (newURL);
-		} else {
-			var newURL = "https://immense-bastion-42146.herokuapp.com/help/";
-			Application.OpenURL (newURL);
-		}*/
     }
 
 }

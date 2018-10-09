@@ -1,5 +1,14 @@
 (define (animation hanoi)
 
+; Defines the Animation profile for Towers of Hanoi
+; See AP Guide.md for information on the language.
+; Available at https://bitbucket.org/planning-researchers/classical-domains/src/208a850d2ff2a27068329ad578ad99af9ec7e5c5/classical/?at=master
+; 08/10/2018
+; Written for Project Planning Visualisation
+; By Yi Ding
+
+; Specifies that an object is on top of another object
+; align_middle is used to align the x values of the objects
   (:predicate on
                :parameters (?x ?y)
                :priority 1
@@ -8,6 +17,8 @@
                (equal (?x y) (add (?y y) 20 1))
   )
   )
+; Specifies that an object is smaller than another object
+; apply_smaller is used to achieve this
    (:predicate smaller
                :parameters (?x ?y)
                :priority 0
@@ -16,7 +27,7 @@
                )
   )
 
-
+; Visual object representing the leftmost peg
   (:visual peg1
             :type predefine
             :objects (peg1)
@@ -32,6 +43,7 @@
             )
   )
 
+; Visual object representing the middle peg
    (:visual peg2
             :type predefine
             :objects (peg2)
@@ -47,6 +59,7 @@
             )
   )
 
+; Visual object representing the rightmost peg
    (:visual peg3
             :type predefine
             :objects (peg3)
@@ -62,6 +75,7 @@
             )
   )
 
+; Default visual object representing a disk.
   (:visual disk
             :type default
             :properties(
@@ -75,6 +89,7 @@
               (depth 1)
           )
   )
+; Custom object representing the board on which the pegs sit
     (:visual board
             :type custom
             :objects board

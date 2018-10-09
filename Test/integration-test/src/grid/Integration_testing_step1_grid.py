@@ -1,9 +1,9 @@
 import unittest
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/')
+sys.path.append('../../../../server/app/vfg/')
 import pparser.plan_generator as step1
 
-# Test plan_generator.py
+# Test Plan_generator.py
 class integration_testing_step1(unittest.TestCase):
 
     # test if the inputs are all correct, then the api can return

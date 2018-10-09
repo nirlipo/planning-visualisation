@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/pparser')
+sys.path.append('../../../../server/app/vfg/parser')
 import unittest
 import plan_generator as step1
 import problem_parser as step2

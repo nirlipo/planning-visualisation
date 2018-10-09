@@ -1,13 +1,13 @@
 import unittest
 import sys
-sys.path.append('../../../../server/PddLparser/visualiserFile/')
+sys.path.append('../../../../server/app/vfg/')
 import pparser.plan_generator as step1
 import pparser.domain_parser as step2
 import os
 import shutil
 import hashlib
-# Test plan_generator.py
-#      domain_parser.py
+# Test Plan_generator.py
+#      Domain_parser.py
 class integration_testing_step12(unittest.TestCase):
 
     # check that none of the two components can change the content of domain file

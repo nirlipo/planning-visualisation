@@ -1,11 +1,22 @@
 (define (animation logistics-strips)
+
+; Defines the Animation profile for Logistics
+; See AP Guide.md for information on the language.
+; Available at https://bitbucket.org/planning-researchers/classical-domains/src/208a850d2ff2a27068329ad578ad99af9ec7e5c5/classical/?at=master
+; 08/10/2018
+; Written for Project Planning Visualisation
+; By Yi Ding
  
+; Specifies that an object is a city
+; distributey is used to distribute the cities vertically onscreen
   (:predicate city
                :parameters (?city)
                :effect (
                (assign (?city y) (function distributey (objects ?city)))
                 )
   )
+; Specifies that an object is in a city
+; Distribution function used to distribute objects inside the city horizontally
    (:predicate in-city
                :parameters (?obj ?city)
                :effect(
@@ -13,6 +24,8 @@
                (assign (?obj x) (function distribute_within_objects_horizontal (objects ?obj ?city)))
                )
   )
+; Specifies that an object is at a location
+; Distribution function used to distribute objects inside the other object
    (:predicate at
                :parameters (?obj ?loc)
                :effect(
@@ -20,6 +33,8 @@
                (assign (?obj x) (function distribute_within_objects_horizontal (objects ?obj ?loc)))
                )
   )
+; Specifies that an object is inside another object
+; calculate_label is used to set a visual cue for the number of objects contained
    (:predicate in
                :parameters (?obj1 ?obj2)
                :effect(
@@ -28,7 +43,8 @@
                (assign (?obj2 label) (function calculate_label (objects ?obj1 ?obj2)))
                )
   )
- 
+
+; Default object, representing packages
   (:visual package
             :type default
             :properties(
@@ -43,6 +59,7 @@
             )
   )
 
+; Predefined object, representing trucks
   (:visual truck
             :type predefine
             :objects (truck1 truck2 truck3 truck4 truck5 truck6)
@@ -60,6 +77,7 @@
             )
   )
 
+; Predefined object, representing planes
   (:visual plane
             :type predefine
             :objects (plane1 plane2)
@@ -76,6 +94,7 @@
               (label 0)
             )
   )
+; Predefined object, representing suburbs
   (:visual hub
             :type predefine
             :objects (city6-1 city5-1
@@ -92,6 +111,7 @@
             )
   )
 
+; Predefined object, representing cities
   (:visual city
             :type predefine
             :objects (city6 city5 city4 city3 city2 city1)
