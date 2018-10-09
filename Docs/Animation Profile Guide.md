@@ -87,7 +87,10 @@ An example of a Shape block is:
 
 Shape blocks contain:
 * The name of the shape, for example ```block```
-* The type of the object. Types can either be ```default``` or ```custom```. ```default``` objects apply to any objects mentioned in the problem file. A 'block' in the problem file is an example of a default object. ```custom``` objects are additional to the problem file, and are created by the user for visual effect. The 'claw' is an example of a custom object - it mainly serves a visual purpose and is not specified in the problem or domain file.
+* The type of the object. Types can either be ```default```, ```custom```, or ```predefine```. 
+  * ```default``` objects apply to any objects mentioned in the problem file. A 'block' in the problem file is an example of a default object. 
+  * ```custom``` objects are additional to the problem file, and are created by the user for visual effect. The 'claw' is an example of a custom object - it mainly serves a visual purpose and is not specified in the problem or domain file. The robot in the Grid domain is another example of a custom object - it is not explicitly mentioned in the domain objects, but its behaviour is still fairly dynamic (moving around etc)
+  * ```predefine``` These objects are assigned only to domain objects whose name matches any of the names in the :object field. This is used to apply properties to domain objects with specific naming conventions, for example, `key1`, `key2`, ... in the Grid domain.
 * Object properties. These properties govern the position and appearance of the object. See section 2.4 for a detailed list of object properties.
 
 ## 2.2 Syntax
@@ -316,9 +319,8 @@ The animation profile is as follows (comments  added with a # symbol):
 )
 ```
 
-**Other examples**
 
-Three more APs are included in the repository under ```Test/testfile/AnimationPDDL/```
+Three other Animation Profiles are provided in the source code. Each of these is commented for readability.
 
 # 4 Extending the Language
 
