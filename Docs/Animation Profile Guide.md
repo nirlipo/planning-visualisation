@@ -320,7 +320,7 @@ The animation profile is as follows (comments  added with a # symbol):
 ```
 
 
-Three other Animation Profiles are provided in the source code. Each of these is commented for readability.
+Three other Animation Profiles are provided in the source code under Test/Sample Files. Each of these is commented for readability.
 
 # 4 Extending the Language
 
