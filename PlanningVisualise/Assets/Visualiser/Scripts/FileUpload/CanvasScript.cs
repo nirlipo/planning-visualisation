@@ -89,7 +89,7 @@ public class CanvasScript : MonoBehaviour
 	{
 #if UNITY_EDITOR
 #else
-	PasteHereWindow()
+	PasteHereWindow();
 #endif
     }
 	//Paste text from pop up prompt window
