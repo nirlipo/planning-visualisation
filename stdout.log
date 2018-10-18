@@ -1,0 +1,6 @@
+DisplayProgressbar: Unity license
+Cancelling DisplayDialog: Failed to activate/update license. Missing or bad username and password. Please try again using valid credentials or contact support@unity3d.com
+This should not be called in batch mode.
+ 
+(Filename: /Users/builduser/buildslave/unity/build/Editor/Platform/OSX/EditorUtility.mm Line: 297)
+

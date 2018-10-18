@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 35a697fb375014d7eb5ff3869c4c487d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - AniFrame: {instanceID: 0}
+  - InforScreen: {instanceID: 0}
+  - Speedbar: {instanceID: 0}
+  - buttonPrefab: {instanceID: 0}
+  - stepPanel: {fileID: 224012961176344426, guid: 3f9c92c038b49b349a65254d18faf1a3,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
