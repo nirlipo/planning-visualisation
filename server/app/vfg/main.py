@@ -1,5 +1,11 @@
-"""This module intergrate all the other module, it takes the domain PDDL, problem PDDL, and 
+"""
+This file is used for testing the functionality.
+The views.py in the parent folder is the main function on the server.
+
+
+This module intergrate all the other module, it takes the domain PDDL, problem PDDL, and
 animation profile, and it write the visualisation file to visualsation.json.
+
 """
 # -----------------------------Authorship-----------------------------------------
 # -- Authors  : Sai
@@ -40,8 +46,8 @@ def get_visualisation_file():
         # read animation profile from json
         file = open(animation_file)
         content = file.read()
-        plan = parser.Plan_generator.get_plan(open(domain_file, 'r').read(),
-                                              open(problem_file, 'r').read(),
+        plan = parser.Plan_generator.get_plan(open(domain_file, 'r',encoding='utf-8-sig').read(),
+                                              open(problem_file, 'r',encoding='utf-8-sig').read(),
                                               url_link)
 
         predicates_list = parser.Domain_parser.get_domain_json(open(domain_file, 'r').read())
