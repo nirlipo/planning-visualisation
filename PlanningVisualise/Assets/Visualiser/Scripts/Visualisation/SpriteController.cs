@@ -51,7 +51,7 @@ namespace Visualiser
                 // Updates color
                 var imgComp = gameObject.GetComponent<Image>();
 				string label;
-				if (visualSprite.showLabel) {
+				if (visualSprite.showlabel) {
 					Debug.Log (vso.label);
 					gameObject.GetComponentInChildren<Text> ().text = visualSprite.label;
 				}
@@ -77,14 +77,14 @@ namespace Visualiser
             // Sets up size, position and rotation
             UpdateRect();
             // Renders name text on the sprite
-			if (visualSprite.showName || visualSprite.showLabel )
+			if (visualSprite.showname || visualSprite.showlabel )
             {
                 var emptyUIObject = Resources.Load<GameObject>("EmptyUIObject");
                 var spriteName = Instantiate(emptyUIObject);
                 var label = spriteName.AddComponent<Text>();
                 label.font = Resources.Load<Font>("Arial");
                 label.color = Color.black;
-				if (visualSprite.showName)
+				if (visualSprite.showname)
                 	label.text = visualSprite.name;
 				else
 					label.text = visualSprite.label;

@@ -407,13 +407,13 @@ namespace Visualiser
                 else
                 {
                     GameObject sprite;
-                    var imageKey = visualSprite.prefabImage;
+                    var imageKey = visualSprite.prefabimage;
                     var imageString = visualSolution.FetchImageString(imageKey);
                     sprite = imageString != null
                         // Render custom prefab image
                         ? UIVisualSpriteFactory.CreateCustom(imageString)
                         // Render built-in prefab
-                        : UIVisualSpriteFactory.CreateBuiltIn(visualSprite.prefabImage);
+                        : UIVisualSpriteFactory.CreateBuiltIn(visualSprite.prefabimage);
                     // Set parent relationship
                     sprite.transform.SetParent(AniFrame.transform, false);
                     // Store in sprite pool

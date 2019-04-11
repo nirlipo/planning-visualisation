@@ -24,10 +24,10 @@ namespace Visualiser
     public class VisualSpriteObject
     {
         public string name;
-        public string prefabImage;
+        public string prefabimage;
         public Color color;
-        public bool showName;
-		public bool showLabel;
+        public bool showname;
+		public bool showlabel;
 		public string label;
         public float minX;
         public float maxX;
@@ -41,7 +41,7 @@ namespace Visualiser
         public bool ContentsEqual(VisualSpriteObject vso)
         {
             return              name == vso.name 
-                              && prefabImage == vso.prefabImage
+                              && prefabimage == vso.prefabimage
                               && Mathf.Approximately(minX, vso.minX) && Mathf.Approximately(maxX, vso.maxX)
                               && Mathf.Approximately(minY, vso.minY) && Mathf.Approximately(maxY, vso.maxY)
                               && color == vso.color
