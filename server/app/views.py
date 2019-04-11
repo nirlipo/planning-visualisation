@@ -49,8 +49,8 @@ class LinkUploadView(APIView):
         try:
             # .encode('utf-8').decode('utf-8-sig') will remove the \ufeff in the string when add string as value in
             # a dictionary.
-            domain_file = request.data['domain'].encode('utf-8').decode('utf-8-sig')
-            problem_file = request.data['problem'].encode('utf-8').decode('utf-8-sig')
+            domain_file = request.data['domain'].encode('utf-8').decode('utf-8-sig').lower()
+            problem_file = request.data['problem'].encode('utf-8').decode('utf-8-sig').lower()
             animation_file = request.data['animation'].encode('utf-8').decode('utf-8-sig')
 
             # add url
