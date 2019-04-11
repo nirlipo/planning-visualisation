@@ -44,9 +44,7 @@ def get_visualisation_file():
 	    url_link = sys.argv[4]
 
         # read animation profile from json
-        file = open(animation_file)
-        animation_content = file.read()
-
+        animation_content = open(animation_file, 'r',encoding='utf-8-sig').read()
         domain_content=open(domain_file, 'r',encoding='utf-8-sig').read().lower()
         problem_content=open(problem_file, 'r',encoding='utf-8-sig').read().lower()
         plan = parser.Plan_generator.get_plan(domain_content,
