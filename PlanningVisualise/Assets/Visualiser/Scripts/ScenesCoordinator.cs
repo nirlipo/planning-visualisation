@@ -93,7 +93,6 @@ public class ScenesCoordinator : MonoBehaviour
 	// Storing the doamin file in the coordinator
 	public void setDomain(string domain){
 		this.domaintxt = domain;
-        Debug.Log(domain);
 	}
 	// Storing the problem file in the coordinator
 	public void setProblem(string problem){
