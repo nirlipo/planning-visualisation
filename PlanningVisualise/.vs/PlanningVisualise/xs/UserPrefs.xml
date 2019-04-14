@@ -2,40 +2,17 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Visualiser/Scripts/ScenesCoordinator.cs">
     <Files>
+      <File FileName="Assets/AnimationProfile/Script/ScreenManager.cs" Line="73" Column="6" />
+      <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="48" Column="30" />
       <File FileName="Assets/Visualiser/Scripts/ScenesCoordinator.cs" Line="89" Column="1" />
-      <File FileName="Assets/AnimationProfile/Script/Objects.cs" Line="1" Column="1" />
-      <File FileName="Assets/AnimationProfile/Script/ScreenManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/AnimationProfile/Script/Helplink.cs" Line="1" Column="1" />
-      <File FileName="Assets/Entity/AniProfilePack/AnimationProfileItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Entity/AniProfilePack/DesItem_Absolute.cs" Line="1" Column="1" />
-      <File FileName="Assets/Entity/AniProfilePack/DesItem_Offset.cs" Line="1" Column="1" />
-      <File FileName="Assets/Entity/AniProfilePack/DesItemBase.cs" Line="1" Column="1" />
-      <File FileName="Assets/AnimationProfile/Script/Inputfield.cs" Line="1" Column="1" />
-      <File FileName="Assets/AnimationProfile/Script/predicates.cs" Line="1" Column="1" />
-      <File FileName="Assets/AnalyzerPack/VisualizerRenderPack/PredicatesCalculatePack/PredicatesCalculateInterface.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/SpriteController.cs" Line="69" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSolutionObject.cs" Line="145" Column="10" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualSpriteObject.cs" Line="36" Column="29" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/VisualStageObject.cs" Line="27" Column="33" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" Line="158" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/ImageDictionary.cs" Line="17" Column="1" />
-      <File FileName="Assets/SerializableDictionary/SerializableDictionary.cs" Line="1" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/FileUpload/CanvasScript.cs" Line="36" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/SubgoalPoolDictionary.cs" Line="6" Column="9" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/VisualisationModels/SubgoalMapDictionary.cs" Line="10" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/UIVisualSpriteFactory.cs" Line="11" Column="2" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/VisualSpriteAnimator.cs" Line="25" Column="3" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/IVisualSpriteAnimation.cs" Line="11" Column="1" />
-      <File FileName="Assets/Visualiser/Scripts/Visualisation/AnimationControl/LinearAnimtor.cs" Line="20" Column="44" />
-      <File FileName="Assets/Visualiser/Scripts/FileUpload/circleRotator.cs" Line="23" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/yiding/Documents/yearlong2/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" line="64" column="1" />
-      <Breakpoint file="/Users/yiding/Documents/yearlong2/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="227" column="1" />
-      <Breakpoint file="/Users/yiding/Documents/yearlong2/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="219" column="1" />
+      <Breakpoint file="/Users/yiding/Documents/github/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/AnimationControl/AnimationController.cs" line="64" column="1" />
+      <Breakpoint file="/Users/yiding/Documents/github/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="227" column="1" />
+      <Breakpoint file="/Users/yiding/Documents/github/planning-visualisation/PlanningVisualise/Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" relfile="Assets/Visualiser/Scripts/Visualisation/VisualiserController.cs" line="219" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -37,7 +37,7 @@ Planning visualiser can generate a solution using the solver on http://planning.
 
 ## 2.1 In-browser (recommended)
 
-1. Visit https://planning-visualise.herokuapp.com/index.html
+1. Visit http://planimation.planning.domains
 
 
 ## 2.2 Local server (For Development)
@@ -47,7 +47,7 @@ Planning visualiser can generate a solution using the solver on http://planning.
 2. **Django REST** - Follow the tutorial at http://www.django-rest-framework.org/tutorial/quickstart/
 
 ### 2.2.2 Install project
-1. Clone the project from https://bitbucket.cis.unimelb.edu.au:8445/projects/SWEN90013/repos/swen90013-2018-pl/browse
+1. Clone the project from https://github.com/Planning-Visualisation/planning-visualisation
 
 
 ### 2.2.3 Run

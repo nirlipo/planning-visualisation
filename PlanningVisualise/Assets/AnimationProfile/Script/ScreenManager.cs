@@ -21,9 +21,16 @@ using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using UnityEngine.EventSystems;
+using System.Runtime.InteropServices; // used for runtime javascript function
 
 public class ScreenManager : MonoBehaviour
 {
+    // import javascript function, functions stored at plugins/OpenLink.jslib
+    [DllImport("__Internal")]
+    private static extern void OpenDemoLink();
+    [DllImport("__Internal")]
+    private static extern void OpenDocumentaionLink(); 
+    
 	// Use this for initialization, the SceneManager must be a non-DetroyOnLoad gameobject
     void Start()
     {
@@ -60,13 +67,17 @@ public class ScreenManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Visualisation");
 	}
+	
     // Goto user documentation link
     public void gotoDocumentation()
     {
+        OpenDocumentaionLink();
+    }
 
-		var newURL = "https://planning-visualisation.herokuapp.com/UserGuide.html";
-		Application.OpenURL (newURL);
-
+    // Go to Github Demo page
+    public void gotoDemoPage()
+    {
+        OpenDemoLink();
     }
 
 }
