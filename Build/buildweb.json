@@ -1,7 +1,7 @@
 {
 "companyName": "DefaultCompany",
 "productName": "New Unity Project",
-"dataUrl": "http://localhost:8000/help",
+"dataUrl": "buildweb.data.unityweb",
 "wasmCodeUrl": "buildweb.wasm.code.unityweb",
 "wasmFrameworkUrl": "buildweb.wasm.framework.unityweb",
 "TOTAL_MEMORY": 536870912,
